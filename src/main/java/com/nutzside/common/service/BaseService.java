@@ -14,6 +14,7 @@ import org.nutz.ioc.aop.Aop;
 import org.nutz.mvc.upload.FieldMeta;
 import org.nutz.mvc.upload.TempFile;
 import org.nutz.mvc.upload.UploadAdaptor;
+import org.nutz.service.IdEntityService;
 
 import com.nutzside.common.util.StrUtils;
 import com.nutzside.system.domain.PoolFile;
@@ -26,7 +27,7 @@ import com.nutzside.system.domain.User;
  * 注：实体的主键是数值型的。
  * @param <T>
  */
-public abstract class BaseService<T> extends GridService<T> {
+public abstract class BaseService<T> extends IdEntityService<T> {
 
 	public BaseService(Dao dao) {
 		super(dao);

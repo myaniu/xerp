@@ -3,7 +3,7 @@ package com.nutzside.common.domain;
 import java.util.Map;
 
 /**
- * 被注入的 DolpProperties类，用于获取配置文件中的一个或多个属性
+ * 被注入的 Properties类，用于获取配置文件中的一个或多个属性
  * @author Administrator
  *
  */
