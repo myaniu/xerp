@@ -1,0 +1,28 @@
+Lombok在Eclipse上的安装
+
+java -jar lombok.jar
+
+
+@Getter和@Setter：为属性创建getter和setter
+
+@EqualsAndHashCode：实现equals()方法和hashCode()方法
+
+@ToString：实现toString()方法
+
+@Data：上述3个annotation的和，会创建getter setter equals hashCode和toString
+
+@Cleanup：关闭流
+
+@Synchronized：对象同步
+
+@SneakyThrows：抛出异常
+
+@Log4j: log4j日志声明
+
+
+
+
+放牛的娃(103831536) 22:34:38 
+HTTL 	<option value="${s.index}" ${obj.pager.pageSize eq s.index ? 'selected="selected"' : ''}>${s.index}</option> 这样咋实现？
+梁飞<liangfei0201@163.com> 22:35:46 
+换eq换成 == 就行了。

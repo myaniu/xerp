@@ -1,0 +1,63 @@
+
+#set(actionlist="erp/basic/customer/list",actionlistui="erp/basic/customer/queryUi")
+#set(com.xerp.domain.basic.Customer o)
+$!{extends("/template/htl/page_list.httl")}
+
+<!--#macro(pagerForm)-->    
+
+$!{super.pagerForm}
+<!--#end-->
+<!--#macro(pagerForm_input)-->      
+$!{super.pagerForm_input}
+
+	<input type="hidden" name="name" value="${o.name}"/>
+<!--#end-->
+
+
+<!--#macro(pageHeader)-->   
+$!{super.pageHeader}			
+<!--#end-->
+
+
+<!--#macro(pageHeader_searchBar)-->      
+$!{super.pageHeader_searchBar}
+		<table class="searchContent">
+				<tr>
+					<td>名称：<input type="text" name="name" value="${o.name}"/></td>
+					
+				</tr>
+			</table>
+<!--#end-->
+	
+<!--#macro(toolBar)-->     
+$!{super.toolBar}
+<!--#end-->
+
+
+<!--#macro(thead_th)-->     
+$!{super.thead_th}	
+<th><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+<th>供应商名称</th>
+<th>地址</th>
+<th>电话</th>
+<th>联系人</th>
+<th>查找带回</th>
+
+	  
+<!--#end-->
+
+<!--#macro(tbody_th)-->     
+$!{super.tbody_th}
+<!--#foreach(com.xerp.domain.basic.Customer obj  in pagerlist)-->
+            	<tr target="sid_p" rel="${obj.id}">
+				<td><input name="ids" value="'${obj.id}'" type="checkbox"></td>
+			    <td>${obj.name}</td>
+                <td>${obj.Address}</td>
+                <td>${obj.Phone}</td>
+                <td>${obj.ConstactPerson}</td>
+				<td>
+				<a class="btnSelect" href="javascript:$.bringBack({id:'${obj.id}', Name:'${obj.name}', Address:'${obj.Address}'})" title="查找带回" >选择</a>
+				</td>
+				</tr>
+<!--#end(foreach)-->		  
+<!--#end-->

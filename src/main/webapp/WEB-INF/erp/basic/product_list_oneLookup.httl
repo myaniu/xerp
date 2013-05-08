@@ -1,0 +1,82 @@
+
+#set(actionlist="erp/basic/product/list",actionlistui="erp/basic/product/queryUi")
+#set(com.xerp.domain.basic.Product o)
+$!{extends("/template/htl/page_list.httl")}
+
+<!--#macro(pagerForm)-->    
+
+$!{super.pagerForm}
+<!--#end-->
+<!--#macro(pagerForm_input)-->      
+$!{super.pagerForm_input}
+
+	<input type="hidden" name="code" value="${o.code}"/>
+
+	<input type="hidden" name="name" value="${o.name}"/>
+
+	<input type="hidden" name="specification" value="${o.specification}"/>
+	<input type="hidden" name="unit" value="${o.unit}"/>
+<!--#end-->
+
+
+<!--#macro(pageHeader)-->   
+$!{super.pageHeader}			
+<!--#end-->
+
+
+<!--#macro(pageHeader_searchBar)-->      
+$!{super.pageHeader_searchBar}
+		<table class="searchContent">
+				<tr>
+				<td>编号：<input type="text" name="code" value="${o.code}"/></td>
+					<td>名称：<input type="text" name="name" value="${o.name}"/></td>
+					<td>规格：<input type="text" name="specification" value="${o.specification}"/></td>
+				</tr>
+			</table>
+<!--#end-->
+	
+<!--#macro(toolBar)-->     
+$!{super.toolBar}
+<!--#end-->
+
+
+<!--#macro(thead_th)-->     
+$!{super.thead_th}	
+			
+				
+				<th>编号</th>
+				<th>名称</th>
+				<th>规格</th>
+				<th>单位</th>
+				<th>机构</th>
+				<th>分类</th>
+				<th>创建人</th>
+				<th>创建时间</th>
+				<th>修改人</th>
+				<th>修改时间</th>
+				<th>操作</th>
+		
+	  
+<!--#end-->
+
+<!--#macro(tbody_th)-->     
+$!{super.tbody_th}
+<!--#foreach(com.xerp.domain.basic.Product pro  in pagerlist)-->
+            	<tr target="sid_product" rel="${pro.id}">
+				
+					<td>${pro.code}</td>
+					<td>${pro.name}</td>
+					<td>${pro.specification}</td>
+					<td>${pro.unit}</td>
+					<td>${pro.org.name}</td>
+					<td>${pro.category.name}</td>
+					<td>${pro.createUser}</td>
+					<td>${pro.createDate}</td>
+					<td>${pro.modifyUser}</td>
+					<td>${pro.modifyDate}</td>
+				<td>
+				<a class="btnSelect" href="javascript:$.bringBack({id:'${pro.id}', name:'${pro.name}'})" title="查找带回" >选择</a>
+				</td>
+				</tr>
+<!--#end(foreach)-->		  
+<!--#end-->
