@@ -1,6 +1,6 @@
 package com.nutzside.common.web.ajax;
 
-public class DwzAjaxReturn {
+public class AjaxReturn {
 	
 	int statusCode;
 	String message;
@@ -29,27 +29,27 @@ public class DwzAjaxReturn {
 		return data;
 	}
 
-	public DwzAjaxReturn setStatusCode(int statusCode) {
+	public AjaxReturn setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 		return this;
 	}
 
-	public DwzAjaxReturn setMessage(String message) {
+	public AjaxReturn setMessage(String message) {
 		this.message = message;
 		return this;
 	}
 
-	public DwzAjaxReturn setNavTabId(String navTabId) {
+	public AjaxReturn setNavTabId(String navTabId) {
 		this.navTabId = navTabId;
 		return this;
 	}
 
-	public DwzAjaxReturn setCallbackType(String callbackType) {
+	public AjaxReturn setCallbackType(String callbackType) {
 		this.callbackType = callbackType;
 		return this;
 	}
 
-	public DwzAjaxReturn setData(Object data) {
+	public AjaxReturn setData(Object data) {
 		this.data = data;
 		return this;
 	}

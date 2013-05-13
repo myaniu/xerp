@@ -3,25 +3,25 @@ package com.nutzside.common.web.ajax;
 import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 
-public class DwzAjax {
+public class Ajax {
 
-	public static DwzAjaxReturn ok() {
+	public static AjaxReturn ok() {
 
 		return ok_navtab(null);
 	}
 
-	public static DwzAjaxReturn fail() {
+	public static AjaxReturn fail() {
 
 		return fail_navtab(null);
 	}
 
-	public static DwzAjaxReturn expired() {
+	public static AjaxReturn expired() {
 
 		return expired_navtab(null);
 	}
 
-	public static DwzAjaxReturn ok_navtab(String navTabId) {
-		DwzAjaxReturn re = new DwzAjaxReturn();
+	public static AjaxReturn ok_navtab(String navTabId) {
+		AjaxReturn re = new AjaxReturn();
 		re.statusCode = 200;
 		if (!Strings.isEmpty(navTabId)) {
 			re.setNavTabId(navTabId);
@@ -30,8 +30,8 @@ public class DwzAjax {
 		return re;
 	}
 
-	public static DwzAjaxReturn fail_navtab(String navTabId) {
-		DwzAjaxReturn re = new DwzAjaxReturn();
+	public static AjaxReturn fail_navtab(String navTabId) {
+		AjaxReturn re = new AjaxReturn();
 		re.statusCode = 300;
 		if (!Strings.isEmpty(navTabId)) {
 			re.setNavTabId(navTabId);
@@ -40,8 +40,8 @@ public class DwzAjax {
 		return re;
 	}
 
-	public static DwzAjaxReturn expired_navtab(String navTabId) {
-		DwzAjaxReturn re = new DwzAjaxReturn();
+	public static AjaxReturn expired_navtab(String navTabId) {
+		AjaxReturn re = new AjaxReturn();
 		re.statusCode = 300;
 		re.message = "ajax.expired";
 		if (!Strings.isEmpty(navTabId)) {

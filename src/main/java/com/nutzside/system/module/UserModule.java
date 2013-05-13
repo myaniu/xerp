@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Times;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
@@ -23,27 +20,16 @@ import com.nutzside.system.service.UserService;
 @At("/system/usr")
 public class UserModule {
 
+
+	
+	@Inject
+	private UserService userService;
+	
+	
 	@At
 	public User me() {
 		return (User) SecurityUtils.getSubject().getPrincipal();
 	}
-
-	// 无需登录,就可以直接访问, 跟没写一样....
-	@RequiresGuest
-	@At("/ping")
-	public Object ping() {
-		return Times.now();
-	}
-
-	// 需要登录之后才能访问,否则跳转到首页
-	@RequiresAuthentication
-	@At
-	public Object authOnly() {
-		return "You are authed!";
-	}
-
-	@Inject
-	private UserService userService;
 
 	@At
 	@Ok("jsp:system.user_list")

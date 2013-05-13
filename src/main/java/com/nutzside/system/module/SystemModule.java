@@ -24,8 +24,9 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.mvc.view.JPEGView;
-import com.nutzside.common.web.ajax.DwzAjax;
-import com.nutzside.common.web.ajax.DwzAjaxReturn;
+import com.nutzside.common.web.ajax.Ajax;
+import com.nutzside.common.web.ajax.AjaxReturn;
+import com.nutzside.system.domain.User;
 import com.nutzside.system.service.UserService;
 
 
@@ -35,19 +36,35 @@ public class SystemModule {
 
 	@Inject
 	private UserService userService;
+	
+	
+	
+	@At
+	public User me() {
+		return (User) SecurityUtils.getSubject().getPrincipal();
+	}
+
+	@At
+	@Ok("jsp:page.login")
+	@Fail("redirect:/index.jsp")
+	public void  bindex(HttpServletResponse response){
+		
+	}
+	
+	
 	@At
 	@Fail(">>:/index.jsp")
 	@Ok("json")
-	public DwzAjaxReturn login(@Param("name") String name,
+	public AjaxReturn login(@Param("name") String name,
 			@Param("passwd") String passwd,
 			@Param("remeberMe") boolean remeberMe, @Param("code") String code,
 			HttpServletRequest request) {
 		if (Strings.isBlank(name)) {
-			return DwzAjax.fail().setMessage("请输入您的用户名!");
+			return Ajax.fail().setMessage("请输入您的用户名!");
 		} else if (Strings.isBlank(passwd)) {
-			return DwzAjax.fail().setMessage("请输入您的密码!");
+			return Ajax.fail().setMessage("请输入您的密码!");
 		} else if (Strings.isBlank(code)) {
-			return DwzAjax.fail().setMessage("请输入您的验证码!");
+			return Ajax.fail().setMessage("请输入您的验证码!");
 		} else {
 			String auth = StringUtils.upperCase(code);
 			try {
@@ -60,17 +77,17 @@ public class SystemModule {
 							name, passwd);
 					token.setRememberMe(remeberMe);
 					subject.login(token);
-					return DwzAjax.ok();
+					return Ajax.ok();
 				} else {
-					return DwzAjax.fail().setMessage("验证码错误");
+					return Ajax.fail().setMessage("验证码错误");
 				}
 			} catch (LockedAccountException e) {
-				return DwzAjax.fail().setMessage("帐号已被锁定");
+				return Ajax.fail().setMessage("帐号已被锁定");
 			} catch (AuthenticationException e) {
-				return DwzAjax.fail().setMessage("密码错误或用户不存在");
+				return Ajax.fail().setMessage("密码错误或用户不存在");
 			} catch (Exception e) {
 				e.printStackTrace();
-				return DwzAjax.fail().setMessage("登录失败");
+				return Ajax.fail().setMessage("登录失败");
 			}
 		}
 	}
