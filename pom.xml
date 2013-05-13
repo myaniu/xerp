@@ -20,13 +20,59 @@
 		<druid.version>0.2.10</druid.version>
 		<lang.version>2.6</lang.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
-
+        <sarasvati.version>2.0.2</sarasvati.version>
+		<sarasvatith.version>7.3</sarasvatith.version>
+		<draw2d.version>3.8.1</draw2d.version>
+		
+		
+		
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
 		<jdbc.driver.version>1.3.168</jdbc.driver.version>
 	</properties>
 
 	<dependencies>
+		<!--<dependency>
+			<groupId>com.googlecode.sarasvati</groupId>
+			<artifactId>sarasvati-parent</artifactId>
+			<version>${sarasvati.version}</version>
+		</dependency>-->
+		<dependency>
+			<groupId>com.googlecode.sarasvati</groupId>
+			<artifactId>sarasvati-visual</artifactId>
+			<version>${sarasvati.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati</groupId>
+			<artifactId>sarasvati-hibernate</artifactId>
+			<version>${sarasvati.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati</groupId>
+			<artifactId>sarasvati-core</artifactId>
+			<version>${sarasvati.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati.thirdparty.eclipse</groupId>
+			<artifactId>draw2d</artifactId>
+			<version>${draw2d.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati.thirdparty.netbeans</groupId>
+			<artifactId>visual</artifactId>
+			<version>${sarasvatith.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati.thirdparty.netbeans</groupId>
+			<artifactId>org-openide-util</artifactId>
+			<version>${sarasvatith.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sarasvati.thirdparty.netbeans</groupId>
+			<artifactId>org-openide-util-lookup</artifactId>
+			<version>${sarasvatith.version}</version>
+		</dependency>		
+		
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
