@@ -22,7 +22,7 @@ public class ArticleFrontModule {
 	private ArticleService articleService;
 
 	@At
-	@Ok("fm:front.article_list")
+	@Ok("httl:front.article_list")
 	public Object list(@Param("::pager.") Pager pager) {
 		// Mvcs.getReq().setAttribute("articleList", articleService.query(null,
 		// null));

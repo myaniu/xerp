@@ -30,7 +30,7 @@ public class ArticleModule {
 	private ArticleCategoryService articleCategoryService;
 
 	@At
-	@Ok("fm:admin.article_list")
+	@Ok("httl:admin.article_list")
 	@RequiresAuthentication
 	public Object list(Integer pageNumber) {
 		if (Lang.isEmpty(pageNumber)) {
@@ -40,7 +40,7 @@ public class ArticleModule {
 	}
 
 	@At
-	@Ok("fm:admin.article_input")
+	@Ok("httl:admin.article_input")
 	@RequiresAuthentication
 	public Object p_add() {
 		Mvcs.getReq().setAttribute("isAddAction", true);
@@ -64,7 +64,7 @@ public class ArticleModule {
 	}
 
 	@At
-	@Ok("fm:admin.article_input")
+	@Ok("httl:admin.article_input")
 	@RequiresAuthentication
 	public Object edit(String id) {
 		Article art = articleService.fetchByID(id);

@@ -4,8 +4,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>管理平台</title>
-<link href="res/themes/css/login.css" rel="stylesheet" type="text/css" />
-<script src="res/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<link href="${base}/res/themes/css/login.css" rel="stylesheet" type="text/css" />
+<script src="${base}/res/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function () {
 	var $loginForm = $("#login_form");
@@ -70,7 +70,7 @@ $(function () {
 						<li><a href="#">设为首页</a></li>
 					</ul>
 				</div>
-				<h2 class="login_title"><img src="res/themes/default/images/login_title.png" /></h2>
+				<h2 class="login_title"><img src="${base}/res/themes/default/images/login_title.png" /></h2>
 			</div>
 		</div>
 		<div id="login_content">
@@ -94,7 +94,7 @@ $(function () {
 					</div>
 				</form>
 			</div>
-			<div class="login_banner"><img src="res/themes/default/images/login_banner.jpg" /></div>
+			<div class="login_banner"><img src="${base}/res/themes/default/images/login_banner.jpg" /></div>
 		
 		</div>
 		<div id="login_footer">

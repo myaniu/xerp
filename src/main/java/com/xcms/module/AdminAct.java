@@ -34,19 +34,19 @@ public class AdminAct {
 	private RoleService roleService;
 
 	@At
-	@Ok("fm:admin.menu_admin")
+	@Ok("httl:admin.menu_admin")
 	@RequiresAuthentication
 	public void index() {
 	}
 
 	@At("menu/content")
-	@Ok("fm:admin.menu_content")
+	@Ok("httl:admin.menu_content")
 	@RequiresAuthentication
 	public void content() {
 	}
 
 	@At
-	@Ok("fm:admin.admin_list")
+	@Ok("httl:admin.admin_list")
 	@RequiresAuthentication
 	public Object list(Integer pageNumber) {
 		if (Lang.isEmpty(pageNumber)) {
@@ -56,7 +56,7 @@ public class AdminAct {
 	}
 
 	@At
-	@Ok("fm:admin.admin_input")
+	@Ok("httl:admin.admin_input")
 	@RequiresAuthentication
 	public Object p_add() {
 		Mvcs.getReq().setAttribute("isAddAction", true);
@@ -67,7 +67,7 @@ public class AdminAct {
 	}
 
 	@At
-	@Ok("fm:admin.admin_input")
+	@Ok("httl:admin.admin_input")
 	@RequiresAuthentication
 	public User p_edit(long id) {
 		Mvcs.getReq().setAttribute("isAddAction", false);
