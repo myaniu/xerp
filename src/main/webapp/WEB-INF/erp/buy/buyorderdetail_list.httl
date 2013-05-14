@@ -39,7 +39,6 @@ $!{super.toolBar}
 <!--#macro(thead_th)-->     
 $!{super.thead_th}	
 <th><input type="checkbox" group="ids" class="checkboxCtrl"></th>
-<th>计划单号</th>
 <th>供应商</th>
 <th>商品名称</th>
 <th>商品数量</th>
@@ -54,7 +53,6 @@ $!{super.tbody_th}
 <!--#foreach(com.xerp.domain.buy.BuyOrderDetail obj  in pagerlist)-->
             	<tr target="sid_p" rel="${obj.id}">
 				<td><input name="ids" value="'${obj.id}'" type="checkbox"></td>
-				<td>${obj.purchasePlanDetail.id}</td>
 			    <td>${obj.supplier.name}</td>
 			    <td>${obj.product.name}</td>
                 <td>${obj.amount}</td>
