@@ -1,4 +1,4 @@
-package com.xerp.service.basic;
+package com.xerp.service.store;
 
 import java.util.HashMap;
 import java.util.List;

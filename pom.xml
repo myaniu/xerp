@@ -36,7 +36,7 @@
 			<groupId>com.googlecode.sarasvati</groupId>
 			<artifactId>sarasvati-parent</artifactId>
 			<version>${sarasvati.version}</version>
-		</dependency>-->
+		</dependency>
 		<dependency>
 			<groupId>com.googlecode.sarasvati</groupId>
 			<artifactId>sarasvati-visual</artifactId>
@@ -72,7 +72,7 @@
 			<artifactId>org-openide-util-lookup</artifactId>
 			<version>${sarasvatith.version}</version>
 		</dependency>		
-		
+		-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -88,7 +88,6 @@
 			<artifactId>${jdbc.driver.artifactId}</artifactId>
 			<version>${jdbc.driver.version}</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -137,7 +136,6 @@
 			<artifactId>javassist</artifactId>
 			<version>${javassist.version}</version>
 		</dependency>
-		<!--  
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -148,7 +146,6 @@
 			<artifactId>standard</artifactId>
 			<version>${taglibs.version}</version>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

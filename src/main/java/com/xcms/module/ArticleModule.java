@@ -20,7 +20,7 @@ import com.xcms.service.ArticleCategoryService;
 import com.xcms.service.ArticleService;
 
 @IocBean
-@At("/admin/article")
+@At("/xcms/article")
 public class ArticleModule {
 
 	@org.nutz.ioc.loader.annotation.Inject
@@ -30,7 +30,7 @@ public class ArticleModule {
 	private ArticleCategoryService articleCategoryService;
 
 	@At
-	@Ok("httl:admin.article_list")
+	@Ok("httl:xcms.article_list")
 	@RequiresAuthentication
 	public Object list(Integer pageNumber) {
 		if (Lang.isEmpty(pageNumber)) {
@@ -40,7 +40,7 @@ public class ArticleModule {
 	}
 
 	@At
-	@Ok("httl:admin.article_input")
+	@Ok("httl:xcms.article_input")
 	@RequiresAuthentication
 	public Object p_add() {
 		Mvcs.getReq().setAttribute("isAddAction", true);
@@ -64,7 +64,7 @@ public class ArticleModule {
 	}
 
 	@At
-	@Ok("httl:admin.article_input")
+	@Ok("httl:xcms.article_input")
 	@RequiresAuthentication
 	public Object edit(String id) {
 		Article art = articleService.fetchByID(id);
@@ -76,7 +76,7 @@ public class ArticleModule {
 	}
 
 	@At
-	@Ok(">>:/admin/article/list")
+	@Ok(">>:/xcms/article/list")
 	@RequiresAuthentication
 	public boolean update(@Param("::article.") Article article) {
 		articleService.update(article);

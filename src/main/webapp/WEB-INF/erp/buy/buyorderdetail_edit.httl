@@ -1,0 +1,51 @@
+#set(com.xerp.domain.buy.BuyOrderDetail obj)
+#set(actionadd="erp/buy/buyorderdetail/update")
+$!{extends("/template/htl/page_add.httl")}
+<!--#macro(pageForm_Content)--> 
+$!{super.pageForm_Content}	
+         <input type="hidden" name="id" value="${obj.id}">
+		 <dl class="nowrap">
+			<dt>商品数量：</dt>
+			<dd>
+				<input class="required" name="amount" value="${obj.amount}"  type="text" />
+			</dd>
+		</dl>
+		
+		 <dl class="nowrap">
+			<dt>参考价格：</dt>
+			<dd>
+				<input class="required" name="price" value="${obj.price}"  type="text" />
+			</dd>
+		</dl>
+		
+		<dl class="nowrap">
+			<dt>产品名称：</dt>
+			<dd>
+				<input name="product.id"  value="${obj.product.id}"  type="hidden"/>
+				<input class="required" name="product.name" value="${obj.product.name}"  type="text" class="required" readonly/>
+				<a class="btnLook" href="${base}/erp/basic/product/list_oneLookup" lookupGroup="product">查找带回</a>	
+			</dd>
+		</dl>
+		
+		<dl class="nowrap">
+			<dt>供应商：</dt>
+			<dd>
+				<input name="product.id"  value="${obj.supplier.id}"  type="hidden"/>
+				<input class="required" name="product.name" value="${obj.supplier.name}"  type="text" class="required" readonly/>
+				<a class="btnLook" href="${base}/erp/basic/supplier/listoneLookup" lookupGroup="supplier">查找带回</a>	
+			</dd>
+		</dl>
+		
+		 <dl class="nowrap">
+			<dt>状态：</dt>
+			<dd>
+			 <select name="type" class="required" >
+			    <option value="1" obj.status == 1 ? 'selected="selected"' : ''>有效</option>
+			    <option value="0" obj.status == 0 ? 'selected="selected"' : '' >无效</option>
+				<option value="2" obj.status == 2 ? 'selected="selected"' : ''>已入库</option>
+				<option value="3" obj.status == 3 ? 'selected="selected"' : ''>审批没通过</option>
+
+				</select>
+			</dd>
+		</dl>
+<!--#end-->

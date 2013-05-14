@@ -22,20 +22,20 @@ public class EnterStock {
 	@Id
 	private Long id;/* 入库单编号, 主键 */
 	@Column
-	private Timestamp EnterDate; /* 入库时间 */
+	private Timestamp enterdate; /* 入库时间 */
 	@Column
-	private String BatchNo; /* 批次编号 */
+	private String batchno; /* 批次编号 */
 	@Column
-	private Long UserId;/*入库人 ,外键 ( 参照User表)  */
+	private Long userid;/*入库人 ,外键 ( 参照User表)  */
 	@Column
-	private Long OrgId;/* 入库部门 ,外键 ( 参照 Organization 表 ) */
+	private Long orgid;/* 入库部门 ,外键 ( 参照 Organization 表 ) */
 	@Column
-	private Long StoreHouseId;/* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
-	@One(target = User.class, field = "UserId")
+	private Long storehouseid;/* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
+	@One(target = User.class, field = "userid")
 	private User users; /* 入库人 ,外键 ( 参照User表) */
-	@One(target = Organization.class, field = "OrgId")
+	@One(target = Organization.class, field = "orgid")
 	private Organization organisation; /* 入库部门 ,外键 ( 参照 Organization 表 ) */
-	@One(target = StoreHouse.class, field = "StoreHouseId")
+	@One(target = StoreHouse.class, field = "storehouseid")
 	private StoreHouse storehouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
 	@Many(target=EnterStockDetail.class,field="stockid")
 	private List<EnterStockDetail> enterStockDetailSet;// 

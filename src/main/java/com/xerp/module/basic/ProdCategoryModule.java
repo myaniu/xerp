@@ -44,6 +44,9 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 	@RequiresPermissions("prodCategory:indert:*")
 	public Object add(@Param("::district.") ProdCategory obj) {
 		try {
+			 if (obj.getParent()==null || obj.getParentId()==null){
+				 obj.setParentId(0L);
+			 }
 			prodCategoryService.insert(obj);
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "prodcategory");
 		} catch (Throwable e) {

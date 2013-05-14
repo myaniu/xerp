@@ -8,6 +8,7 @@ import org.nutz.dao.Cnd;
 import org.nutz.dao.Sqls;
 import org.nutz.dao.pager.Pager;
 import org.nutz.dao.sql.Sql;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
@@ -16,10 +17,17 @@ import org.nutz.service.IdEntityService;
 
 import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.store.StockPile;
+import com.xerp.service.store.StockPileService;
 
 @At("/erp/store/stockpile")
 @IocBean(fields = { "dao" })
 public class StockPileModule extends IdEntityService<StockPile> {
+	
+	
+	
+	
+    @Inject
+    StockPileService stockPileService;
 	/**
 	 * 跳转到添加页面
 	 */

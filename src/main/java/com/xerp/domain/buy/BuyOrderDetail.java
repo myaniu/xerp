@@ -41,6 +41,20 @@ public class BuyOrderDetail {
 	private Long supplierid;/* 供应商编号 */
 	@Column
 	private Long purchasePlanDetailid;/* 编号, 主键 */
+	
+	/** 创建人 **/
+	@Column
+	private String createUser;
+	/** 创建时间 **/
+	@Column
+	private String createDate;
+	/** 修改人 **/
+	@Column
+	private String modifyUser;
+	/** 修改时间 **/
+	@Column
+	private String modifyDate;
+	
 	@One(target = Supplier.class, field = "supplierid")
 	private Supplier supplier; /* 商品编号, 外键 ( 参照 Supplier 表 ) */
 	

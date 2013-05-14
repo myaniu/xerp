@@ -1,43 +1,48 @@
 #set(com.xerp.domain.buy.BuyOrderDetail obj)
-#set(actionadd="erp/buy/buyorderdetail/update")
-$!{extends("/template/htl/page_add.httl")}
-<!--#macro(pageForm_Content)--> 
-$!{super.pageForm_Content}	
-         <input type="hidden" name="id" value="${obj.id}">
-		 <dl class="nowrap">
+<h2 class="contentTitle">查看页面</h2>
+<div class="pageContent">
+	
+	<div class="viewInfo" layoutH="100">
+		 <dl>
 			<dt>商品数量：</dt>
 			<dd>
-				<input class="required" name="amount" value="${obj.amount}"  type="text" />
+				${obj.amount}
 			</dd>
 		</dl>
 		
-		 <dl class="nowrap">
+		 <dl>
 			<dt>参考价格：</dt>
 			<dd>
-				<input class="required" name="price" value="${obj.price}"  type="text" />
+				${obj.price}
 			</dd>
 		</dl>
 		
-		<dl class="nowrap">
+		<dl>
 			<dt>产品名称：</dt>
 			<dd>
-				<input name="product.id"  value="${obj.product.id}"  type="hidden"/>
-				<input class="required" name="product.name" value="${obj.product.name}"  type="text" class="required" readonly/>
-				<a class="btnLook" href="${base}/erp/basic/product/list_oneLookup" lookupGroup="district">查找带回</a>	
+				${obj.product.name}
 			</dd>
 		</dl>
 		
-		 <dl class="nowrap">
+		 <dl>
 			<dt>状态：</dt>
 			<dd>
-			 <select name="type" class="required" >
-			    <option value="1" obj.status == 1 ? 'selected="selected"' : ''>有效</option>
-			    <option value="0" obj.status == 0 ? 'selected="selected"' : '' >无效</option>
-				<option value="2" obj.status == 2 ? 'selected="selected"' : ''>已提交</option>
-				<option value="3" obj.status == 3 ? 'selected="selected"' : ''>在审批中</option>
-				<option value="4" obj.status == 4 ? 'selected="selected"' : ''>审批通过</option>
-				<option value="5" obj.status == 5 ? 'selected="selected"' : ''>审批没通过</option>
-				</select>
+		       #if(obj.status == 1)
+			                     有效
+		       #elseif(obj.status == 2)
+		                                   入库
+		       #elseif(obj.status == 3)
+		                                  审核未通过
+		       #else
+		                                   无效
+		       #end(if)
 			</dd>
 		</dl>
-<!--#end-->
+			<div class="divider"></div>
+ </div>
+	<div class="formBar">
+		<ul>
+			<li><div class="button"><div class="buttonContent"><button class="close" type="button"><hi:text key="关闭"/></button></div></div></li>
+		</ul>
+	</div>
+</div>

@@ -47,7 +47,7 @@ public class BuyOrderDetailModule extends IdEntityService<BuyOrderDetail>{
 	 * 跳转到修改页面
 	 */
 	@At
-	@Ok("httl:erp.buy.buyorderdetail_view")
+	@Ok("httl:erp.buy.buyorderdetail_edit")
 	public BuyOrderDetail editUi(@Param("..") BuyOrderDetail obj) {
 		return dao().fetchLinks(dao().fetch(obj), null);
 	}
@@ -69,10 +69,6 @@ public class BuyOrderDetailModule extends IdEntityService<BuyOrderDetail>{
 	public void queryUi() {
 	}
 
-	
-	
-	
-	
 	/**
 	 * 分页查询
 	 * 
