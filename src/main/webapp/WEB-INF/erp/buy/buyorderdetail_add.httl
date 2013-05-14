@@ -1,4 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <form action="${base}/erp/buy/buyorderdetail/add" method="post" class="pageForm required-validate" onsubmit="return validateCallback(this, navTabAjaxDone)">
 <div class="pageContent">
@@ -19,11 +18,10 @@
 					<table class="list nowrap itemDetail" addButton="新建" width="100%">
 						<thead>
 							<tr>
-							    <th type="number" name="items[#index#].purchasePlanDetail.productid" >产品内部编号</th>
 								<th type="number" name="items[#index#].amount"  fieldClass="required">商品数量</th>
 								<th type="number" name="items[#index#].price" >参考价格</th>
 								<th type="lookup" id="items[#index#].supplier.id"  name="items[#index#].supplier.name" lookupGroup="items[#index#].supplier" lookupUrl="${base}/erp/basic/supplier/listoneLookup"  size="12" fieldClass="required">供应商</th>
-                                <th type="lookup" id="items[#index#].purchasePlanDetail.id"  name="items[#index#].purchasePlanDetail.code" lookupGroup="items[#index#].purchasePlanDetail" lookupUrl="${base}//erp/plan/purchaseplandetail/listoneLookup"  size="12" fieldClass="required">计划单编号</th>
+                                <th type="lookup" id="items[#index#].product.id"  name="items[#index#].product.name" lookupGroup="items[#index#].product" lookupUrl="${base}/erp/basic/product/list_oneLookup"  size="12" fieldClass="required">产品名称</th>
                                 <th type="del" width="60">操作</th>
 							</tr>
 						</thead>

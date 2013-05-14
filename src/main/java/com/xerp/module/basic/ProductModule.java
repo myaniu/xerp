@@ -14,7 +14,7 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
 import com.nutzside.common.util.DateUtil;
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.common.util.WebUtil;
 import com.nutzside.system.domain.Organization;
 import com.xerp.domain.basic.ProdCategory;
@@ -39,14 +39,16 @@ public class ProductModule  extends IdEntityService<Product>{
      * 跳转到添加页面-产品设置
      */
     @At
-	@Ok("jsp:erp.basic.product_input")
-    public void addUi(){    	
+	@Ok("httl:erp.basic.product_input")
+    public Product addUi(){  
+    	
+    	return new Product();
     }
     /**
      * 跳转到修改页面-产品设置
      */
     @At
-    @Ok("jsp:erp.basic.product_input")
+    @Ok("httl:erp.basic.product_input")
     public Product editUi(@Param("..") Product obj){
     	return dao().fetchLinks(dao().fetch(obj),null);
     }
@@ -54,7 +56,7 @@ public class ProductModule  extends IdEntityService<Product>{
      * 跳转到查看页面-产品设置
      */
     @At
-	@Ok("jsp:erp.basic.product_view")
+	@Ok("httl:erp.basic.product_view")
     public Product view(@Param("..") Product obj){
     	return dao().fetch(obj);
     }
@@ -62,7 +64,7 @@ public class ProductModule  extends IdEntityService<Product>{
      * 跳转到高级查询页面-产品设置
      */
     @At
-	@Ok("jsp:erp.basic.product_query")
+	@Ok("httl:erp.basic.product_query")
     public void queryUi(){    	
     }
 	/**
@@ -100,11 +102,11 @@ public class ProductModule  extends IdEntityService<Product>{
 			obj.setOrgid(Org.getId());
 			obj.setSortid(sort.parentId);
 			dao().insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK,"product");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK,"product");
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	/**
@@ -115,11 +117,11 @@ public class ProductModule  extends IdEntityService<Product>{
 	public Object delete(@Param("..") Product obj){
 		try{
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	/**
@@ -134,11 +136,11 @@ public class ProductModule  extends IdEntityService<Product>{
 		try{		
 			Sql sql = Sqls.create("delete from HR_PRODUCT where id in("+ids+")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	/**
@@ -158,11 +160,11 @@ public class ProductModule  extends IdEntityService<Product>{
 			//设置修改时间
 			obj.setModifyDate(pro.getModifyDate());
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK,"product");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK,"product");
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	

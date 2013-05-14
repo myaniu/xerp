@@ -11,7 +11,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.basic.ProdCategory;
 import com.xerp.service.basic.ProdCategoryService;
 
@@ -45,10 +45,10 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 	public Object add(@Param("::district.") ProdCategory obj) {
 		try {
 			prodCategoryService.insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "prodcategory");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	
@@ -57,10 +57,10 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 	public Object update(@Param("::district.") ProdCategory obj) {
 		try {
 			prodCategoryService.update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "prodcategory");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -98,10 +98,10 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 	public Object delete(@Param("..") ProdCategory obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "prodcategory");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 }

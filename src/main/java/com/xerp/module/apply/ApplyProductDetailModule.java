@@ -16,7 +16,7 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
 import com.nutzside.common.util.DateUtil;
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.common.util.UUIDUtil;
 import com.nutzside.system.service.UserService;
 import com.xerp.domain.apply.ApplyProduct;
@@ -130,10 +130,10 @@ public class ApplyProductDetailModule extends IdEntityService<ApplyProductDetail
 			apd.setStatus(1);
 			dao().insert(apd);
 			}
-		       return DwzUtil.dialogAjaxDone(DwzUtil.OK, "applyproductdetail");
+		       return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "applyproductdetail");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -146,10 +146,10 @@ public class ApplyProductDetailModule extends IdEntityService<ApplyProductDetail
 	public Object delete(@Param("..") ApplyProductDetail obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -166,10 +166,10 @@ public class ApplyProductDetailModule extends IdEntityService<ApplyProductDetail
 			Sql sql = Sqls.create("delete from ERP_ApplyProductDetail where id in("
 					+ ids + ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -182,10 +182,10 @@ public class ApplyProductDetailModule extends IdEntityService<ApplyProductDetail
 	public Object update(@Param("..") ApplyProductDetail obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "applyproductdetail");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "applyproductdetail");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

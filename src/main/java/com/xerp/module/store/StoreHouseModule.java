@@ -15,7 +15,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.store.StoreHouse;
 
 @At("/erp/store/storehouse")
@@ -25,15 +25,16 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 	 * 跳转到添加页面
 	 */
 	@At
-	@Ok("jsp:erp.store.storehouse_input")
-	public void addUi() {
+	@Ok("httl:erp.store.storehouse_input")
+	public StoreHouse addUi() {
+		return new StoreHouse();
 	}
 
 	/**
 	 * 跳转到修改页面
 	 */
 	@At
-	@Ok("jsp:erp.store.storehouse_input")
+	@Ok("httl:erp.store.storehouse_input")
 	public StoreHouse editUi(@Param("..") StoreHouse obj) {
 		return dao().fetchLinks(dao().fetch(obj), null);
 	}
@@ -42,7 +43,7 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 	 * 跳转到查看页面
 	 */
 	@At
-	@Ok("jsp:erp.store.storehouse_view")
+	@Ok("httl:erp.store.storehouse_view")
 	public StoreHouse view(@Param("..") StoreHouse obj) {
 		return dao().fetch(obj);
 	}
@@ -95,10 +96,10 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 			// 设置id
 
 			dao().insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "StoreHouse");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "StoreHouse");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -111,10 +112,10 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 	public Object delete(@Param("..") StoreHouse obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -131,10 +132,10 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 			Sql sql = Sqls.create("delete from ERP_StoreHouse where id in("
 					+ ids + ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -147,10 +148,10 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 	public Object update(@Param("..") StoreHouse obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "storehouse");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "storehouse");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

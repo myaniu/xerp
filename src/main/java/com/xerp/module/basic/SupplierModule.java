@@ -15,7 +15,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.basic.Supplier;
 
 @At("/erp/basic/supplier")
@@ -25,15 +25,16 @@ public class SupplierModule extends IdEntityService<Supplier> {
 	 * 跳转到添加页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.supplier_input")
-	public void addUi() {
+	@Ok("httl:erp.basic.supplier_input")
+	public Supplier addUi() {
+		return new Supplier();
 	}
 
 	/**
 	 * 跳转到修改页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.supplier_input")
+	@Ok("httl:erp.basic.supplier_input")
 	public Supplier editUi(@Param("..") Supplier obj) {
 		return dao().fetchLinks(dao().fetch(obj), null);
 	}
@@ -42,7 +43,7 @@ public class SupplierModule extends IdEntityService<Supplier> {
 	 * 跳转到查看页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.supplier_view")
+	@Ok("httl:erp.basic.supplier_view")
 	public Supplier view(@Param("..") Supplier obj) {
 		return dao().fetch(obj);
 	}
@@ -113,10 +114,10 @@ public class SupplierModule extends IdEntityService<Supplier> {
 			// 设置id
 
 			dao().insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "Supplier");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Supplier");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -129,10 +130,10 @@ public class SupplierModule extends IdEntityService<Supplier> {
 	public Object delete(@Param("..") Supplier obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -149,10 +150,10 @@ public class SupplierModule extends IdEntityService<Supplier> {
 			Sql sql = Sqls.create("delete from ERP_Supplier where id in(" + ids
 					+ ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -165,10 +166,10 @@ public class SupplierModule extends IdEntityService<Supplier> {
 	public Object update(@Param("..") Supplier obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "Supplier");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Supplier");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

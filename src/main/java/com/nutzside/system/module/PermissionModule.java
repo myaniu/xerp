@@ -10,7 +10,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.system.domain.Permission;
 import com.nutzside.system.service.PermissionService;
 
@@ -49,10 +49,10 @@ public class PermissionModule {
 		try {
 
 			permissionService.delete(id);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "permission");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "permission");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 
 	}
@@ -75,10 +75,10 @@ public class PermissionModule {
 		try {
 
 			permissionService.insert(permission);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "permission");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "permission");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -96,10 +96,10 @@ public class PermissionModule {
 		try {
 			permissionService.update(permission);
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "view");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 }

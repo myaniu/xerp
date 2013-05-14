@@ -16,7 +16,7 @@ import org.nutz.lang.Strings;
  * @version 1.0
  * @since 1.0
  */
-public class DwzUtil {
+public class AjaxUtil {
 
 	public static final int OK = 200;
 	public static final int FAIL = 300;

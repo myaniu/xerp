@@ -15,7 +15,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.system.domain.Permission;
 import com.nutzside.system.domain.Role;
 import com.nutzside.system.service.PermissionService;
@@ -71,10 +71,10 @@ public class RoleModule {
 		
 		try {
 			roleService.insert(role);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "role");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -84,10 +84,10 @@ public class RoleModule {
 		
 		try {
 			roleService.delete(id);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "role");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -106,10 +106,10 @@ public class RoleModule {
 		
 		try {
 			roleService.update(role);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "role");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -121,10 +121,10 @@ public class RoleModule {
 		try {
 
 			roleService.addPermission(roleId, permissionId);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -136,10 +136,10 @@ public class RoleModule {
 		try {
 
 			roleService.removePermission(roleId, permissionId);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

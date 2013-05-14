@@ -11,7 +11,7 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.system.domain.Organization;
 import com.nutzside.system.domain.User;
 import com.nutzside.system.service.UserService;
@@ -70,10 +70,10 @@ public class UserModule {
 		try {
             obj.setDepartment(Org.getId());
 			userService.insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "user");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "user");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -83,10 +83,10 @@ public class UserModule {
 		try {
 			obj.setDepartment(Org.getId());
 			userService.update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "user");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "user");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -96,10 +96,10 @@ public class UserModule {
 		try {
 
 			userService.delete(obj);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "user");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "user");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -112,10 +112,10 @@ public class UserModule {
 		try {
 
 			userService.addRole(userId, roleId);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -127,10 +127,10 @@ public class UserModule {
 		try {
 
 			userService.removeRole(userId, roleId);
-			return DwzUtil.dialogAjaxDonenoclose(DwzUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 	

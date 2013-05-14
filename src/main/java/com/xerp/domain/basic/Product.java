@@ -27,29 +27,29 @@ public class Product implements java.io.Serializable{
 	@Id
 	private Long id;
 	/** 编号 **/
-	@Column("CODE")
+	@Column
 	private String code;
 	/** 名称 **/
-	@Column("NAME")
+	@Column
 	private String name;
 	/** 规格 **/
-	@Column("SPECIFICATION")
+	@Column
 	private String specification;
 	/** 单位 **/
-	@Column("UNIT")
+	@Column
 	private String unit;
 	
 	/** 创建人 **/
-	@Column("CREATE_USER")
+	@Column
 	private String createUser;
 	/** 创建时间 **/
-	@Column("CREATE_DATE")
+	@Column
 	private String createDate;
 	/** 修改人 **/
-	@Column("MODIFY_USER")
+	@Column
 	private String modifyUser;
 	/** 修改时间 **/
-	@Column("MODIFY_DATE")
+	@Column
 	private String modifyDate;
 	@Column
 	private Long orgid;

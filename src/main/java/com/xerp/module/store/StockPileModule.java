@@ -14,7 +14,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.store.StockPile;
 
 @At("/erp/store/stockpile")
@@ -94,10 +94,10 @@ public class StockPileModule extends IdEntityService<StockPile> {
 			// 设置id
 
 			dao().insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "StockPile");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "StockPile");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -110,10 +110,10 @@ public class StockPileModule extends IdEntityService<StockPile> {
 	public Object delete(@Param("..") StockPile obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -130,10 +130,10 @@ public class StockPileModule extends IdEntityService<StockPile> {
 			Sql sql = Sqls.create("delete from ERP_StockPile where id in("
 					+ ids + ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -146,10 +146,10 @@ public class StockPileModule extends IdEntityService<StockPile> {
 	public Object update(@Param("..") StockPile obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "stockpile");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "stockpile");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

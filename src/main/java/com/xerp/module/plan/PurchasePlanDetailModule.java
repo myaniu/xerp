@@ -16,7 +16,7 @@ import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
 import com.nutzside.common.util.DateUtil;
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.nutzside.common.util.UUIDUtil;
 import com.nutzside.system.service.UserService;
 import com.xerp.domain.plan.PurchasePlan;
@@ -144,10 +144,10 @@ public class PurchasePlanDetailModule extends
 				apd.setStatus(1);
 				dao().insert(apd);
 			}
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "purchaseplandetail");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "purchaseplandetail");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -160,10 +160,10 @@ public class PurchasePlanDetailModule extends
 	public Object delete(@Param("..") PurchasePlanDetail obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -181,10 +181,10 @@ public class PurchasePlanDetailModule extends
 					.create("delete from ERP_PurchasePlanDetail where id in("
 							+ ids + ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -197,10 +197,10 @@ public class PurchasePlanDetailModule extends
 	public Object update(@Param("..") PurchasePlanDetail obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "purchaseplandetail");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "purchaseplandetail");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

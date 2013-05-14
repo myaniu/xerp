@@ -15,7 +15,7 @@ import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 import org.nutz.service.IdEntityService;
 
-import com.nutzside.common.util.DwzUtil;
+import com.nutzside.common.util.AjaxUtil;
 import com.xerp.domain.basic.Customer;
 
 @At("/erp/basic/customer")
@@ -25,15 +25,16 @@ public class CustomerModule extends IdEntityService<Customer> {
 	 * 跳转到添加页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.customer_input")
-	public void addUi() {
+	@Ok("httl:erp.basic.customer_input")
+	public Customer addUi() {
+		return new Customer();
 	}
 
 	/**
 	 * 跳转到修改页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.customer_input")
+	@Ok("httl:erp.basic.customer_input")
 	public Customer editUi(@Param("..") Customer obj) {
 		return dao().fetchLinks(dao().fetch(obj), null);
 	}
@@ -42,7 +43,7 @@ public class CustomerModule extends IdEntityService<Customer> {
 	 * 跳转到查看页面
 	 */
 	@At
-	@Ok("jsp:erp.basic.customer_view")
+	@Ok("httl:erp.basic.customer_view")
 	public Customer view(@Param("..") Customer obj) {
 		return dao().fetch(obj);
 	}
@@ -113,10 +114,10 @@ public class CustomerModule extends IdEntityService<Customer> {
 			// 设置id
 
 			dao().insert(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "Customer");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Customer");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -129,10 +130,10 @@ public class CustomerModule extends IdEntityService<Customer> {
 	public Object delete(@Param("..") Customer obj) {
 		try {
 			dao().delete(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -149,10 +150,10 @@ public class CustomerModule extends IdEntityService<Customer> {
 			Sql sql = Sqls.create("delete from ERP_Customer where id in(" + ids
 					+ ")");
 			dao().execute(sql);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 
@@ -165,10 +166,10 @@ public class CustomerModule extends IdEntityService<Customer> {
 	public Object update(@Param("..") Customer obj) {
 		try {
 			dao().update(obj);
-			return DwzUtil.dialogAjaxDone(DwzUtil.OK, "Customer");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Customer");
 		} catch (Throwable e) {
 
-			return DwzUtil.dialogAjaxDone(DwzUtil.FAIL);
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
 		}
 	}
 

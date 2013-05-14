@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h2 class="contentTitle">查看仓库页面</h2>
+#set(com.xerp.domain.basic.Supplier obj)
+<h2 class="contentTitle">查看页面</h2>
 <div class="pageContent">
 	
 	<div class="viewInfo" layoutH="97">
@@ -13,12 +12,14 @@
 		</dl>
 		
 		<dl>
-			<dt>组织机构：</dt><dd>${obj.status eq 0 ? '未使用' : '在使用中'}</dd>
+			<dt>联系人：</dt><dd>${obj.constactPerson}</dd>
 		</dl>
 		
-
+         <dl>
+			<dt>电话：</dt><dd>${obj.phone}</dd>
+		</dl>
 		<div class="divider"></div>
-			</div>
+		</div>
 
 	<div class="formBar">
 		<ul>
