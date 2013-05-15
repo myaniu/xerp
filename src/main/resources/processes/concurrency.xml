@@ -1,0 +1,71 @@
+<workflow>
+	<node type="start" name="start" id="0">
+		<inputs>
+			<place id="1" />
+		</inputs>
+		<outputs>
+			<place id="2" />
+		</outputs>
+	</node>
+	<node name="split" type="and-split" id="1">
+		<inputs>
+			<place id="2" />
+		</inputs>
+		<outputs>
+			<place id="3" />
+			<place id="4" />
+		</outputs>
+	</node>
+	<node name="hello" id="2">
+		<resource class="com.google.code.insect.workflow.impl.Group" id="1"
+			name="Admin">
+		</resource>
+		<conditions type="and">
+			<condition
+				class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+				variable-name="name" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.test.HelloWorldHandler" />
+		<inputs>
+			<place id="3" />
+		</inputs>
+		<outputs>
+			<place id="5" />
+		</outputs>
+	</node>
+	<node name="calc" id="3">
+		<resource
+			class="com.google.code.insect.workflow.impl.FixTimerResource"
+			at="2007-10-12 22:12:30">
+		</resource>
+		<conditions type="and">
+			<condition exp="num>20" variable-name="num" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.test.CalculateHandler" />
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="6" />
+		</outputs>
+	</node>
+	<node type="and-join" name="join" id="4" resource="user">
+		<inputs>
+			<place id="5" />
+			<place id="6" />
+		</inputs>
+		<outputs>
+			<place id="7" />
+		</outputs>
+	</node>
+	<node type="end" name="end" id="5">
+		<inputs>
+			<place id="7" />
+		</inputs>
+		<outputs>
+			<place id="8" />
+		</outputs>
+	</node>
+</workflow>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+	<node type="start" name="start" id="0">
+		<inputs>
+			<place id="1" />
+		</inputs>
+		<outputs>
+			<place id="2" />
+		</outputs>
+	</node>
+	<node name="or-split" type="or-split" id="1">
+		<inputs>
+			<place id="2" />
+		</inputs>
+		<outputs>
+			<place id="3">
+				<conditions type="and">
+					<condition
+						class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+						variable-name="name" />
+				</conditions>
+			</place>
+			<place id="4">
+				<conditions type="and">
+					<condition exp="num>30" variable-name="num" />
+				</conditions>
+			</place>
+		</outputs>
+	</node>
+	<node name="hello" id="2">
+		<handler
+			class="com.google.code.insect.workflow.test.HelloWorldHandler" />
+		<inputs>
+			<place id="3" />
+		</inputs>
+		<outputs>
+			<place id="5" />
+		</outputs>
+	</node>
+	<node name="calc" id="3">
+
+		<handler
+			class="com.google.code.insect.workflow.test.CalculateHandler" />
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="6" />
+		</outputs>
+	</node>
+	<node type="or-join" name="or-join" id="4">
+		<inputs>
+			<place id="5" />
+			<place id="6" />
+		</inputs>
+		<outputs>
+			<place id="7" />
+		</outputs>
+	</node>
+	<node type="end" name="end" id="5">
+		<inputs>
+			<place id="7" />
+		</inputs>
+		<outputs>
+			<place id="8" />
+		</outputs>
+	</node>
+</workflow>

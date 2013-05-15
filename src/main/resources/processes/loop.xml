@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+	<node type="start" name="start" id="0">
+		<inputs>
+			<place id="1" />
+		</inputs>
+		<outputs>
+			<place id="2" />
+		</outputs>
+	</node>
+	<node name="hello" id="1">
+		<handler
+			class="com.google.code.insect.workflow.test.HelloWorldHandler" />
+		<inputs>
+			<place id="2" />
+		</inputs>
+		<outputs>
+			<place id="3" />
+		</outputs>
+	</node>
+	<node name="calc" id="2">
+		<handler
+			class="com.google.code.insect.workflow.test.IncrementNumHandler" />
+		<inputs>
+			<place id="3" />
+		</inputs>
+		<outputs>
+			<place id="4" />
+		</outputs>
+	</node>
+	<node name="or-split" type="or-split" id="3">
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="2">
+				<conditions type="and">
+					<condition variable-name="num">
+						<exp>
+							<![CDATA[num<30]]>
+						</exp>
+					</condition>
+				</conditions>
+			</place>
+			<place id="5">
+				<conditions type="and">
+					<condition exp="num>=30" variable-name="num" />
+				</conditions>
+			</place>
+		</outputs>
+	</node>
+	<node type="end" name="end" id="4">
+		<inputs>
+			<place id="5" />
+		</inputs>
+		<outputs>
+			<place id="6" />
+		</outputs>
+	</node>
+</workflow>

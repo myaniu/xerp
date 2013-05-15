@@ -1,0 +1,67 @@
+<workflow maxCases="100">
+	<node type="start" name="start" id="0">
+		<inputs>
+			<place id="1" />
+		</inputs>
+		<outputs>
+			<place id="2" />
+		</outputs>
+	</node>
+	<node name="hello" id="1">
+		<resource class="com.google.code.insect.workflow.impl.User" id="2"
+			name="dennis">
+		</resource>
+		<conditions type="and">
+			<condition
+				class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+				variable-name="name" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.test.HelloWorldHandler" />
+		<inputs>
+			<place id="2" />
+		</inputs>
+		<outputs>
+			<place id="3" />
+		</outputs>
+	</node>
+	<node name="calc" id="2">
+		<resource
+			class="com.google.code.insect.workflow.impl.DelayTimerResource"
+			unit="second" delay="1">
+		</resource>
+		<conditions type="and">
+			<condition variable-name="num">
+				<exp>
+					<![CDATA[num<=1000]]>
+				</exp>
+			</condition>
+			<conditions type="or">
+				<condition variable-name="num">
+					<exp>
+						<![CDATA[num>=10]]>
+					</exp>
+				</condition>
+				<condition
+					class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+					variable-name="name" />
+			</conditions>
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.test.CalculateHandler" />
+		<inputs>
+			<place id="3" />
+		</inputs>
+		<outputs>
+			<place id="4" />
+		</outputs>
+	</node>
+	<node type="end" name="end" id="3">
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="5" />
+		</outputs>
+	</node>
+</workflow>

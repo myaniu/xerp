@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<insect>
+	<workflow-dao
+		class="com.google.code.insect.workflow.basic.MemoryWorkFlowDAO">
+	</workflow-dao>
+	<workflows>
+		<workflow name="sequence" id="1"
+			location="processes/sequence.xml">
+		</workflow>
+		<workflow name="concurrency" id="2"
+			location="processes/concurrency.xml">
+		</workflow>
+		<workflow name="choose" id="3"
+			location="processes/choose.xml">
+		</workflow>
+		<workflow name="loop" id="4" location="processes/loop.xml">
+		</workflow>
+		<workflow name="leave" id="5" location="processes/leave.xml">
+		</workflow>
+	</workflows>
+</insect>
