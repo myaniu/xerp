@@ -240,7 +240,7 @@ public class SimpleExpressionParser {
  * @version $Id:$
  */
 class Stack {
-	protected java.util.ArrayList pool = new java.util.ArrayList();
+	protected java.util.ArrayList<Object> pool = new java.util.ArrayList<Object>();
 
 	public Stack() {
 	}

@@ -8,6 +8,11 @@ import com.google.code.insect.workflow.Transition;
 
 
 public class DelayTimerResource extends TimerResource {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private long delay;
 
 	private TimeUnit timeUnit;

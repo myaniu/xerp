@@ -53,7 +53,7 @@ public class ExpressionCalculateTest extends TestCase {
 				"100")));
 		assertTrue(parser.fireRule("a==true".replaceAll("true", "1==1"),
 				new BigDecimal("1")));
-		parser.DEBUG = true;
+		SimpleExpressionParser.DEBUG = true;
 		assertTrue(parser.fireRule("c!=0.00", new BigDecimal("3")));
 	}
 

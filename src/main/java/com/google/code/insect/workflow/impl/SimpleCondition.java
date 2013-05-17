@@ -68,9 +68,6 @@ public class SimpleCondition implements Condition {
 			if (value == null && variableName != null) {
 				BigDecimal fact = new BigDecimal(String.valueOf(token
 						.getAttribute(variableName)));
-				if (fact == null)
-					throw new IllegalArgumentException("context中没有变量"
-							+ variableName);
 				return SimpleExpressionParser.getInstance().fireRule(
 						expression, fact);
 			} else if (value != null) {

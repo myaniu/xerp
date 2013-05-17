@@ -1,7 +1,12 @@
 ﻿package com.google.code.insect.workflow.comm;
 
 public class AuthorizationFailureException extends InternalWorkflowException {
-    public AuthorizationFailureException(){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public AuthorizationFailureException(){
     	super("权限错误！");
     }
     

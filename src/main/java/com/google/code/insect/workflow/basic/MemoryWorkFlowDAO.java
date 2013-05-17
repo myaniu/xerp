@@ -33,7 +33,7 @@ public class MemoryWorkFlowDAO implements WorkFlowDAO {
 	public Object getAttribute(Token token, Object key) {
 		// TODO Auto-generated method stub
 		if (token_attributes.get(token.getId()) == null)
-			token_attributes.put(token.getId(), new ConcurrentHashMap());
+			token_attributes.put(token.getId(), new ConcurrentHashMap<Object, Object>());
 		return token_attributes.get(token.getId()).get(key);
 	}
 
@@ -45,7 +45,7 @@ public class MemoryWorkFlowDAO implements WorkFlowDAO {
 	public Object removeAttribute(Token token, Object key) {
 		// TODO Auto-generated method stub
 		if (token_attributes.get(token.getId()) == null)
-			token_attributes.put(token.getId(), new ConcurrentHashMap());
+			token_attributes.put(token.getId(), new ConcurrentHashMap<Object, Object>());
 		return token_attributes.get(token.getId()).remove(key);
 	}
 
@@ -59,24 +59,25 @@ public class MemoryWorkFlowDAO implements WorkFlowDAO {
 	public Object setAttribute(Token token, Object key, Object value) {
 		// TODO Auto-generated method stub
 		if (token_attributes.get(token.getId()) == null)
-			token_attributes.put(token.getId(), new ConcurrentHashMap());
+			token_attributes.put(token.getId(), new ConcurrentHashMap<Object, Object>());
 		return token_attributes.get(token.getId()).put(key, value);
 	}
 
+	@SuppressWarnings("static-access")
 	public void addAliveToken(Token token) {
 		this.tokens.put(token.getId(), token);
 	}
-
+	@SuppressWarnings("static-access")
 	public List<Token> getAllAliveToken(WorkFlow wf) {
 		return new ArrayList<Token>(this.tokens.values());
 	}
-
+	@SuppressWarnings("static-access")
 	public boolean removeFinishedToken(Token token) {
 		// TODO Auto-generated method stub
 		this.token_attributes.remove(token.getId());
 		return this.tokens.remove(token.getId(), token);
 	}
-
+	@SuppressWarnings("static-access")
 	public Token getAliveToken(long id) {
 		// TODO Auto-generated method stub
 		return this.tokens.get(id);

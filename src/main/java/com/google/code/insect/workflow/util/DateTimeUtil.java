@@ -16,7 +16,7 @@ public class DateTimeUtil {
 	 */
 	public static String getBeforDay(int days, String patten) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.DATE, -days);
+		cal.add(Calendar.DATE, -days);
 		return getDateTime(cal.getTime(), patten);
 	}
 
@@ -29,7 +29,7 @@ public class DateTimeUtil {
 	 */
 	public static String getBeforMonth(int months, String patten) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.MONTH, -months);
+		cal.add(Calendar.MONTH, -months);
 		return getDateTime(cal.getTime(), patten);
 	}
 
@@ -42,7 +42,7 @@ public class DateTimeUtil {
 	 */
 	public static String getBeforYear(int yeas, String patten) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(cal.YEAR, -yeas);
+		cal.add(Calendar.YEAR, -yeas);
 		return getDateTime(cal.getTime(), patten);
 	}
 
@@ -147,10 +147,9 @@ public class DateTimeUtil {
 	 * @return boolean
 	 */
 	public static boolean isValidDate(String param, String patten) {
-		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat(patten);
 		try {
-			date = sdf.parse(param);
+			sdf.parse(param);
 		} catch (ParseException ex) {
 			return false;
 		}
@@ -243,7 +242,7 @@ public class DateTimeUtil {
 	 */
 	public static Date firstDayOfThisWeek() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(cal.DAY_OF_WEEK, cal.getMinimum(cal.DAY_OF_WEEK));
+		cal.set(Calendar.DAY_OF_WEEK, cal.getMinimum(Calendar.DAY_OF_WEEK));
 		return cal.getTime();
 	}
 
@@ -254,9 +253,9 @@ public class DateTimeUtil {
 	 */
 	public static Date endDayOfThisWeek() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(cal.WEEK_OF_MONTH, cal.get(cal.WEEK_OF_MONTH) + 1);
-		cal.set(cal.DAY_OF_WEEK, cal.getMinimum(cal.DAY_OF_WEEK));
-		cal.add(cal.DAY_OF_WEEK, -1);
+		cal.set(Calendar.WEEK_OF_MONTH, cal.get(Calendar.WEEK_OF_MONTH) + 1);
+		cal.set(Calendar.DAY_OF_WEEK, cal.getMinimum(Calendar.DAY_OF_WEEK));
+		cal.add(Calendar.DAY_OF_WEEK, -1);
 		return cal.getTime();
 	}
 
@@ -267,7 +266,7 @@ public class DateTimeUtil {
 	 */
 	public static Date firstDayOfThisMonth() {
 		Calendar cal = Calendar.getInstance();
-		cal.set(cal.DAY_OF_MONTH, cal.getMinimum(cal.DAY_OF_MONTH));
+		cal.set(Calendar.DAY_OF_MONTH, cal.getMinimum(Calendar.DAY_OF_MONTH));
 		return cal.getTime();
 	}
 
@@ -276,6 +275,7 @@ public class DateTimeUtil {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static Date getLastDayOfMonth() {
 		Calendar cal = Calendar.getInstance();
 		Date date = new Date();

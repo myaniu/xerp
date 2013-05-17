@@ -11,6 +11,10 @@ public class InternalWorkflowException extends RuntimeException {
 	// ~ Instance fields
 	// ////////////////////////////////////////////////////////
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Throwable rootCause;
 
 	// ~ Constructors
