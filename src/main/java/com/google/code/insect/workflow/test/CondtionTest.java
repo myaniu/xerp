@@ -1,12 +1,11 @@
 ﻿package com.google.code.insect.workflow.test;
 
-import com.google.code.insect.workflow.Condition;
+import junit.framework.TestCase;
+
 import com.google.code.insect.workflow.Token;
 import com.google.code.insect.workflow.basic.MemoryWorkFlowDAO;
 import com.google.code.insect.workflow.impl.Conditions;
 import com.google.code.insect.workflow.impl.SimpleCondition;
-
-import junit.framework.TestCase;
 
 public class CondtionTest extends TestCase {
 	private Token token;

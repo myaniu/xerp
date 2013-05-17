@@ -17,7 +17,7 @@
 		<jstl.version>1.2</jstl.version>
 		<taglibs.version>1.1.2</taglibs.version>
 		<lombok.version>0.11.6</lombok.version>
-		<druid.version>0.2.18</druid.version>
+		<DataSource.version>0.2.10</DataSource.version>
 		<lang.version>2.6</lang.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
         <commons-io.version>2.4</commons-io.version>
@@ -34,11 +34,28 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io.version}</version>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+        </dependency>
+            
+        <!--
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>${DataSource.version}</version>
+        </dependency>
+            
+		-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>${druid.version}</version>
+			<version>${DataSource.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
@@ -103,6 +120,7 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>

@@ -8,6 +8,11 @@ import com.google.code.insect.workflow.Token;
 
 
 public class Conditions implements Condition {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private List<Condition> conditonList;
 
 	private String type;
