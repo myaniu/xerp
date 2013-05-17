@@ -11,6 +11,11 @@ import com.google.code.insect.workflow.util.SimpleExpressionParser;
 
 public class SimpleCondition implements Condition {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7217477134915724256L;
+
 	private String expression;
 
 	private ConditionHandler handler;

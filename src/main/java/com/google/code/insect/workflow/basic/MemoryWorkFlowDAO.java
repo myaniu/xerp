@@ -82,4 +82,12 @@ public class MemoryWorkFlowDAO implements WorkFlowDAO {
 		return this.tokens.get(id);
 	}
 
+	public static AtomicLong getId() {
+		return id;
+	}
+
+	public static void setId(AtomicLong id) {
+		MemoryWorkFlowDAO.id = id;
+	}
+
 }

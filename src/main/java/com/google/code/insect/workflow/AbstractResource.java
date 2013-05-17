@@ -3,6 +3,11 @@
 import com.google.code.insect.workflow.comm.ConditionException;
 
 public abstract class AbstractResource implements Resource {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected long id;
 
 	protected String name;

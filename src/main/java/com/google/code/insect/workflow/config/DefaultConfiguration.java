@@ -9,6 +9,11 @@ import com.google.code.insect.workflow.util.FileConfig;
 
 public class DefaultConfiguration implements Configuration, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public InputStream getConfigFileStream() {
 		return FileConfig.getInputStream(Common.DEFAUT_CONFIG_FILE);
 	}

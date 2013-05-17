@@ -1,7 +1,6 @@
 ﻿package com.google.code.insect.workflow.basic;
 
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Level;
 
 import com.google.code.insect.workflow.AbstractWorkFlowManager;
 import com.google.code.insect.workflow.Token;
@@ -9,7 +8,6 @@ import com.google.code.insect.workflow.WorkFlow;
 import com.google.code.insect.workflow.WorkFlowDAO;
 import com.google.code.insect.workflow.comm.ConfigurationrException;
 import com.google.code.insect.workflow.impl.TimerResource;
-import com.google.code.insect.workflow.impl.XMLWorkflowFactory;
 
 public class BasicWorkflowManager extends AbstractWorkFlowManager {
 

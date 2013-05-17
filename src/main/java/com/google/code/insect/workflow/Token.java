@@ -2,6 +2,10 @@
 
 import java.io.Serializable;
 
+import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Table;
+
 /**
  * <p>
  * 类说明：
@@ -13,19 +17,25 @@ import java.io.Serializable;
  * @author dennis
  * 
  */
-public final class Token implements Serializable {
+@Table("wf_Token")
+public  class Token implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
 	private long id;
-
+	@Column
 	private String name;
-
+	@Column
 	private boolean finished;
 
 	private WorkFlowDAO workFlowDAO;
 
 	private WorkFlow workFlow;
-
+	@Column
 	private long startTime;
-
+	@Column
 	private long endTime;
 
 	public Token() {

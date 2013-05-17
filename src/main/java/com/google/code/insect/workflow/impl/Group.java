@@ -3,10 +3,14 @@
 import com.google.code.insect.workflow.AbstractResource;
 import com.google.code.insect.workflow.Token;
 import com.google.code.insect.workflow.Transition;
-import com.google.code.insect.workflow.comm.ConditionException;
 import com.google.code.insect.workflow.comm.InValidResourceException;
 
 public class Group extends AbstractResource {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Group() {
 		super();

@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Table;
+
 import com.google.code.insect.workflow.comm.SystemException;
 import com.google.code.insect.workflow.comm.TransitionType;
 
@@ -17,12 +21,14 @@ import com.google.code.insect.workflow.comm.TransitionType;
  * @author dennis
  * 
  */
-public class WorkFlow {
-	private long id;
 
+@Table("wf_WorkFlow")
+public class WorkFlow {
+	@Id
+	private long id;
+	@Column
 	private String name;
 
-	private WorkFlowDAO workFlowDAO;
 
 	private Transition start, end;
 

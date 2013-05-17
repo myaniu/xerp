@@ -1,10 +1,25 @@
 ﻿package com.google.code.insect.workflow.impl;
 
 
-import org.w3c.dom.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.google.code.insect.workflow.ActivityHandler;
-import com.google.code.insect.workflow.Condition;
 import com.google.code.insect.workflow.ConditionHandler;
 import com.google.code.insect.workflow.Conditional;
 import com.google.code.insect.workflow.Place;
@@ -15,21 +30,10 @@ import com.google.code.insect.workflow.WorkFlowDAO;
 import com.google.code.insect.workflow.WorkFlowFactory;
 import com.google.code.insect.workflow.comm.FactoryException;
 import com.google.code.insect.workflow.comm.InvalidTimerResourceException;
-import com.google.code.insect.workflow.comm.TransitionType;
 import com.google.code.insect.workflow.config.Configuration;
 import com.google.code.insect.workflow.config.DefaultConfiguration;
 import com.google.code.insect.workflow.util.FileConfig;
 import com.google.code.insect.workflow.util.XMLUtil;
-
-import java.io.*;
-
-import java.math.BigDecimal;
-import java.net.URL;
-
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import javax.xml.parsers.*;
 
 /**
  * @author dennis
@@ -71,7 +75,7 @@ public class XMLWorkflowFactory implements WorkFlowFactory, Serializable {
 	public String[] getWorkflowNames() {
 		int i = 0;
 		String[] res = new String[nameWorkflows.keySet().size()];
-		Iterator it = nameWorkflows.keySet().iterator();
+		Iterator<String> it = nameWorkflows.keySet().iterator();
 
 		while (it.hasNext()) {
 			res[i++] = (String) it.next();
@@ -101,6 +105,7 @@ public class XMLWorkflowFactory implements WorkFlowFactory, Serializable {
 		return wf;
 	}
 
+	@SuppressWarnings("resource")
 	public WorkFlow parseWorkFlowXml(File file, long wf_id, String wf_name) {
 		WorkFlow wf = null;
 		try {
@@ -151,7 +156,7 @@ public class XMLWorkflowFactory implements WorkFlowFactory, Serializable {
 						throw new FactoryException("Transition"
 								+ transition.getName() + "的Resource没有指定class");
 					try {
-						Class resourceClass = Class.forName(resource
+						Class<?> resourceClass = Class.forName(resource
 								.getAttribute("class"));
 						if (resourceClass.getName().equals(
 								"com.google.code.insect.workflow.impl.User")) {
@@ -481,7 +486,7 @@ public class XMLWorkflowFactory implements WorkFlowFactory, Serializable {
 			Element workflows = XMLUtil.getChildElement(root, "workflows");
 
 			String basedir = getBaseDir(root);
-			List list = XMLUtil.getChildElements(workflows, "workflow");
+			List<Element> list = XMLUtil.getChildElements(workflows, "workflow");
 			for (int i = 0; i < list.size(); i++) {
 				Element e = (Element) list.get(i);
 				WorkflowConfig config = new WorkflowConfig(basedir, Integer

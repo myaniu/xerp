@@ -21,6 +21,7 @@ import com.google.code.insect.workflow.impl.AutoResource;
  * @author dennis
  * 
  */
+
 public class Transition implements Conditional {
 
 	protected long id;

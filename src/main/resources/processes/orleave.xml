@@ -1,0 +1,92 @@
+<workflow maxCases="100">
+	<node type="start" name="start" id="0">
+		<inputs>
+			<place id="1" />
+		</inputs>
+		<outputs>
+			<place id="2" />
+		</outputs>
+	</node>
+	<node name="submit" id="1">
+		<resource class="com.google.code.insect.workflow.impl.Group" id="1"
+			name="employee">
+		</resource>
+		<conditions type="and">
+			<condition
+				class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+				variable-name="LeaveInfo" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.example.leave.SendRemindHandler" />
+		<inputs>
+			<place id="2" />
+		</inputs>
+		<outputs>
+			<place id="3" />
+		</outputs>
+	</node>
+	<node type="or-split" name="or-split" id="2">
+		<inputs>
+			<place id="3" />
+		</inputs>
+		<outputs>
+			<place id="4" />
+			<place id="5" />
+		</outputs>
+	</node>
+	<node name="dept_manager_confirm" id="3">
+		<resource class="com.google.code.insect.workflow.impl.Group" id="2"
+			name="dept_manager">
+		</resource>
+		<conditions type="and">
+			<condition
+				class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+				variable-name="LeaveInfo" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.example.leave.SendRemindHandler" />
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="6" />
+		</outputs>
+	</node>
+	<node name="project_manager_confirm" id="4">
+		<resource class="com.google.code.insect.workflow.impl.Group" id="3"
+			name="project_manager">
+		</resource>
+		<conditions type="and">
+			<condition
+				class="com.google.code.insect.workflow.impl.NullHandler" value="false"
+				variable-name="LeaveInfo" />
+		</conditions>
+		<handler
+			class="com.google.code.insect.workflow.example.leave.SendRemindHandler" />
+		<inputs>
+			<place id="4" />
+		</inputs>
+		<outputs>
+			<place id="7" />
+		</outputs>
+	</node>
+	<node type="or-join" name="or-join" id="5">
+		<handler
+			class="com.google.code.insect.workflow.example.leave.ResultHandler" />
+		<inputs>
+			<place id="6" />
+			<place id="7"/>
+		</inputs>
+		<outputs>
+			<place id="8" />
+		</outputs>
+	</node>
+	<node type="end" name="end" id="6">
+		<inputs>
+			<place id="8" />
+		</inputs>
+		<outputs>
+			<place id="9" />
+		</outputs>
+	</node>
+</workflow>

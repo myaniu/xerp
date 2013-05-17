@@ -1,12 +1,15 @@
 ﻿package com.google.code.insect.workflow.impl;
 
 import com.google.code.insect.workflow.AbstractResource;
-import com.google.code.insect.workflow.Resource;
 import com.google.code.insect.workflow.Token;
 import com.google.code.insect.workflow.Transition;
 import com.google.code.insect.workflow.comm.InValidResourceException;
 
 public class User extends AbstractResource {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Group group;
 
 	public User() {

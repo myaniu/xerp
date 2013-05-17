@@ -13,6 +13,11 @@ import com.google.code.insect.workflow.comm.ConditionException;
 
 public abstract class TimerResource extends AbstractResource {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected int pool_size;
 
 	protected static ScheduledExecutorService scheduledExecutorService;

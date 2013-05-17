@@ -14,6 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 
  * @author dennis
  */
+
 public class Place implements Conditional {
 	protected List<Token> tokens;
 

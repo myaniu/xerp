@@ -11,6 +11,11 @@ import com.google.code.insect.workflow.util.DateTimeUtil;
 
 
 public class FixTimerResource extends TimerResource {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String at;
 
 	private boolean auto_next;
