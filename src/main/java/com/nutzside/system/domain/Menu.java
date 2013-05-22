@@ -37,7 +37,7 @@ public class Menu {
 	@One(target = Menu.class,field="parentId")
 	private Menu parent;// 上级分类
 	
-	@Many(target=Menu.class,field="id")
+	@Many(target=Menu.class,field="parentId")
 	private Set<Menu> children;// 下级分类
 	
 	

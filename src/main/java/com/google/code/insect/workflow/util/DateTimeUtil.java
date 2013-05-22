@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.util;
+package com.google.code.insect.workflow.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

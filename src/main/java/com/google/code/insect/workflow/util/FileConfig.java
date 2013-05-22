@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.util;
+package com.google.code.insect.workflow.util;
 
 import java.io.File;
 import java.io.InputStream;

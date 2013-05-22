@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.impl;
+package com.google.code.insect.workflow.impl;
 
 import com.google.code.insect.workflow.Place;
 import com.google.code.insect.workflow.Token;

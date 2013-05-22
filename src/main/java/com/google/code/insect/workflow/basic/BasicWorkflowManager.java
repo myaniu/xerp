@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.basic;
+package com.google.code.insect.workflow.basic;
 
 import java.util.concurrent.atomic.AtomicLong;
 

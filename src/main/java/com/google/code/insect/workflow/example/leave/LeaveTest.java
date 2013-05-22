@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.example.leave;
+package com.google.code.insect.workflow.example.leave;
 
 import junit.framework.TestCase;
 

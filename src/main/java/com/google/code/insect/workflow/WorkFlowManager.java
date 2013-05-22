@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow;
+package com.google.code.insect.workflow;
 
 import com.google.code.insect.workflow.comm.InValidStateException;
 import com.google.code.insect.workflow.comm.SystemException;

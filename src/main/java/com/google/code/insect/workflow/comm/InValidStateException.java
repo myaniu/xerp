@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow.comm;
+package com.google.code.insect.workflow.comm;
 
 public class InValidStateException extends InternalWorkflowException {
 	/**

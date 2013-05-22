@@ -1,4 +1,4 @@
-﻿package com.google.code.insect.workflow;
+package com.google.code.insect.workflow;
 
 import java.util.Collection;
 import java.util.HashMap;

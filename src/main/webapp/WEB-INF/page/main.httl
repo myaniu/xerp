@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
-<title>简单实用国产jQuery UI框架 - DWZ富客户端框架(J-UI.com)</title>
+<title>xerp</title>
 
 <link href="${base}/res/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="${base}/res/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -89,11 +89,13 @@ $(function(){
 									 <li><a href="${base}/system/usr/list" target="navTab" rel="user">用户管理</a></li>
 									 <li><a href="${base}/system/role/list" target="navTab" rel="role">角色管理</a></li>
 									 <li><a href="${base}/system/permission/list" target="navTab" rel="permission">权限管理</a></li>
+									 <li><a href="${base}/system/menu/Pagerlist" target="navTab" rel="menu">菜单管理</a></li>
 									 <li><a href="${base}/erp/basic/prodcategory/Pagerlist" target="navTab" rel="prodcategory">产品分类</a></li>
 									 <li><a href="${base}/erp/store/storehouse/list" target="navTab" rel="StoreHouse">仓库</a></li>
 									 <li><a href="${base}/erp/basic/supplier/list" target="navTab" rel="Supplier">供应商</a></li>
 									 <li><a href="${base}/erp/basic/customer/list" target="navTab" rel="Customer">客户</a></li>
-									 <li><a href="${base}//erp/buy/buyorderdetail/list" target="navTab" rel="BuyOrderDetail">采购单</a></li>
+									 <li><a href="${base}/erp/buy/buyorderdetail/list" target="navTab" rel="BuyOrderDetail">采购单</a></li>
+									 
 								</ul>
 							</li>
 							</ul>
