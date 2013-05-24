@@ -11,21 +11,21 @@ $!{super.pageForm_Content}
 <dl class="nowrap">
 
 	   <dl class="nowrap">
-			<dt>名称：</dt>
+			<dt>鍚嶇О锛�/dt>
 			<dd>
 				<input class="required" name="user.name"  type="text"  maxlength="150" />
 			</dd>
 		</dl>
 		
 		<dl class="nowrap">
-			<dt>机构：</dt>
+			<dt>鏈烘瀯锛�/dt>
 		 <dd>
 		 <input id="inputOrg1" name="org.id"  type="hidden"/>
 		 <input class="required" name="org.orgName" type="text" postField="keyword" 
 				lookupGroup="org"/>
-				<a class="btnLook" href="org/list" lookupGroup="org">查找带回</a>	
+				<a class="btnLook" href="org/list" lookupGroup="org">鏌ユ壘甯﹀洖</a>	
 
-		 </dd
+		 </dd>
 		</dl>
             
 			

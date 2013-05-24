@@ -1,0 +1,62 @@
+
+#set(actionlist="system/menu/Pagerlist",actionlistui="system/menu/queryUi")
+#set(com.nutzside.system.domain.Menu o)
+$!{extends("/template/htl/page_list.httl")}
+
+<!--#macro(pagerForm)-->    
+
+$!{super.pagerForm}
+<!--#end-->
+<!--#macro(pagerForm_input)-->      
+$!{super.pagerForm_input}
+<input type="hidden" name="name" value="${o.name}"/>
+<!--#end-->
+
+
+<!--#macro(pageHeader)-->   
+$!{super.pageHeader}			
+<!--#end-->
+
+
+<!--#macro(pageHeader_searchBar)-->      
+$!{super.pageHeader_searchBar}
+		<table class="searchContent">
+				<tr>
+					<td>菜单名字：<input type="text" name="name" value="${o.name}"/></td>
+				</tr>
+			</table>
+<!--#end-->
+	
+<!--#macro(toolBar)-->     
+$!{super.toolBar}
+			<li><a class="add" href="${base}/system/menu/addUi" target="navTab" rel="newPage" title="添加菜单"><span>添加</span></a></li>		  
+<!--#end-->
+
+
+<!--#macro(thead_th)-->     
+$!{super.thead_th}	
+<th width="26"><input type="checkbox" group="ids" class="checkboxCtrl"></th>
+<th>菜单名字</th>
+<th>上级菜单名字</th>
+<th>菜单URL</th>
+<th>描述</th>
+<th>操作</th>	
+	  
+<!--#end-->
+
+<!--#macro(tbody_th)-->     
+$!{super.tbody_th}
+<!--#foreach(com.nutzside.system.domain.Menu obj  in pagerlist)-->
+              <tr target="sid_product" rel="${obj.id}">
+				<td><input name="ids" value="'${obj.id}'" type="checkbox"></td>
+				<td>${obj.name}</td>
+				<td>${obj.parent.name}</td>
+				<td>${obj.url}</td>
+				<td>${obj.description}</td>
+				<td>
+				<a title="删除菜单" target="ajaxTodo" href="${base}/system/menu/delete?id=${obj.id}" class="btnDel">删除分类</a>
+				<a title="查看菜单" target="navTab" href="${base}/system/menu/view?id=${obj.id}" rel="view" class="btnView">查看分类</a>
+				</td>
+				</tr>	
+<!--#end(foreach)-->		  
+<!--#end-->
