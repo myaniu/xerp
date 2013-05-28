@@ -1,4 +1,0 @@
-.inputbox{ font-size:12px; color:#555;}
-.inputbox_list {        overflow:hidden;        border: 1px solid #999;        font-size:12px;        background-color: white;        padding: 0;        margin: 0;        list-style: none;        position: absolute;        z-index: 10000;        line-height:20px;        display: none;}
-.inputbox_list li {        display:block;        padding-top:2px;        padding-bottom:2px;        padding-left:4px;        white-space: nowrap;        text-align: left;        font-family:Lucida Sans Unicode;        border-bottom:1px solid #090;}
-.inputbox_over {        cursor: pointer;        background-color:#009900;        color:#fff;}

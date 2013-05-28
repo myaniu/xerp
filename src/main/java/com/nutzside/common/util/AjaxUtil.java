@@ -9,7 +9,7 @@ import java.util.Map;
 import org.nutz.lang.Strings;
 
 /**
- * Dwz 工具类 <br>
+ * ajax 工具类 <br>
  * 
  * @author Dawn email: csg0328#gmail.com
  * @date 2011-11-22 上午11:33:54
@@ -26,7 +26,7 @@ public class AjaxUtil {
     
     
 	/**
-	 * DwzAjax服务器端响应
+	 * Ajax服务器端响应
 	 * 
 	 * @param statusCode
 	 *            状态码
@@ -39,10 +39,6 @@ public class AjaxUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("statusCode", statusCode);
 		map.put("message", (statusCode == OK) ? "操作成功！" : "操作失败！");
-		if (!Strings.isEmpty(navTabId)) {
-			map.put("navTabId", navTabId);
-			map.put("callbackType", "closeCurrent");
-		}
 		return map;
 	}
 	public static Map<String, Object> dialogAjaxDonenoclose(int statusCode,
@@ -69,7 +65,7 @@ public class AjaxUtil {
 	}
 
 	/**
-	 * DwzAjax服务器端响应
+	 * Ajax服务器端响应
 	 * 
 	 * @param statusCode
 	 *            状态码
