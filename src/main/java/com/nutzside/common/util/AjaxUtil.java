@@ -6,8 +6,6 @@ package com.nutzside.common.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.nutz.lang.Strings;
-
 /**
  * ajax 工具类 <br>
  * 
@@ -21,46 +19,19 @@ public class AjaxUtil {
 	public static final int OK = 200;
 	public static final int FAIL = 300;
 	
+	public static Map<String, Object> dialogAjax(int statusCode
+			) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("statusCode", statusCode);
+		map.put("message", (statusCode == OK) ? "操作成功！" : "操作失败！");
+		return map;
+	}
 	
-
-    
-    
-	/**
-	 * Ajax服务器端响应
-	 * 
-	 * @param statusCode
-	 *            状态码
-	 * @param navTabId
-	 *            要刷新的页面的rel
-	 * @return
-	 */
-	public static Map<String, Object> dialogAjaxDone(int statusCode,
-			String navTabId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("statusCode", statusCode);
-		map.put("message", (statusCode == OK) ? "操作成功！" : "操作失败！");
-		return map;
-	}
-	public static Map<String, Object> dialogAjaxDonenoclose(int statusCode,
-			String navTabId) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("statusCode", statusCode);
-		map.put("message", (statusCode == OK) ? "操作成功！" : "操作失败！");
-		if (!Strings.isEmpty(navTabId)) {
-			map.put("navTabId", navTabId);
-			map.put("callbackType", "");
-		}
-		return map;
-	}
-	public static Map<String, Object> dialogAjaxMsg(int statusCode,
-			String navTabId, String Msg,String callbackType) {
+	public static Map<String, Object> dialogAjaxMsg(int statusCode,String Msg) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("statusCode", statusCode);
 		map.put("message", Msg);
-		if (!Strings.isEmpty(navTabId)) {
-			map.put("navTabId", navTabId);
-			map.put("callbackType", callbackType);
-		}
+	
 		return map;
 	}
 
@@ -72,7 +43,7 @@ public class AjaxUtil {
 	 * @return
 	 */
 	public static Map<String, Object> dialogAjaxDone(int statusCode) {
-		return dialogAjaxDone(statusCode, null);
+		return dialogAjaxDone(statusCode);
 	}
 
 }

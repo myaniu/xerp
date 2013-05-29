@@ -12,8 +12,10 @@ import org.nutz.mvc.annotation.SetupBy;
 import org.nutz.mvc.annotation.Views;
 import org.nutz.mvc.ioc.provider.ComboIocProvider;
 
+import com.nutzside.common.mvc.view.FreemarkerViewMaker;
 import com.nutzside.common.mvc.view.HTTLViewMaker;
 import com.nutzside.common.mvc.view.JPEGViewMaker;
+import com.nutzside.common.mvc.view.ReportViewMaker;
 import com.nutzside.system.shiro.ShiroActionFilter;
 
 @Encoding(input="utf8",output="utf8")
@@ -27,7 +29,7 @@ import com.nutzside.system.shiro.ShiroActionFilter;
 // 全局的Shiro注解过滤器
 @Filters(@By(type = ShiroActionFilter.class, args = "/index.jsp"))
 @Localization("msg")
-@Views({JPEGViewMaker.class,HTTLViewMaker.class})
+@Views({FreemarkerViewMaker.class,JPEGViewMaker.class,HTTLViewMaker.class,ReportViewMaker.class})
 public class MainModule {
 
 }

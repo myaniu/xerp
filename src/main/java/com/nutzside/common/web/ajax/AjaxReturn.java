@@ -4,8 +4,6 @@ public class AjaxReturn {
 	
 	int statusCode;
 	String message;
-	String navTabId;
-	String callbackType;
 	Object data;
 
 
@@ -15,14 +13,6 @@ public class AjaxReturn {
 
 	public String getMessage() {
 		return message;
-	}
-
-	public String getNavTabId() {
-		return navTabId;
-	}
-
-	public String getCallbackType() {
-		return callbackType;
 	}
 
 	public Object getData() {
@@ -39,15 +29,7 @@ public class AjaxReturn {
 		return this;
 	}
 
-	public AjaxReturn setNavTabId(String navTabId) {
-		this.navTabId = navTabId;
-		return this;
-	}
 
-	public AjaxReturn setCallbackType(String callbackType) {
-		this.callbackType = callbackType;
-		return this;
-	}
 
 	public AjaxReturn setData(Object data) {
 		this.data = data;

@@ -137,7 +137,7 @@ public class BuyOrderDetailModule extends IdEntityService<BuyOrderDetail>{
 				apd.setSupplierid(apd.getSupplier().getId());
 				dao().insert(apd);
 			}
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "BuyOrderDetail");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -188,7 +188,7 @@ public class BuyOrderDetailModule extends IdEntityService<BuyOrderDetail>{
 	public Object update(@Param("..") BuyOrderDetail obj) {
 		try {
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "BuyOrderDetail");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

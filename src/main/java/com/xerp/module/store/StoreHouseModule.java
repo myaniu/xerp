@@ -96,7 +96,7 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 			// 设置id
 
 			dao().insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "StoreHouse");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -148,7 +148,7 @@ public class StoreHouseModule extends IdEntityService<StoreHouse> {
 	public Object update(@Param("..") StoreHouse obj) {
 		try {
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "storehouse");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

@@ -114,7 +114,7 @@ public class SupplierModule extends IdEntityService<Supplier> {
 			// 设置id
 
 			dao().insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Supplier");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -166,7 +166,7 @@ public class SupplierModule extends IdEntityService<Supplier> {
 	public Object update(@Param("..") Supplier obj) {
 		try {
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Supplier");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

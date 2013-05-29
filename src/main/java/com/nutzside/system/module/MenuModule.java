@@ -48,7 +48,7 @@ public class MenuModule extends IdEntityService<Menu> {
 				 obj.setParentId(0L);
 			 }
 			menuService.insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "menu");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -63,7 +63,7 @@ public class MenuModule extends IdEntityService<Menu> {
 				 obj.setParentId(0L);
 			 }
 			menuService.update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "menu");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -114,7 +114,7 @@ public class MenuModule extends IdEntityService<Menu> {
 	public Object delete(@Param("..") Menu obj) {
 		try {
 			dao().delete(obj);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "menu");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

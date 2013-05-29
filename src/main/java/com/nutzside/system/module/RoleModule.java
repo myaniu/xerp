@@ -31,12 +31,12 @@ public class RoleModule {
 	private PermissionService permissionService;
 
 	@At
-	@Ok("httl:system.role_list")
+	@Ok("fm:system.role_list")
 	@RequiresPermissions("role:read:*")
 	public Object all() {
 		return roleService.getRoleListByPager(1, 20);
 	}
-	
+
 	@Ok("httl:system.role_query")
     public void queryUi(){    	
     }
@@ -71,7 +71,7 @@ public class RoleModule {
 		
 		try {
 			roleService.insert(role);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -84,7 +84,7 @@ public class RoleModule {
 		
 		try {
 			roleService.delete(id);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -106,7 +106,7 @@ public class RoleModule {
 		
 		try {
 			roleService.update(role);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "role");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -121,7 +121,7 @@ public class RoleModule {
 		try {
 
 			roleService.addPermission(roleId, permissionId);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -136,7 +136,7 @@ public class RoleModule {
 		try {
 
 			roleService.removePermission(roleId, permissionId);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

@@ -114,7 +114,7 @@ public class CustomerModule extends IdEntityService<Customer> {
 			// 设置id
 
 			dao().insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Customer");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -166,7 +166,7 @@ public class CustomerModule extends IdEntityService<Customer> {
 	public Object update(@Param("..") Customer obj) {
 		try {
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "Customer");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

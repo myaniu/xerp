@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>管理平台</title>
-<link href="${base}/res/css/login.css" rel="stylesheet" type="text/css" />
-<script src="${base}/res/js/jquery.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link href="${base}/res/css/base.css" rel="stylesheet" type="text/css" />
+<link href="${base}/res/css/admin.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${base}/res/js/jquery.js"></script>
+<script type="text/javascript" src="${base}/res/js/base.js"></script>
+<script type="text/javascript" src="${base}/res/js/admin.js"></script>
 <script type="text/javascript">
 $(function () {
 	var $loginForm = $("#login_form");
@@ -15,18 +18,15 @@ $(function () {
 	var $isRememberUsername = $("#isRememberUsername");
 	$loginForm.submit(function () {
 		if ($username.val() == "") {
-			alert("请输入您的用户名!");
-			
+			$.dialog({type: "warn", content: "请输入您的用户名!", modal: true, autoCloseTime: 3000});
 			return false;
 		}
 		if ($password.val() == "") {
-			alert("请输入您的密码!");
-			
+			$.dialog({type: "warn", content: "请输入您的密码!", modal: true, autoCloseTime: 3000});
 			return false;
 		}
 		if ($captcha.val() == "") {
-			alert("请输入您的验证码!");
-			
+			$.dialog({type: "warn", content: "请输入您的验证码!", modal: true, autoCloseTime: 3000});
 			return false;
 		}
 		$.post("${base}/system/login", {
@@ -36,10 +36,9 @@ $(function () {
 			"code":$captcha.val()
 		}, function(data) {
 			if (data.statusCode==200) {
-				location.href='${base}/system/main';
+				location.href='${base}/system/page/main';
 			} else {
-				alert( data.message);
-				
+				$.dialog({type: "error", content: data.message, modal: true, autoCloseTime: 3000});
 			}
 		}, "json");
 		return false;
@@ -58,48 +57,72 @@ $(function () {
 	});
 });
 </script>
+<title>首页</title>
 </head>
-
-<body>
-	<div id="login">
-		<div id="login_header">
-			
-			<div class="login_headerContent">
-				<div class="navList">
-					<ul>
-						<li><a href="#">设为首页</a></li>
-					</ul>
-				</div>
-				<h2 class="login_title"><img src="${base}/res/images/login_title.png" /></h2>
-			</div>
-		</div>
-		<div id="login_content">
-			<div class="loginForm">
-				<form id="login_form" action="#" method="post" >
-					<p>
-						<label>用户名：</label>
-						<input   type="text" id="username" name="name"  size="20" class="login_input" />
-					</p>
-					<p>
-						<label>密码：</label>
-						<input type="password" id="password" name="passwd" size="20" class="login_input" />
-					</p>
-					<p>
-						<label>验证码：</label>
-						 <input type="text" id="captcha" name="code"  size="5" />
-						<span><img id="captchaImage"  src="${base}/security/captcha" alt="换一张"  width="75" height="24"/></span>
-					</p>
-					<div class="login_bar">
-						<input class="sub" type="submit" value=" " />
-					</div>
-				</form>
-			</div>
-			<div class="login_banner"><img src="${base}/res/images/login_banner.jpg" /></div>
-		
-		</div>
-		<div id="login_footer">
-			Copyright &copy; 2009 www.dwzjs.com Inc. All Rights Reserved.
-		</div>
+<body class="login">
+	<div class="body">
+		<form id="login_form" action="#" method="post">
+            <table class="loginTable">
+            	<tr>
+            		<td rowspan="3">
+            			<img src="${base}/res/images/login_logo.gif" alt="管理中心" />
+            		</td>
+                    <th>
+                    	用户名:
+                    </th>
+					<td>
+                    	<input type="text" id="username" name="name" class="formText" />
+                    </td>
+                </tr>
+                <tr>
+					<th>
+						密&nbsp;&nbsp;&nbsp;码:
+					</th>
+                    <td>
+                    	<input type="password" id="password" name="passwd" class="formText" />
+                    </td>
+                </tr>
+                <tr>
+                	<th>
+                	验证码:
+                	</th>
+                    <td>
+                    <input type="text" id="captcha" name="code" class="formText captcha" />
+                   		<img id="captchaImage" class="captchaImage" src="${base}/security/captcha" alt="换一张" />
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                		&nbsp;
+                	</td>
+                	<th>
+                		&nbsp;
+                	</th>
+                    <td>
+                    	<label>
+                    		<input type="checkbox" id="isRememberUsername"/>&nbsp;记住用户名
+                    	</label>
+                    </td>
+                </tr>
+                <tr>
+                	<td>
+                		&nbsp;
+                	</td>
+                	<th>
+                		&nbsp;
+                	</th>
+                    <td>
+                        <input type="button" class="homeButton" value="" onclick="window.open('${base}/')" hidefocus /><input type="submit" class="submitButton" value="登 录" hidefocus />
+                    </td>
+                </tr>
+            </table>
+            <div class="powered">
+            	COPYRIGHT © 2005-2011 NUTZSIDE.ORG ALL RIGHTS RESERVED.
+            </div>
+            <div class="link">
+            	
+            </div>
+        </form>
 	</div>
 </body>
 </html>

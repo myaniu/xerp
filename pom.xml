@@ -14,13 +14,15 @@
 		<log4j.version>1.2.17</log4j.version>
 		<javassist.version>3.15.0-GA</javassist.version>
 		<httl.version>1.0.8</httl.version>
+		<freemarker.version>2.3.19</freemarker.version>
 		<jstl.version>1.2</jstl.version>
 		<taglibs.version>1.1.2</taglibs.version>
 		<lombok.version>0.11.6</lombok.version>
 		<DataSource.version>0.2.10</DataSource.version>
 		<lang.version>2.6</lang.version>
 		<commons-logging.version>1.1.1</commons-logging.version>
-    
+		<jasperreports.version>4.5.1</jasperreports.version>
+		<groovy.version>1.8.6</groovy.version>
 		
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
@@ -93,6 +95,12 @@
 			<version>${httl.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>${javassist.version}</version>
@@ -113,7 +121,18 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>${jasperreports.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

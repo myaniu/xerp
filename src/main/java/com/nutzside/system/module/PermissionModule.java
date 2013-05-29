@@ -49,7 +49,7 @@ public class PermissionModule {
 		try {
 
 			permissionService.delete(id);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "permission");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -75,7 +75,7 @@ public class PermissionModule {
 		try {
 
 			permissionService.insert(permission);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "permission");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -96,7 +96,7 @@ public class PermissionModule {
 		try {
 			permissionService.update(permission);
 
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "view");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

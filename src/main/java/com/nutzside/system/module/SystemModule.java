@@ -1,8 +1,6 @@
 package com.nutzside.system.module;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -92,24 +90,6 @@ public class SystemModule {
 		}
 	}
 
-
-	@At
-	@Ok("httl:page.main")
-	@Fail("redirect:/index.jsp")
-	public Object main(HttpServletResponse response) throws IOException {
-		Subject currentUser = SecurityUtils.getSubject();
-		if(!Strings.isEmpty( currentUser.getPrincipal().toString())  )
-        {  
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("currentUser", currentUser.getPrincipal().toString());
-			return parameters;
-        }  
-		else{
-			 response.sendRedirect("index.jsp");
-			 return null;
-		}
-		
-	}
 
 	@At
 	@RequiresAuthentication

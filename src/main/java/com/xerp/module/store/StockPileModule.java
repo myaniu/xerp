@@ -102,7 +102,7 @@ public class StockPileModule extends IdEntityService<StockPile> {
 			// 设置id
 
 			dao().insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "StockPile");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -154,7 +154,7 @@ public class StockPileModule extends IdEntityService<StockPile> {
 	public Object update(@Param("..") StockPile obj) {
 		try {
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "stockpile");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

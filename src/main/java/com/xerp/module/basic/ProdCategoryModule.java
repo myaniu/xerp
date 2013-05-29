@@ -48,7 +48,7 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 				 obj.setParentId(0L);
 			 }
 			prodCategoryService.insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -63,7 +63,7 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 				 obj.setParentId(0L);
 			 }
 			prodCategoryService.update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
@@ -104,7 +104,7 @@ public class ProdCategoryModule extends IdEntityService<ProdCategory> {
 	public Object delete(@Param("..") ProdCategory obj) {
 		try {
 			dao().delete(obj);
-			return AjaxUtil.dialogAjaxDonenoclose(AjaxUtil.OK, "prodcategory");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		} catch (Throwable e) {
 
 			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);

@@ -102,7 +102,7 @@ public class ProductModule  extends IdEntityService<Product>{
 			obj.setOrgid(Org.getId());
 			obj.setSortid(sort.parentId);
 			dao().insert(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK,"product");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
@@ -160,7 +160,7 @@ public class ProductModule  extends IdEntityService<Product>{
 			//设置修改时间
 			obj.setModifyDate(pro.getModifyDate());
 			dao().update(obj);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK,"product");
+			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
 		}catch (Throwable e) {
 			if (log.isDebugEnabled())
 				log.debug("E!!",e);
