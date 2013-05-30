@@ -1,128 +1,126 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="icon" href="favicon.ico" type="image/x-icon" />
-<link href="${base}/res/css/base.css" rel="stylesheet" type="text/css" />
-<link href="${base}/res/css/admin.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="${base}/res/js/jquery.js"></script>
-<script type="text/javascript" src="${base}/res/js/base.js"></script>
-<script type="text/javascript" src="${base}/res/js/admin.js"></script>
-<script type="text/javascript">
-$(function () {
-	var $loginForm = $("#login_form");
-	var $username = $("#username");
-	var $password = $("#password");
-	var $captcha = $("#captcha");
-	var $isRememberUsername = $("#isRememberUsername");
-	$loginForm.submit(function () {
-		if ($username.val() == "") {
-			$.dialog({type: "warn", content: "请输入您的用户名!", modal: true, autoCloseTime: 3000});
-			return false;
-		}
-		if ($password.val() == "") {
-			$.dialog({type: "warn", content: "请输入您的密码!", modal: true, autoCloseTime: 3000});
-			return false;
-		}
-		if ($captcha.val() == "") {
-			$.dialog({type: "warn", content: "请输入您的验证码!", modal: true, autoCloseTime: 3000});
-			return false;
-		}
-		$.post("${base}/system/login", {
-			"name" : $username.val(),
-			"passwd" : $password.val(),
-			"remeberMe":true,
-			"code":$captcha.val()
-		}, function(data) {
-			if (data.statusCode==200) {
-				location.href='${base}/system/page/main';
-			} else {
-				$.dialog({type: "error", content: data.message, modal: true, autoCloseTime: 3000});
-			}
-		}, "json");
-		return false;
-	});
+<%@ include file="./includes.jsp"%>
 
-	// 刷新验证码
-	var $captchaImage = $("#captchaImage");
-	$captchaImage.click( function() {
-		var timestamp = (new Date()).valueOf();
-		var imageSrc = $captchaImage.attr("src");
-		if(imageSrc.indexOf("?") >= 0) {
-			imageSrc = imageSrc.substring(0, imageSrc.indexOf("?"));
-		}
-		imageSrc = imageSrc + "?timestamp=" + timestamp;
-		$captchaImage.attr("src", imageSrc);
+<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+<!-- The fav icon -->
+<link rel="shortcut icon" href="${base}/res/img/favicon.ico">
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var $loginForm = $("#login_form");
+		$loginForm.submit(function () {
+			$.post("${base}/system/login", {
+				"name" :  $("#username").val(),
+				"passwd" : $("#password").val(),
+				"remeberMe":true,
+				"code":$("#captcha").val()
+			}, function(data) {
+				if (data.statusCode==200) {
+					location.href='${base}/system/main';
+				} else {
+					$.dialog({type: "error", content: data.message, modal: true, autoCloseTime: 3000});
+				}
+			}, "json");
+			return false;
+		});
+		
+		
+		var $captchaImage = $("#captchaImage");
+		$captchaImage.click(function() {
+			var timestamp = (new Date()).valueOf();
+			var imageSrc = $captchaImage.attr("src");
+			if (imageSrc.indexOf("?") >= 0) {
+				imageSrc = imageSrc.substring(0, imageSrc.indexOf("?"));
+			}
+			imageSrc = imageSrc + "?timestamp=" + timestamp;
+			$captchaImage.attr("src", imageSrc);
+		});
+		$('form').validate();
+		//other things to do on document ready, seperated for ajax calls
+
 	});
-});
 </script>
-<title>首页</title>
+
 </head>
-<body class="login">
-	<div class="body">
-		<form id="login_form" action="#" method="post">
-            <table class="loginTable">
-            	<tr>
-            		<td rowspan="3">
-            			<img src="${base}/res/images/login_logo.gif" alt="管理中心" />
-            		</td>
-                    <th>
-                    	用户名:
-                    </th>
-					<td>
-                    	<input type="text" id="username" name="name" class="formText" />
-                    </td>
-                </tr>
-                <tr>
-					<th>
-						密&nbsp;&nbsp;&nbsp;码:
-					</th>
-                    <td>
-                    	<input type="password" id="password" name="passwd" class="formText" />
-                    </td>
-                </tr>
-                <tr>
-                	<th>
-                	验证码:
-                	</th>
-                    <td>
-                    <input type="text" id="captcha" name="code" class="formText captcha" />
-                   		<img id="captchaImage" class="captchaImage" src="${base}/security/captcha" alt="换一张" />
-                    </td>
-                </tr>
-                <tr>
-                	<td>
-                		&nbsp;
-                	</td>
-                	<th>
-                		&nbsp;
-                	</th>
-                    <td>
-                    	<label>
-                    		<input type="checkbox" id="isRememberUsername"/>&nbsp;记住用户名
-                    	</label>
-                    </td>
-                </tr>
-                <tr>
-                	<td>
-                		&nbsp;
-                	</td>
-                	<th>
-                		&nbsp;
-                	</th>
-                    <td>
-                        <input type="button" class="homeButton" value="" onclick="window.open('${base}/')" hidefocus /><input type="submit" class="submitButton" value="登 录" hidefocus />
-                    </td>
-                </tr>
-            </table>
-            <div class="powered">
-            	COPYRIGHT © 2005-2011 NUTZSIDE.ORG ALL RIGHTS RESERVED.
-            </div>
-            <div class="link">
-            	
-            </div>
-        </form>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+			<div class="row-fluid">
+				<div class="span12 center login-header">
+					<h2>Welcome to Xerp</h2>
+				</div>
+				<!--/span-->
+			</div>
+			<!--/row-->
+
+			<div class="row-fluid">
+				<div class="well span5 center login-box">
+					<div class="alert alert-info">Please login with your Username
+						and Password.</div>
+					<form id="login_form" class="form-horizontal" action="index.html"
+						method="post">
+						<fieldset>
+							<div class="input-prepend" title="Username" data-rel="tooltip">
+								<span class="add-on"><i class="icon-user"></i></span> <input
+									autofocus class="input-large span10" itle="Error Title"
+									data-rule-required="true" data-placement="bottom"
+									name="username" id="username" type="text" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend" title="Password" data-rel="tooltip">
+								<span class="add-on"><i class="icon-lock"></i> </span><input
+									class="input-large span10" itle="Error Title"
+									data-rule-required="true" data-placement="bottom"
+									name="password" id="password" type="password"
+									 />
+							</div>
+							<div class="clearfix"></div>
+							<div class="input-prepend" title="换一张" data-rel="tooltip">
+
+								<img id="captchaImage" class="captchaImage"
+									src="${base}/security/captcha" alt="换一张" />
+							</div>
+							<div class="clearfix"></div>
+							<div class="input-prepend" title="authcode" data-rel="tooltip">
+								<span class="add-on"><i class="icon-fire"></i></span> <input
+									class="input-large span10" name="code" id="captcha" type="text"
+									itle="Error Title" data-rule-required="true"
+									data-placement="bottom" />
+							</div>
+
+							<div class="clearfix"></div>
+							<div class="input-prepend">
+								<label class="remember" for="remember"><input
+									type="checkbox" id="remember" />Remember me</label>
+							</div>
+							<div class="clearfix"></div>
+
+							<p class="center span5">
+								<button type="submit" class="btn btn-primary">Login</button>
+							</p>
+						</fieldset>
+					</form>
+				</div>
+				<!--/span-->
+			</div>
+			<!--/row-->
+		</div>
+		<!--/fluid-row-->
+
 	</div>
+	<!--/.fluid-container-->
+
+
+
 </body>
 </html>
