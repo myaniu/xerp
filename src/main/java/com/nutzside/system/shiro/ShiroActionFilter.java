@@ -4,12 +4,19 @@ import java.lang.reflect.Method;
 
 import org.apache.shiro.aop.MethodInvocation;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.lang.Lang;
 import org.nutz.mvc.ActionContext;
 import org.nutz.mvc.ActionFilter;
 import org.nutz.mvc.View;
 import org.nutz.mvc.view.DefaultViewMaker;
 import org.nutz.mvc.view.ServerRedirectView;
+import org.nutz.mvc.view.UTF8JsonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.nutzside.common.domain.AjaxResData;
 
 /**
  * 在入口方法中应用Shiro注解来进行安全过滤
@@ -18,6 +25,8 @@ import org.nutz.mvc.view.ServerRedirectView;
  * 
  */
 public class ShiroActionFilter implements ActionFilter {
+	private static Logger logger = LoggerFactory
+			.getLogger(ShiroActionFilter.class);
 
 	@Override
 	public View match(final ActionContext actionContext) {
@@ -45,6 +54,15 @@ public class ShiroActionFilter implements ActionFilter {
 							return actionContext.getMethodArgs();
 						}
 					});
+
+		} catch (UnauthorizedException e) {
+			String permission = actionContext.getMethod()
+					.getAnnotation(RequiresPermissions.class).value()[0];
+			logger.warn("权限不足", e);
+			UTF8JsonView jsonView = new UTF8JsonView(null);
+			jsonView.setData(AjaxResData.getInstanceErrorNotice("当前用户无该权限"
+					+ permission));
+			return jsonView;
 		} catch (AuthorizationException e) {
 			return whenAuthFail(actionContext, e);
 		}

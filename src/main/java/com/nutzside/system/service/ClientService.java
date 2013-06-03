@@ -1,0 +1,96 @@
+package com.nutzside.system.service;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.DefaultSessionKey;
+import org.nutz.dao.Cnd;
+import org.nutz.dao.Dao;
+import org.nutz.ioc.aop.Aop;
+import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.lang.Strings;
+
+import com.nutzside.common.domain.AjaxResData;
+import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.service.BaseService;
+import com.nutzside.common.util.MVCHandler;
+import com.nutzside.common.util.StrUtils;
+import com.nutzside.system.domain.Client;
+import com.nutzside.system.domain.User;
+
+@IocBean(args = { "refer:dao" })
+public class ClientService extends BaseService<Client> {
+
+	public ClientService(Dao dao) {
+		super(dao);
+	}
+
+	@Aop(value = "log")
+	public void insert(Session session, HttpServletRequest request) {
+		Client client = new Client();
+		User cUser = (User) session.getAttribute("CurrentUser");
+		client.setUserId(cUser.getId());
+		client.setSessionId(session.getId().toString());
+		client.setLogonTime(new Timestamp(session.getStartTimestamp().getTime()));
+		client.setIpAddr(MVCHandler.getIpAddr(request));
+		client.setUserAgent(MVCHandler.getUserAgent(request));
+		dao().insert(client);
+	}
+
+	@Aop(value = "log")
+	public AjaxResData kickOff(String[] sessionIds) {
+		AjaxResData resData = new AjaxResData();
+		if (sessionIds != null && sessionIds.length > 0) {
+			for (String sessionId : sessionIds) {
+				//DolpSessionContext.getSession(sessionId).invalidate();
+				DefaultSessionKey sessionKey = new DefaultSessionKey(sessionId);
+				Session session = SecurityUtils.getSecurityManager().getSession(sessionKey);
+				session.stop();
+			}
+			resData.setInfo("已踢出用户!");
+		} else {
+			resData.setNotice("未踢出任何用户!");
+		}
+		return resData;
+	}
+
+	@Aop(value = "log")
+	public AdvancedJqgridResData<Client> getGridData(JqgridReqData jqReq, Boolean isSearch, Client clientSearch,
+			String userName) {
+		Cnd cnd = null;
+		if (null != isSearch && isSearch && null != clientSearch) {
+			cnd = Cnd.where("1", "=", 1);
+			String ipAddr = clientSearch.getIpAddr();
+			if (!Strings.isEmpty(ipAddr)) {
+				cnd.and("IPADDR", "LIKE", StrUtils.quote(ipAddr, '%'));
+			}
+			String userAgent = clientSearch.getUserAgent();
+			if (!Strings.isEmpty(userAgent)) {
+				cnd.and("USERAGENT", "LIKE", StrUtils.quote(userAgent, '%'));
+			}
+			Timestamp logonTime = clientSearch.getLogonTime();
+			if (null != logonTime) {
+				cnd.and("LOGONTIME", "=", logonTime);
+			}
+			if (!Strings.isEmpty(userName)) {
+				User user = dao().fetch(User.class, Cnd.where("name", "LIKE", StrUtils.quote(userName, '%')));
+				if (null != user) {
+					cnd.and("USERID", "=", user.getId());
+				} else {
+					cnd.and("1", "=", 0);
+				}
+			}
+		}
+		AdvancedJqgridResData<Client> jq = getAdvancedJqgridRespData(cnd, jqReq);
+		List<Client> clients = jq.getRows();
+		for (Client client : clients) {
+			dao().fetchLinks(client, "user");
+		}
+		return jq;
+	}
+}

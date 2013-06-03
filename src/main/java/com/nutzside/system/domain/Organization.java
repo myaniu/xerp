@@ -1,6 +1,6 @@
 package com.nutzside.system.domain;
 
-import java.util.Set;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,6 +14,7 @@ import org.nutz.dao.entity.annotation.Table;
 @Data
 @Table("SYSTEM_Organization")
 public class Organization {
+	
 	@Id
 	private Long id;
 	@Column
@@ -26,12 +27,14 @@ public class Organization {
 	@ColDefine(type = ColType.VARCHAR, width = 500)
 	private String description;
 	@Column
-	private Long parentId;
-	@One(target = Organization.class,field="parentId")
-	private Organization parent;// 上级
-	
-	@Many(target=Organization.class,field="id")
-	private Set<Organization> children;// 下级
+	private Long parentOrgId;
+	@One(target = Organization.class, field = "parentOrgId")
+	private Organization parentOrg;
+	@Many(target = Organization.class, field = "parentOrgId")
+	private List<Organization> childrenOrgs;
+	@Many(target = Role.class, field = "organizationId")
+	private List<Role> roles;
+
 	
 	
 

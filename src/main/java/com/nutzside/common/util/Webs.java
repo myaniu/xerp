@@ -5,10 +5,12 @@ import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.sql.DataSource;
 
 import org.nutz.dao.Dao;
 import org.nutz.ioc.Ioc;
 import org.nutz.ioc.Ioc2;
+import org.nutz.ioc.impl.PropertiesProxy;
 import org.nutz.lang.Lang;
 import org.nutz.lang.Mirror;
 import org.nutz.log.Log;
@@ -32,6 +34,14 @@ public class Webs {
 		return ioc().get(Dao.class, "dao");
 	}
 	
+	public static PropertiesProxy config() {
+		return ioc().get(PropertiesProxy.class, "config");
+	}
+
+	public static DataSource dataSource() {
+		return ioc().get(DataSource.class, "dataSource");
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Ioc ioc() {
 		if (ioc != null)

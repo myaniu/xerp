@@ -12,16 +12,15 @@ import org.nutz.mvc.annotation.SetupBy;
 import org.nutz.mvc.annotation.Views;
 import org.nutz.mvc.ioc.provider.ComboIocProvider;
 
-import com.nutzside.common.mvc.view.FreemarkerViewMaker;
 import com.nutzside.common.mvc.view.HTTLViewMaker;
 import com.nutzside.common.mvc.view.JPEGViewMaker;
-import com.nutzside.common.mvc.view.ReportViewMaker;
+import com.nutzside.common.mvc.view.XJsonViewMaker;
 import com.nutzside.system.shiro.ShiroActionFilter;
 
 @Encoding(input="utf8",output="utf8")
 @Modules(packages = { "com.xerp","com.xcms" }, scanPackage = true)
 @Ok("json")
-@Fail("json")
+@Fail("Xjson")
 @IocBy(type = ComboIocProvider.class, args = {
 		"*org.nutz.ioc.loader.json.JsonLoader", "ioc/",
 		"*org.nutz.ioc.loader.annotation.AnnotationIocLoader", "com.nutzside","com.xerp","com.xcms"})
@@ -29,7 +28,7 @@ import com.nutzside.system.shiro.ShiroActionFilter;
 // 全局的Shiro注解过滤器
 @Filters(@By(type = ShiroActionFilter.class, args = "/index.jsp"))
 @Localization("msg")
-@Views({FreemarkerViewMaker.class,JPEGViewMaker.class,HTTLViewMaker.class,ReportViewMaker.class})
+@Views({JPEGViewMaker.class,HTTLViewMaker.class,XJsonViewMaker.class,})
 public class MainModule {
 
 }

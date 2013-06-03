@@ -1,71 +1,102 @@
 package com.nutzside.system.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
-import org.nutz.dao.pager.Pager;
+import org.nutz.dao.Sqls;
+import org.nutz.dao.sql.Sql;
+import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.Param;
-import org.nutz.service.IdEntityService;
+import org.nutz.trans.Atom;
+import org.nutz.trans.Trans;
 
+import com.nutzside.common.domain.AjaxResData;
+import com.nutzside.common.domain.SimpleZTreeNode;
+import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.service.BaseService;
+import com.nutzside.common.util.StrUtils;
 import com.nutzside.system.domain.Organization;
 
-@IocBean(fields = { "dao" })
-public class OrganizationService extends IdEntityService<Organization> {
-
-	
-	public OrganizationService() {
-		super();
-	}
+@IocBean(args = { "refer:dao" })
+public class OrganizationService extends BaseService<Organization> {
 
 	public OrganizationService(Dao dao) {
 		super(dao);
 	}
-	
-	public void insert(Organization Organization) {
-		dao().insert(Organization);
-	}
 
-
-	public void update(Organization Organization) {
-		dao().update(Organization);
-	}
-	
-	
-
-	public Map<String, Object> Pagerlist( int pageNum ,int numPerPage,@Param("..") Organization obj) {
-		
-		Pager pager = dao().createPager((pageNum<1)?1:pageNum, (numPerPage < 1)? 20:numPerPage);
-		List<Organization> list = dao().query(Organization.class, bulidQureyCnd(obj), pager);
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (pager != null) {
-			pager.setRecordCount(dao().count(Organization.class,bulidQureyCnd(obj)));
-			map.put("pager", pager);
+	@Aop(value = "log")
+	public AdvancedJqgridResData<Organization> getGridData(JqgridReqData jqReq, Boolean isSearch,
+			@Param("..") Organization organizationSearch) {
+		Cnd cnd = Cnd.where("1", "=", 1);
+		if (null != organizationSearch) {
+			Long parentOrgId = organizationSearch.getParentOrgId();
+			if (null != parentOrgId) {
+				cnd = Cnd.where("PARENTORGID", "=", parentOrgId);
+			}
+			if (null != isSearch && isSearch) {
+				String code = organizationSearch.getCode();
+				if (!Strings.isEmpty(code)) {
+					cnd.and("CODE", "LIKE", StrUtils.quote(code, '%'));
+				}
+				String name = organizationSearch.getName();
+				if (!Strings.isEmpty(name)) {
+					cnd.and("NAME", "LIKE", StrUtils.quote(name, '%'));
+				}
+				String description = organizationSearch.getDescription();
+				if (!Strings.isEmpty(description)) {
+					cnd.and("DESCRIPTION", "LIKE", StrUtils.quote(description, '%'));
+				}
+			}
 		}
-		map.put("o", obj);
-		map.put("pagerlist", list);
-		return map;
-
+		AdvancedJqgridResData<Organization> jq = getAdvancedJqgridRespData(cnd, jqReq);
+		return jq;
 	}
-	
-	/**
-	 * 构建查询条件
-	 * @param obj
-	 * @return
-	 */
-	private Cnd bulidQureyCnd(Organization obj){
-		Cnd cnd=null;
-		if(obj!=null){
-			cnd=Cnd.where("1", "=", 1);
-	        //按名称查询
-	        if(!Strings.isEmpty(obj.getName()))
-				cnd.and("name", "=", obj.getName());
-	       
+
+	@Aop(value = "log")
+	public AjaxResData getNodes(Long id) {
+		AjaxResData respData = new AjaxResData();
+		id = id == null ? 0 : id;
+		Sql sql = Sqls
+				.create("SELECT O.ID,O.NAME,O.NAME AS TITLE,FALSE AS CHECKED,FALSE AS OPEN,(SELECT COUNT(0) > 0 FROM SYSTEM_ORGANIZATION O1 WHERE O1.PARENTORGID = O.ID) AS ISPARENT FROM SYSTEM_ORGANIZATION O WHERE O.PARENTORGID = @nodeId");
+		sql.params().set("nodeId", id);
+
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(dao().getEntity(SimpleZTreeNode.class));
+		dao().execute(sql);
+		List<SimpleZTreeNode> permissionZTreeNodes = sql.getList(SimpleZTreeNode.class);
+		respData.setLogic(permissionZTreeNodes);
+		return respData;
+	}
+
+	@Aop(value = "log")
+	public AjaxResData CUDOrganization(String oper, String ids, Organization organization) {
+		AjaxResData respData = new AjaxResData();
+		if ("del".equals(oper)) {
+			final Condition cnd = Cnd.where("ID", "IN", ids.split(","));
+			final List<Organization> organizations = query(cnd, null);
+			Trans.exec(new Atom() {
+				public void run() {
+					for (Organization organization : organizations) {
+						dao().clearLinks(organization, "childrenOrgs");
+					}
+					clear(cnd);
+				}
+			});
+			respData.setInfo("删除成功!");
+		} else if ("add".equals(oper)) {
+			dao().insert(organization);
+			respData.setInfo("添加成功!");
+		} else if ("edit".equals(oper)) {
+			dao().update(organization);
+			respData.setInfo("修改成功!");
+		} else {
+			respData.setError("未知操作!");
 		}
-		return cnd;
+		return respData;
 	}
 }

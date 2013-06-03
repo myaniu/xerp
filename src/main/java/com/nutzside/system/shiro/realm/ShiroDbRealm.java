@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -62,12 +61,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principalCollection) {
 		String username = principalCollection.getPrimaryPrincipal().toString();
-		User user = getUserService().fetchByName(username);
+		User user = getUserService().fetchByNumber(username);
 		if (user == null)
 			return null;
-		if (user.getAccountLocked())
-			throw new LockedAccountException("Account [" + username
-					+ "] is locked.");
 		SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 		List<String> roleNameList = getUserService().getRoleNameList(user);
 		auth.addRoles(roleNameList);
@@ -82,12 +78,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-		User user = getUserService().fetchByName(upToken.getUsername());
+		User user = getUserService().fetchByNumber(upToken.getUsername());
 		if (Lang.isEmpty(user))
 			return null;
-		if (user.getAccountLocked())
-			throw new LockedAccountException("Account ["
-					+ upToken.getUsername() + "] is locked.");
 		SimpleAuthenticationInfo account = new SimpleAuthenticationInfo(
 				user.getName(), user.getPassword(), getName());
 		if (!Strings.isEmpty(user.getSalt())) {

@@ -1,81 +1,121 @@
 package com.nutzside.system.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
-import org.nutz.dao.pager.Pager;
+import org.nutz.dao.Sqls;
+import org.nutz.dao.sql.Sql;
+import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
-import org.nutz.mvc.annotation.Param;
-import org.nutz.service.IdEntityService;
 
+import com.nutzside.common.domain.AjaxResData;
+import com.nutzside.common.domain.SimpleZTreeNode;
+import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.service.BaseService;
+import com.nutzside.common.util.StrUtils;
 import com.nutzside.system.domain.Permission;
 
-@IocBean(fields = { "dao" })
-public class PermissionService extends IdEntityService<Permission> {
-	public PermissionService() {
-		super();
-	}
+@IocBean(args = { "refer:dao" })
+public class PermissionService extends BaseService<Permission> {
 
 	public PermissionService(Dao dao) {
 		super(dao);
 	}
 
-	public List<Permission> list() {
-		return query(null, null);
-	}
-
-	public Map<Long, String> map() {
-		Map<Long, String> map = new HashMap<Long, String>();
-		List<Permission> permissions = query(null, null);
-		for (Permission permission : permissions) {
-			map.put(permission.getId(), permission.getName());
+	@Aop(value = "log")
+	public AdvancedJqgridResData<Permission> getGridData(JqgridReqData jqReq, Boolean isSearch,
+			Permission permissionSearch) {
+		Cnd cnd = Cnd.where("1", "=", 1);
+		if (null != permissionSearch) {
+			Long parentPermissionId = permissionSearch.getParentPermissionId();
+			if (null != parentPermissionId) {
+				cnd = Cnd.where("PARENTPERMISSIONID", "=", parentPermissionId);
+			}
+			if (null != isSearch && isSearch) {
+				String name = permissionSearch.getName();
+				if (!Strings.isEmpty(name)) {
+					cnd.and("NAME", "LIKE", StrUtils.quote(name, '%'));
+				}
+				String description = permissionSearch.getDescription();
+				if (!Strings.isEmpty(description)) {
+					cnd.and("DESCRIPTION", "LIKE", StrUtils.quote(description, '%'));
+				}
+			}
 		}
-		return map;
+		AdvancedJqgridResData<Permission> jq = getAdvancedJqgridRespData(cnd, jqReq);
+		return jq;
 	}
 
-public Map<String, Object> Pagerlist( int pageNum ,int numPerPage,@Param("..") Permission obj) {
-		
-		Pager pager = dao().createPager((pageNum<1)?1:pageNum, (numPerPage < 1)? 20:numPerPage);
-		List<Permission> list = dao().query(Permission.class, bulidQureyCnd(obj), pager);
-		Map<String, Object> map = new HashMap<String, Object>();
-		if (pager != null) {
-			pager.setRecordCount(dao().count(Permission.class,bulidQureyCnd(obj)));
-			map.put("pager", pager);
+	@Aop(value = "log")
+	public AjaxResData CUDPermission(String oper, String ids, Permission permission) {
+		AjaxResData respData = new AjaxResData();
+		if ("del".equals(oper)) {
+			final Condition cnd = Cnd.where("ID", "IN", ids.split(","));
+			clear(cnd);
+			respData.setInfo("删除成功!");
+		} else if ("add".equals(oper)) {
+			dao().insert(permission);
+			respData.setInfo("添加成功!");
+		} else if ("edit".equals(oper)) {
+			dao().update(permission);
+			respData.setInfo("修改成功!");
+		} else {
+			respData.setInfo("未知操作!");
 		}
-		map.put("o", obj);
-		map.put("pagerlist", list);
-		return map;
-
-	}
-	public void insert(Permission permission) {
-		dao().insert(permission);
+		return respData;
 	}
 
-	public Permission view(Long id) {
-		return fetch(id);
+	@Aop(value = "log")
+	public AjaxResData getPermissionTreeNodesByRoleId(Long roleId, Long nodeId) {
+		AjaxResData respData = new AjaxResData();
+		nodeId = nodeId == null ? 0 : nodeId;
+		Sql sql = Sqls
+				.create("SELECT P.ID,P.NAME,P.DESCRIPTION AS TITLE,P.ID IN(SELECT PERMISSIONID FROM SYSTEM_ROLE_PERMISSION WHERE SYSTEM_ROLE_PERMISSION.ROLEID = @roleId) AS CHECKED,FALSE AS OPEN,(SELECT COUNT(0) > 0 FROM SYSTEM_PERMISSION P1 WHERE P1.PARENTPERMISSIONID = P.ID) AS ISPARENT FROM SYSTEM_PERMISSION P WHERE P.PARENTPERMISSIONID = @nodeId AND P.NAME NOT LIKE 'html:%'");
+		sql.params().set("roleId", roleId);
+		sql.params().set("nodeId", nodeId);
+
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(dao().getEntity(SimpleZTreeNode.class));
+		dao().execute(sql);
+		List<SimpleZTreeNode> permissionZTreeNodes = sql.getList(SimpleZTreeNode.class);
+		respData.setLogic(permissionZTreeNodes);
+		return respData;
+	}
+	
+	@Aop(value = "log")
+	public AjaxResData getMenuPermissionTreeNodesByRoleId(Long roleId, Long nodeId) {
+		AjaxResData respData = new AjaxResData();
+		nodeId = nodeId == null ? 0 : nodeId;
+		Sql sql = Sqls
+				.create("SELECT P.ID,P.NAME,P.DESCRIPTION AS TITLE,P.ID IN(SELECT PERMISSIONID FROM SYSTEM_ROLE_PERMISSION WHERE SYSTEM_ROLE_PERMISSION.ROLEID = @roleId) AS CHECKED,FALSE AS OPEN,(SELECT COUNT(0) > 0 FROM SYSTEM_PERMISSION P1 WHERE P1.PARENTPERMISSIONID = P.ID) AS ISPARENT FROM SYSTEM_PERMISSION P WHERE P.PARENTPERMISSIONID = @nodeId AND P.NAME LIKE 'html:%'");
+		sql.params().set("roleId", roleId);
+		sql.params().set("nodeId", nodeId);
+
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(dao().getEntity(SimpleZTreeNode.class));
+		dao().execute(sql);
+		List<SimpleZTreeNode> permissionZTreeNodes = sql.getList(SimpleZTreeNode.class);
+		respData.setLogic(permissionZTreeNodes);
+		return respData;
 	}
 
-	public void update(Permission permission) {
-		dao().update(permission);
-	}
-	/**
-	 * 构建查询条件
-	 * @param obj
-	 * @return
-	 */
-	private Cnd bulidQureyCnd(Permission obj){
-		Cnd cnd=null;
-		if(obj!=null){
-			cnd=Cnd.where("1", "=", 1);
-	        //按名称查询
-	        if(!Strings.isEmpty(obj.getName()))
-				cnd.and("name", "=", obj.getName());
-	       
-		}
-		return cnd;
+	@Aop(value = "log")
+	public AjaxResData getPermissionTreeNodes(Long nodeId) {
+		AjaxResData respData = new AjaxResData();
+		nodeId = nodeId == null ? 0 : nodeId;
+		Sql sql = Sqls
+				.create("SELECT P.ID,P.NAME,P.DESCRIPTION AS TITLE,FALSE AS CHECKED,FALSE AS OPEN,(SELECT COUNT(0) > 0 FROM SYSTEM_PERMISSION P1 WHERE P1.PARENTPERMISSIONID = P.ID) AS ISPARENT FROM SYSTEM_PERMISSION P WHERE P.PARENTPERMISSIONID  = @nodeId");
+		sql.params().set("nodeId", nodeId);
+
+		sql.setCallback(Sqls.callback.entities());
+		sql.setEntity(dao().getEntity(SimpleZTreeNode.class));
+		dao().execute(sql);
+		List<SimpleZTreeNode> permissionZTreeNodes = sql.getList(SimpleZTreeNode.class);
+		respData.setLogic(permissionZTreeNodes);
+		return respData;
 	}
 }

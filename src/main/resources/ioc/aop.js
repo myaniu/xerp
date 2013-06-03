@@ -6,5 +6,8 @@
 var aop = {
     transactionInterceptor : {
         type: "org.nutz.aop.interceptor.TransactionInterceptor"
-    }
+    },
+    log : {
+		type : 'org.nutz.aop.interceptor.LoggingMethodInterceptor'
+	}
 }

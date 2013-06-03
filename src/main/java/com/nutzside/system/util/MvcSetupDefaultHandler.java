@@ -3,8 +3,6 @@ package com.nutzside.system.util;
 import org.nutz.dao.Dao;
 
 import com.nutzside.common.util.Webs;
-import com.nutzside.system.domain.Menu;
-import com.nutzside.system.domain.Organization;
 import com.xerp.domain.apply.ApplyProduct;
 import com.xerp.domain.apply.ApplyProductDetail;
 import com.xerp.domain.basic.Customer;
@@ -41,8 +39,7 @@ public class MvcSetupDefaultHandler {
 		Dao dao = Webs.dao();
 		// 初始化系统基本的数据表
 		
-		dao.create(Organization.class, true);
-		dao.create(Menu.class, true);
+		
 		dao.create(ProdCategory.class, true);
 		dao.create(Customer.class, true);
 		dao.create(Product.class, true);
@@ -62,10 +59,7 @@ public class MvcSetupDefaultHandler {
 		dao.create(Invoice.class, true);
 		dao.create(Payment.class, true);
 		dao.create(Proceeds.class, true);
-		Organization org=new Organization();
-		org.setCode("001");
-		org.setName("测试");
-		dao.insert(org);
+
 		ProdCategory pc=new ProdCategory();
 		pc.setName("测试1");
 		dao.insert(pc);

@@ -2,7 +2,7 @@ var ioc = {
 	// 读取配置文件
 	config : {
 			type : "org.nutz.ioc.impl.PropertiesProxy",
-			fields : { paths : [ "db.properties" ] } 
+			fields : { paths : [ "db.properties" ,"system.properties"] } 
 	},
 	dataSource : {	
 		type : "com.alibaba.druid.pool.DruidDataSource",

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%response.sendRedirect("system/bindex"); %>
+<%response.sendRedirect("system/page/index"); %>
 </body>
 </html>

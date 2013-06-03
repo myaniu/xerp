@@ -1,16 +1,7 @@
 package com.nutzside.system.module;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.subject.Subject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Strings;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 
@@ -20,46 +11,33 @@ public class PageModule {
 
 
 	@At
-	@Ok("fm:page.page_main")
+	@Ok("httl:page.page_main")
 	@RequiresAuthentication
 	public void main() {
 	}
 
 	@At
 	@Ok("httl:page.page_header")
-	@RequiresAuthentication
-	public Object header(HttpServletResponse response) throws IOException {
-		
-		Subject currentUser = SecurityUtils.getSubject();
-		if(!Strings.isEmpty( currentUser.getPrincipal().toString())  )
-        {  
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("currentUser", currentUser.getPrincipal().toString());
-			return parameters;
-        }  
-		else{
-			 response.sendRedirect("index.jsp");
-			 return null;
-		}
+	public void header() {
+
 	}
 
 	@At
-	@Ok("fm:page.page_middle")
+	@Ok("httl:page.page_home")
 	@RequiresAuthentication
-	public void middle() {
+	public void home() {
 	}
 
 	@At
-	@Ok("fm:page.page_index")
-	@RequiresAuthentication
+	@Ok("httl:page.page_index")
 	public void index() {
 		
 	}
 	
-	
 	@At
-	@Ok("httl:page.menu_setting")
+	@Ok("jsp:page.page_menu")
 	@RequiresAuthentication
-	public void setting() {
+	public void menu() {
 	}
+	
 }

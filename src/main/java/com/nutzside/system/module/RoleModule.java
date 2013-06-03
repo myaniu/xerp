@@ -1,24 +1,14 @@
 package com.nutzside.system.module;
 
-import java.util.List;
-import java.util.Map;
-
-
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-
-import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
-import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.nutzside.common.util.AjaxUtil;
-import com.nutzside.system.domain.Permission;
+import com.nutzside.common.domain.ResponseData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
 import com.nutzside.system.domain.Role;
-import com.nutzside.system.service.PermissionService;
 import com.nutzside.system.service.RoleService;
 
 @IocBean
@@ -27,149 +17,45 @@ public class RoleModule {
 
 	@Inject
 	private RoleService roleService;
-	@Inject
-	private PermissionService permissionService;
 
 	@At
-	@Ok("fm:system.role_list")
 	@RequiresPermissions("role:read:*")
-	public Object all() {
-		return roleService.getRoleListByPager(1, 20);
-	}
-
-	@Ok("httl:system.role_query")
-    public void queryUi(){    	
-    }
-    
-	@At
-	@Ok("httl:system.role_list")
-	public Map<String, Object> list(@Param("pageNum") int pageNum,
-			@Param("numPerPage") int numPerPage, @Param("..") Role obj) {
-
-		return roleService.Pagerlist(pageNum, numPerPage, obj);
+	public ResponseData getGridData(@Param("..") JqgridReqData jqReq, @Param("_search") Boolean isSearch,
+			@Param("..") Role roleSearch) {
+		return roleService.getGridData(jqReq, isSearch, roleSearch);
 	}
 
 	@At
-	@Ok("json")
+	@RequiresPermissions("role:create, delete, update:*")
+	public ResponseData editRow(@Param("oper") String oper, @Param("ids") String ids, @Param("..") Role role) {
+		return roleService.CUDRole(oper, ids, role);
+	}
+
+	@At
+	@RequiresPermissions("role:assign_permission:*")
+	public ResponseData assignPermission(@Param("roleId") String roleId,
+			@Param("checkedPermissions[]") String[] checkedPermissions,
+			@Param("unCheckedPermissions[]") String[] unCheckedPermissions) {
+		return roleService.updateRolePermissions(roleId, checkedPermissions, unCheckedPermissions);
+	}
+
+	@At("/getAllRoleMap/*")
 	@RequiresPermissions("role:read:*")
-	public Map<Long, String> map() {
-		return roleService.map();
+	public ResponseData getAllRoleMap(Boolean isOrgaRela) {
+		return roleService.getAllRoleMap(isOrgaRela);
 	}
 
+	/**
+	 * 获取指定用户的岗位列表
+	 * @param jqReq
+	 * @param organizationId
+	 * @param userId
+	 * @return
+	 */
 	@At
-	@Ok("httl:system.role_add")
-	@RequiresPermissions("role:read:*")
-	public List<Permission> p_add() {
-		Mvcs.getReq().setAttribute("isAddAction", true);
-		return permissionService.list();
-	}
-
-	@At
-
-	@RequiresPermissions("role:create:*")
-	public Object add(@Param("..") Role role) {
-		
-		try {
-			roleService.insert(role);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-	@At
-	@RequiresPermissions("role:delete:*")
-	public Object delete(@Param("id") Long id) {
-		
-		try {
-			roleService.delete(id);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-
-	@At
-	@Ok("httl:system.role_view")
-	@RequiresPermissions("role:read:*")
-	public Role view(@Param("id") Long id) {
-		return roleService.view(id);
-	}
-
-
-	@At
-	@RequiresPermissions("role:update:*")
-	public Object edit(@Param("..") Role role) {
-		
-		try {
-			roleService.update(role);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-	@At
-	@RequiresPermissions("role:permissionAssign:*")
-	public Object addPermission(@Param("roleId") Long roleId,
-			@Param("permissionId") Long permissionId) {
-
-		try {
-
-			roleService.addPermission(roleId, permissionId);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-	@At
-	@RequiresPermissions("role:permissionAssign:*")
-	public Object removePermission(@Param("roleId") Long roleId,
-			@Param("permissionId") Long permissionId) {
-		
-		try {
-
-			roleService.removePermission(roleId, permissionId);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-	@At
-
-	public boolean save(@Param("::role.") Role role, Integer[] pIDs) {
-		Role $role = roleService.fetchByName(role.getName());
-		if (Lang.isEmpty($role)) {
-			roleService.insert(role);
-			List<Permission> permissions = permissionService.query(
-					Cnd.where("id", "iN", pIDs), null);
-			role.setPermissions(permissions);
-			roleService.dao().insertRelation(role, "permissions");
-			return true;
-		}
-		return false;
-	}
-
-	@At
-	public boolean update(@Param("::role.") Role role, Long id, Integer[] pIDs) {
-		Role $role = roleService.fetch(id);
-		if (!Lang.isEmpty($role)) {
-			role.setId(id);
-			roleService.update(role);
-			List<Permission> permissions = permissionService.query(
-					Cnd.where("id", "iN", pIDs), null);
-			role.setPermissions(permissions);
-			roleService.dao().insertRelation(role, "permissions");
-			return true;
-		}
-		return false;
+	@RequiresPermissions("user:read_post:*")
+	public ResponseData getUserPostGridData(@Param("..") JqgridReqData jqReq,
+			@Param("organizationId") Long organizationId, @Param("userId") Long userId) {
+		return roleService.getUserPostGridData(jqReq, organizationId, userId);
 	}
 }

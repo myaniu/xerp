@@ -1,74 +1,67 @@
 package com.nutzside.system.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
 import org.nutz.dao.Dao;
-import org.nutz.dao.pager.Pager;
+import org.nutz.ioc.aop.Aop;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.service.IdEntityService;
+import org.nutz.lang.Strings;
 
+import com.nutzside.common.domain.AjaxResData;
+import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.service.BaseService;
+import com.nutzside.common.util.StrUtils;
 import com.nutzside.system.domain.SysEnumItem;
 
-@IocBean(fields = { "dao" })
-public class SysEnumItemService extends IdEntityService<SysEnumItem> {
-	public SysEnumItemService() {
-		super();
-	}
+@IocBean(args = { "refer:dao" })
+public class SysEnumItemService extends BaseService<SysEnumItem> {
 
 	public SysEnumItemService(Dao dao) {
 		super(dao);
 	}
 
-	public List<SysEnumItem> list() {
-		return query(null, null);
-	}
-
-	
-	
-	public Map<String, Object> Pagerlist(int pageNum, int numPerPage,
-			SysEnumItem obj) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		Pager pager = dao().createPager((pageNum < 1) ? 1 : pageNum,
-				(numPerPage < 1) ? 20 : numPerPage);
-		List<SysEnumItem> uiList = dao().fetchLinks(query(bulidQureyCnd(obj), pager),null);
-		if (pager != null) {
-			pager.setRecordCount(dao().count(SysEnumItem.class, bulidQureyCnd(obj)));
-			map.put("pager", pager);
+	@Aop(value = "log")
+	public AdvancedJqgridResData<SysEnumItem> getGridData(JqgridReqData jqReq, Boolean isSearch,
+			SysEnumItem sysEnumItemSearch) {
+		Cnd cnd = Cnd.where("1", "=", 1);
+		if (null != sysEnumItemSearch) {
+			Long sysEnumId = sysEnumItemSearch.getSysEnumId();
+			if (null != sysEnumItemSearch) {
+				cnd = Cnd.where("SYSENUMID", "=", sysEnumId);
+			}
+			if (null != isSearch && isSearch) {
+				String text = sysEnumItemSearch.getText();
+				if (!Strings.isEmpty(text)) {
+					cnd.and("TEXT", "LIKE", StrUtils.quote(text, '%'));
+				}
+				String value = sysEnumItemSearch.getValue();
+				if (!Strings.isEmpty(value)) {
+					cnd.and("VALUE", "LIKE", StrUtils.quote(value, '%'));
+				}
+			}
 		}
-		map.put("o", obj);
-		map.put("pagerlist", uiList);
-		return map;
-		
-	}
-	
-	public void insert(SysEnumItem SysEnumItem) {
-		dao().insert(SysEnumItem);
+
+		AdvancedJqgridResData<SysEnumItem> jq = getAdvancedJqgridRespData(cnd, jqReq);
+		return jq;
 	}
 
-	public SysEnumItem view(Long id) {
-		return fetch(id);
-	}
-
-	public void update(SysEnumItem SysEnumItem) {
-		dao().update(SysEnumItem);
-	}
-	/**
-	 * 构建查询条件
-	 * @param obj
-	 * @return
-	 */
-	private Cnd bulidQureyCnd(SysEnumItem obj){
-		Cnd cnd=null;
-		if(obj!=null){
-			cnd=Cnd.where("1", "=", 1);
-	        //按名称查询
-	        if(obj.getId()!=null)
-				cnd.and("id", "=", obj.getId());
-	       
+	@Aop(value = "log")
+	public AjaxResData CUDSysEnumItem(String oper, String ids, SysEnumItem sysEnumItem) {
+		AjaxResData respData = new AjaxResData();
+		if ("del".equals(oper)) {
+			final Condition cnd = Cnd.where("ID", "IN", ids.split(","));
+			clear(cnd);
+			respData.setInfo("删除成功!");
+		} else if ("add".equals(oper)) {
+			dao().insert(sysEnumItem);
+			respData.setInfo("添加成功!");
+		} else if ("edit".equals(oper)) {
+			dao().update(sysEnumItem);
+			respData.setInfo("修改成功!");
+		} else {
+			respData.setError("未知操作!");
 		}
-		return cnd;
+		return respData;
 	}
 }

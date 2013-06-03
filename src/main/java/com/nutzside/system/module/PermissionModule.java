@@ -1,16 +1,13 @@
 package com.nutzside.system.module;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
-import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.nutzside.common.util.AjaxUtil;
+import com.nutzside.common.domain.ResponseData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
 import com.nutzside.system.domain.Permission;
 import com.nutzside.system.service.PermissionService;
 
@@ -22,84 +19,30 @@ public class PermissionModule {
 	private PermissionService permissionService;
 
 	@At
-	@Ok("jsp:system.permission_list")
 	@RequiresPermissions("permission:read:*")
-	public List<Permission> all() {
-		return permissionService.list();
+	public ResponseData getGridData(@Param("..") JqgridReqData jqReq, @Param("_search") Boolean isSearch,
+			@Param("..") Permission permissionSearch) {
+		return permissionService.getGridData(jqReq, isSearch, permissionSearch);
 	}
 
 	@At
-	@Ok("httl:system.permission_list")
-	public Map<String, Object> list(@Param("pageNum") int pageNum,
-			@Param("numPerPage") int numPerPage, @Param("..") Permission obj) {
+	@RequiresPermissions("permission:create, delete, update:*")
+	public ResponseData editRow(@Param("oper") String oper, @Param("ids") String ids, @Param("..") Permission permission) {
+		return permissionService.CUDPermission(oper, ids, permission);
+	}
 
-		return permissionService.Pagerlist(pageNum, numPerPage, obj);
+	@At("/permissionTreeNodes/*")
+	public ResponseData getPermissionTreeNodesByRoleId(Long roleId, @Param("id") Long id) {
+		return permissionService.getPermissionTreeNodesByRoleId(roleId, id);
+	}
+	
+	@At("/menuPermissionTreeNodes/*")
+	public ResponseData getMenuPermissionTreeNodesByRoleId(Long roleId, @Param("id") Long id) {
+		return permissionService.getMenuPermissionTreeNodesByRoleId(roleId, id);
 	}
 
 	@At
-	@Ok("json")
-	@RequiresPermissions("permission:read:*")
-	public Map<Long, String> map() {
-		return permissionService.map();
-	}
-
-	@At
-	@RequiresPermissions("permission:delete:*")
-	public Object delete(@Param("id") Long id) {
-		try {
-
-			permissionService.delete(id);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-
-	}
-
-	@At
-	@Ok("httl:system.permission_add")
-	@RequiresPermissions("permission:create:*")
-	public void p_add() {
-
-	}
-    @At
-	@Ok("httl:system.permission_query")
-    public void queryUi(){    	
-    }
-    
-	@At
-	@RequiresPermissions("permission:create:*")
-	public Object add(@Param("..") Permission permission) {
-
-		try {
-
-			permissionService.insert(permission);
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
-	}
-
-	@At
-	@Ok("httl:system.permission_add")
-
-	@RequiresPermissions("permission:create:*")
-	public Permission view(@Param("id") Long id) {
-		return permissionService.view(id);
-	}
-
-	@At
-	@RequiresPermissions("permission:update:*")
-	public Object edit(@Param("..") Permission permission) {
-		try {
-			permissionService.update(permission);
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.OK);
-		} catch (Throwable e) {
-
-			return AjaxUtil.dialogAjaxDone(AjaxUtil.FAIL);
-		}
+	public ResponseData getNodes(@Param("id") Long id) {
+		return permissionService.getPermissionTreeNodes(id);
 	}
 }
