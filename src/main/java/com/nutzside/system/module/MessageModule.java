@@ -130,4 +130,28 @@ public class MessageModule {
 		response.setHeader("Content-Length", "" + f.length());
 		return in;
 	}
+	
+	
+	
+	@At
+	@Ok("httl:system.messagebox_new")
+	@RequiresPermissions("httl:read:messagebox_new")
+	public void messagebox_new() {
+	}
+	
+	@At
+	@Ok("httl:system.messagebox_inbox")
+	@RequiresPermissions("httl:read:messagebox_inbox")
+	public void messagebox_inbox() {
+	}
+	@At
+	@Ok("httl:system.messagebox_sent")
+	@RequiresPermissions("httl:read:messagebox_sent")
+	public void messagebox_sent() {
+	}
+	@At
+	@Ok("httl:system.messagebox_draft")
+	@RequiresPermissions("httl:read:messagebox_draft")
+	public void messagebox_draft() {
+	}
 }

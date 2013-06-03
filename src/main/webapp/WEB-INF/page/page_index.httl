@@ -57,9 +57,9 @@ $(function() {
 	$("#logonForm").submit(function() {
 		if($(this).valid()){
 			var logonFormInfo = $(this).serializeObject();
-			$.post('logon',logonFormInfo,function(response){
+			$.post('${base}/logon',logonFormInfo,function(response){
 				if(null==response.status){
-					window.location="${base}/system/page/main";
+					window.location="${base}/main";
 				}else{
 					$('#logonForm')[0].reset();
 					$.showNotices(response.notices);

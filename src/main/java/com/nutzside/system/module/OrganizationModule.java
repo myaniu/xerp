@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -36,5 +37,18 @@ public class OrganizationModule {
 	@RequiresPermissions("organization:read:*")
 	public ResponseData getNodes(@Param("id") Long id) {
 		return organizationService.getNodes(id);
+	}
+	
+	@At
+	@Ok("httl:system.organization_manage")
+	@RequiresPermissions("httl:read:organization_manage")
+	public void organization_manage() {
+	}
+	
+	
+	@At
+	@Ok("httl:system.post_manage")
+	@RequiresPermissions("httl:read:post_manage")
+	public void post_manage() {
 	}
 }

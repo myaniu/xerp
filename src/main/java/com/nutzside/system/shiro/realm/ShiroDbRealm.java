@@ -1,7 +1,5 @@
 package com.nutzside.system.shiro.realm;
 
-import java.util.List;
-
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,87 +13,76 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.nutz.ioc.Ioc;
-import org.nutz.lang.Lang;
-import org.nutz.lang.Strings;
+import org.nutz.mvc.Mvcs;
 
-import com.nutzside.common.util.Webs;
 import com.nutzside.system.domain.Role;
 import com.nutzside.system.domain.User;
 import com.nutzside.system.service.RoleService;
 import com.nutzside.system.service.UserService;
 
-/**
- * 用NutDao来实现Shiro的Realm
- * <p/>
- * 可以通过配置文件注入数据源
- * <p/>
- * 在Web环境中也可以通过自动搜索来获取NutDao
- * 
- * @author wendal
- * 
- */
 public class ShiroDbRealm extends AuthorizingRealm {
 
 	private UserService userService;
 	private RoleService roleService;
 
-	private RoleService getRoleService() {
-		if (roleService == null) {
-			Ioc ioc = Webs.ioc();
-			roleService = ioc.get(RoleService.class);
-			return roleService;
-		}
-		return roleService;
-	}
-
 	private UserService getUserService() {
 		if (userService == null) {
-			Ioc ioc = Webs.ioc();
+			Ioc ioc = Mvcs.getIoc();
 			userService = ioc.get(UserService.class);
-			return userService;
 		}
 		return userService;
 	}
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principalCollection) {
-		String username = principalCollection.getPrimaryPrincipal().toString();
-		User user = getUserService().fetchByNumber(username);
-		if (user == null)
-			return null;
-		SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
-		List<String> roleNameList = getUserService().getRoleNameList(user);
-		auth.addRoles(roleNameList);
-		for (Role role : user.getRoles()) {
-			auth.addStringPermissions(getRoleService().getPermissionNameList(
-					role));
+	private RoleService getRoleService() {
+		if (roleService == null) {
+			Ioc ioc = Mvcs.getIoc();
+			roleService = ioc.get(RoleService.class);
 		}
-		return auth;
+		return roleService;
 	}
 
+	/**
+	 * 认证回调函数,登录时调用.
+	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken token) throws AuthenticationException {
-		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
-		User user = getUserService().fetchByNumber(upToken.getUsername());
-		if (Lang.isEmpty(user))
-			return null;
-		SimpleAuthenticationInfo account = new SimpleAuthenticationInfo(
-				user.getName(), user.getPassword(), getName());
-		if (!Strings.isEmpty(user.getSalt())) {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+		User user = getUserService().fetchByNumber(token.getUsername());
+		if (user != null) {
+			SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getNumber(), user.getPassword(),
+					getName());
 			ByteSource salt = ByteSource.Util.bytes(user.getSalt());
-			account.setCredentialsSalt(salt);
+			info.setCredentialsSalt(salt);
+			return info;
+		} else {
+			return null;
 		}
-		return account;
+	}
+
+	/**
+	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
+	 */
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		String loginName = (String) principals.fromRealm(getName()).iterator().next();
+		User user = getUserService().fetchByNumber(loginName);
+		if (user != null) {
+			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+			info.addRoles(getUserService().getRoleNameList(user));
+			for (Role role : user.getRoles()) {
+				info.addStringPermissions(getRoleService().getPermissionNameList(role));
+			}
+			return info;
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * 更新用户授权信息缓存.
 	 */
 	public void clearCachedAuthorizationInfo(String principal) {
-		SimplePrincipalCollection principals = new SimplePrincipalCollection(
-				principal, getName());
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(principal, getName());
 		clearCachedAuthorizationInfo(principals);
 	}
 
@@ -110,4 +97,5 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			}
 		}
 	}
+
 }

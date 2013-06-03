@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -91,5 +92,12 @@ public class MenuModule {
 	public ResponseData dispMenu(@Param("nodeid") Long nodeId, @Param("n_left") Long nLeft,
 			@Param("n_right") Long nRight, @Param("n_level") Integer nLevel) {
 		return menuService.getGridData(nodeId, nLeft, nRight, nLevel);
+	}
+	
+	
+	@At
+	@Ok("httl:system.menu_manage")
+	@RequiresPermissions("httl:read:menu_manage")
+	public void menu_manage() {
 	}
 }

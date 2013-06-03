@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -57,5 +58,12 @@ public class RoleModule {
 	public ResponseData getUserPostGridData(@Param("..") JqgridReqData jqReq,
 			@Param("organizationId") Long organizationId, @Param("userId") Long userId) {
 		return roleService.getUserPostGridData(jqReq, organizationId, userId);
+	}
+	
+	
+	@At
+	@Ok("httl:system.role_manage")
+	@RequiresPermissions("httl:read:role_manage")
+	public void role_manage() {
 	}
 }

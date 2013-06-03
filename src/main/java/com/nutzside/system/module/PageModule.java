@@ -9,13 +9,6 @@ import org.nutz.mvc.annotation.Ok;
 @At("/system/page")
 public class PageModule {
 
-
-	@At
-	@Ok("httl:page.page_main")
-	@RequiresAuthentication
-	public void main() {
-	}
-
 	@At
 	@Ok("httl:page.page_header")
 	public void header() {

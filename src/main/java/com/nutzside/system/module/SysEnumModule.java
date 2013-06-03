@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -48,4 +49,11 @@ public class SysEnumModule {
 			@Param("..") SysEnumItem sysEnumItem) {
 		return sysEnumItemService.CUDSysEnumItem(oper, ids, sysEnumItem);
 	}
+	
+	@At
+	@Ok("httl:system.sysenum_mange")
+	@RequiresPermissions("httl:read:sysenum_mange")
+	public void sysenum_mange() {
+	}
+	
 }

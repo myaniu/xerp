@@ -50,8 +50,12 @@ $(function() {
 	});
 	myLayout.sizePane("north", 52);
 	// 上方和左方布局 载入网页
-	$("#UpPane").load("header.html");
-	$("#LeftPane").load("menu.html");
+	$("#UpPane").load("system/page/header");
+	$("#LeftPane").load("system/page/menu");
+	// 默认页tab载入网页
+	$("#tabs-home").load("system/page/home");
+	
+	
 	// 右方布局初始化为一个tab
 	maintab =$('#tabs', '#RightPane').tabs({
 		// 在menu.html中触发maintab的add事件时，需要激活这个新增的tab
@@ -70,8 +74,7 @@ $(function() {
 			maintab.tabs('select', '#' + ui.panel.id);
 		}
 	});
-	// 默认页tab载入网页
-	$("#tabs-home").load("home.html");
+	
 });
 </script>
 </head>
@@ -92,7 +95,7 @@ $(function() {
 	
 	
 	<div id="ButtomPane" class="ui-layout-south ui-widget ui-widget-content">
-		<div id="buttom" style="text-align:right;color:green;padding:5px;background:url(../images/table_bg.jpg) left top repeat-x;">
+		<div id="buttom" style="text-align:right;color:green;padding:5px;background:url(res/images/table_bg.jpg) left top repeat-x;">
 			
 		</div>
 	</div>

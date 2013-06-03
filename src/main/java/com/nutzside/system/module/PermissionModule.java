@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -44,5 +45,11 @@ public class PermissionModule {
 	@At
 	public ResponseData getNodes(@Param("id") Long id) {
 		return permissionService.getPermissionTreeNodes(id);
+	}
+	
+	@At
+	@Ok("httl:system.permission_manage")
+	@RequiresPermissions("httl:read:permission_manage")
+	public void permission_manage() {
 	}
 }

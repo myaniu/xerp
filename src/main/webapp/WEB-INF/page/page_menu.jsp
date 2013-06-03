@@ -35,10 +35,29 @@ $(function() {
 					maintab.tabs('select',st);
 				} else {
 					maintab.tabs('add',st, treedata.name);
-					$(st,"#tabs").load('${base}/'+treedata.url,function(){
+					//$(st,"#tabs").load(treedata.url);
+					$.ajax({
+						url: '${base}/'+treedata.url,
+						data:{catid: treedata.id},
+						cache: false,
+						type: "GET",
+						//dataType: "html",
+						beforeSend: function (xhr) {
+							//$(st,"#tabs").height(100).addClass("tabpreloading");
+							$(st,"#tabs").css("text-align","center").html("<img src='../res/images/loading.gif' border=0 />");
+						},
+						complete : function (req, err) {
+							//$(st,"#tabs").removeClass("tabpreloading").append(req.responseText);
+							$(st,"#tabs").empty().html(req.responseText);
+							$("input:button,input:submit,input:reset").button();
+						}
+					});
+					
+					//$(st,"#tabs").html("<iframe width='100%' height='400' border='0' frameborder='0' scrolling='no' SCROLLING=NO src='"+ treedata.url +"'></iframe>")
+					/* $(st,"#tabs").load("${base}/"+treedata.url,function(){
 						// 载入网页后要执行的语句:
 						$("input:button,input:submit,input:reset").button();
-					});
+					}); */
 				}
 			}
 		}

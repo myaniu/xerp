@@ -5,6 +5,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -79,4 +80,14 @@ public class UserModule {
 	}
 */
 	
+	@At
+	@Ok("httl:system.user_manage")
+	@RequiresPermissions("httl:read:user_manage")
+	public void user_manage() {
+	}
+	@At
+	@Ok("httl:system.change_pwd")
+	@RequiresPermissions("httl:read:change_pwd")
+	public void change_pwd() {
+	}
 }

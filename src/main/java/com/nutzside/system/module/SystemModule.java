@@ -11,6 +11,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -28,7 +29,6 @@ import com.nutzside.system.service.SystemService;
 import com.nutzside.system.service.UserService;
 
 @IocBean
-@At("/system/page")
 public class SystemModule {
 
 	@Inject
@@ -93,7 +93,7 @@ public class SystemModule {
 	
 	@At
 	@Ok("httl:page.page_main")
-	@Fail("redirect:/index.html")
+	@Fail("redirect:/index.jsp")
 	@RequiresAuthentication
 	public void main() {
 		Subject currentUser = SecurityUtils.getSubject();
@@ -118,6 +118,10 @@ public class SystemModule {
 		User cUser = (User) SecurityUtils.getSubject().getSession().getAttribute("CurrentUser");
 		return systemService.getCurrentUserName(cUser);
 	}
-
+	@At
+	@Ok("httl:system.client")
+	@RequiresPermissions("httl:read:client")
+	public void client() {
+	}
 	
 }

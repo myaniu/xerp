@@ -4,6 +4,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -29,5 +30,12 @@ public class ClientModule {
 	@RequiresPermissions("client:kickoff:*")
 	public ResponseData kickOff(@Param("sessionIds[]") String[] sessionIds) {
 		return clientService.kickOff(sessionIds);
+	}
+	
+	
+	@At
+	@Ok("httl:system.client")
+	@RequiresPermissions("httl:read:client")
+	public void client() {
 	}
 }
