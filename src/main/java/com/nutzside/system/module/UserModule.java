@@ -1,17 +1,26 @@
 package com.nutzside.system.module;
 
+import java.io.File;
+
+import javax.servlet.ServletContext;
+
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.mvc.annotation.AdaptBy;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
+import org.nutz.mvc.upload.UploadAdaptor;
 
 import com.nutzside.common.domain.ResponseData;
 import com.nutzside.common.domain.jqgrid.JqgridReqData;
 import com.nutzside.system.domain.User;
 import com.nutzside.system.service.UserService;
+
 
 @IocBean
 @At("/system/user")
@@ -72,13 +81,27 @@ public class UserModule {
 		return userService.changePasswordForAUser(userId, newPassword);
 	}
 
-	/*@At
+
+	@At
 	@AdaptBy(type = UploadAdaptor.class, args = { "ioc:tempFileUpload" })
 	@RequiresPermissions("user:import:*")
 	public ResponseData importUsers(@Param("userImportFile") File f) {
 		return userService.importUsers(f);
 	}
-*/
+
+	@At
+	@Ok("jasper")
+	@RequiresPermissions("user:export:*")
+	public JRHtmlExporter export(ServletContext context) {
+		return userService.exportUsers(context);
+	}
+
+	@At
+	@Ok("jasper2:/reports/users.jasper")
+	@RequiresPermissions("user:export2:*")
+	public Object[] export2() {
+		return userService.exportUsers2();
+	}
 	
 	@At
 	@Ok("httl:system.user_manage")

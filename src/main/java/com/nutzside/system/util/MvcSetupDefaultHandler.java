@@ -1,82 +1,80 @@
 package com.nutzside.system.util;
 
+import java.util.List;
+
 import org.nutz.dao.Dao;
+import org.nutz.dao.entity.annotation.Table;
+import org.nutz.dao.impl.FileSqlManager;
+import org.nutz.dao.sql.Sql;
+import org.nutz.resource.Scans;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerFactory;
+import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.nutzside.common.util.Webs;
-import com.xerp.domain.basic.Customer;
-import com.xerp.domain.basic.ProdCategory;
-import com.xerp.domain.basic.Product;
-import com.xerp.domain.basic.Supplier;
-import com.xerp.domain.buy.BuyOrder;
-import com.xerp.domain.buy.BuyOrderDetail;
-import com.xerp.domain.finance.Invoice;
-import com.xerp.domain.finance.Payment;
-import com.xerp.domain.finance.Proceeds;
-import com.xerp.domain.sell.SaleOrder;
-import com.xerp.domain.sell.SaleOrderDetail;
-import com.xerp.domain.store.BackStock;
-import com.xerp.domain.store.BackStockDetail;
-import com.xerp.domain.store.EnterStock;
-import com.xerp.domain.store.EnterStockDetail;
-import com.xerp.domain.store.LeaveStock;
-import com.xerp.domain.store.LeaveStockDetail;
-import com.xerp.domain.store.StockPile;
-import com.xerp.domain.store.StoreHouse;
 
 public class MvcSetupDefaultHandler {
-
+	private static Logger logger = LoggerFactory.getLogger(MvcSetupDefaultHandler.class);
 
 	/**
 	 * 默认的应用启动时要做的操作
-	 * 
 	 * @param config
 	 */
 	public static void dolpTableInit() {
 		Dao dao = Webs.dao();
 		// 初始化系统基本的数据表
-		
-		
-		dao.create(ProdCategory.class, true);
-		dao.create(Customer.class, true);
-		dao.create(Product.class, true);
-		dao.create(Supplier.class, true);
-		dao.create(SaleOrder.class, true);
-		dao.create(SaleOrderDetail.class, true);
-		dao.create(BuyOrder.class, true);
-		dao.create(BuyOrderDetail.class, true);
-		dao.create(StoreHouse.class, true);
-		dao.create(StockPile.class, true);
-		dao.create(LeaveStock.class, true);
-		dao.create(LeaveStockDetail.class, true);
-		dao.create(EnterStock.class, true);
-		dao.create(EnterStockDetail.class, true);
-		dao.create(BackStock.class, true);
-		dao.create(BackStockDetail.class, true);
-		dao.create(Invoice.class, true);
-		dao.create(Payment.class, true);
-		dao.create(Proceeds.class, true);
+		String initDolpTables = Webs.config().get("SYSTEM_INITDOLPTABLES_ONSTART");
+		if (null != initDolpTables && initDolpTables.toUpperCase().equals("TRUE")) {
+			logger.info("初始化Dolp数据表");
+			// 批量建表
+			for (Class<?> klass : Scans.me().scanPackage("com.nutzside.system.domain")) {
+				if (klass.getAnnotation(Table.class) != null) {
+					dao.create(klass, true);
+				}
+			}
+			// 添加默认记录
+			FileSqlManager fm = new FileSqlManager("init_system_h2.sql");
+			List<Sql> sqlList = fm.createCombo(fm.keys());
+			dao.execute(sqlList.toArray(new Sql[sqlList.size()]));
+			// 初始化quartz的数据表
+			fm = new FileSqlManager("tables_quartz_h2.sql");
+			sqlList = fm.createCombo(fm.keys());
+			dao.execute(sqlList.toArray(new Sql[sqlList.size()]));
+		}
+	}
 
-		ProdCategory pc=new ProdCategory();
-		pc.setName("测试1");
-		dao.insert(pc);
-		pc.setName("测试2");
-		dao.insert(pc);
-		pc.setName("测试3");
-		pc.setParentId(1L);
-		dao.insert(pc);
-		pc.setName("测试4");
-		pc.setParentId(2L);
-		dao.insert(pc);
-		
+	public static void startScheduler() {
+		// 启动调度任务
+		String dolpschedulerRun = Webs.config().get("SYSTEM_SCHEDULER_RUN");
+		if (null != dolpschedulerRun && dolpschedulerRun.toUpperCase().equals("TRUE")) {
+			logger.info("启动调度任务");
+			try {
+				SchedulerFactory sf = new StdSchedulerFactory();
+				Scheduler sched = sf.getScheduler();
+				sched.start();
+			} catch (Exception e) {
+				logger.error("启动调度任务时发生异常", e);
+			}
+		} else {
+			logger.info("不启动调度任务");
+		}
 	}
 
 	/**
-	 * 默认的应用停止时要做的操作
-	 * 
+	 *  默认的应用停止时要做的操作
 	 * @param config
 	 */
 	public static void defaultDestroy() {
-
+		// 关闭调度任务
+		try {
+			SchedulerFactory sf = new StdSchedulerFactory();
+			Scheduler sched = sf.getScheduler();
+			sched.shutdown();
+		} catch (Exception e) {
+			logger.error("关闭调度任务时发生异常", e);
+		}
 	}
 
 }

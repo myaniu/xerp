@@ -8,8 +8,7 @@ import org.nutz.mvc.View;
 import org.nutz.mvc.ViewMaker;
 
 /**
- * @author Administrator
- *所用的自定义视图ViewMaker
+ * @author Administrator 所用的自定义视图ViewMaker
  */
 public class XJsonViewMaker implements ViewMaker {
 
@@ -24,6 +23,10 @@ public class XJsonViewMaker implements ViewMaker {
 				return new XJsonView(JsonFormat.compact());
 			else
 				return new XJsonView(Json.fromJson(JsonFormat.class, value));
+		if (VIEW_JASPER.equals(type))
+			return new HtmlReportView();
+		if (VIEW_JASPER2.equals(type))
+			return new HtmlReport2View(value);
 		return null;
 	}
 }

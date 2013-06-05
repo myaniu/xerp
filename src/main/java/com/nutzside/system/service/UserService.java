@@ -1,8 +1,18 @@
 package com.nutzside.system.service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletContext;
+
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -21,10 +31,14 @@ import org.nutz.trans.Trans;
 import com.nutzside.common.domain.AjaxResData;
 import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
 import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.report.ReportHandler;
+import com.nutzside.common.report.WebappDataSource;
 import com.nutzside.common.service.BaseService;
+import com.nutzside.common.util.ExcelHandler;
 import com.nutzside.common.util.StrUtils;
 import com.nutzside.system.domain.Role;
 import com.nutzside.system.domain.User;
+
 
 @IocBean(args = { "refer:dao" })
 public class UserService extends BaseService<User> {
@@ -275,5 +289,86 @@ public class UserService extends BaseService<User> {
 		}
 		return respData;
 	}
+	@Aop(value = "log")
+	public AjaxResData importUsers(File f) {
+		AjaxResData respData = new AjaxResData();
+		if (f == null) {
+			respData.setNotice("请选择正确的文件!");
+			return respData;
+		}
 
+		HSSFWorkbook wb;
+		List<Object> userList;
+		try {
+			wb = new HSSFWorkbook(new FileInputStream(f));
+			HSSFSheet sheet = wb.getSheetAt(0);
+			userList = ExcelHandler.readSheet(sheet, User.class);
+		} catch (Exception e) {
+			throw new RuntimeException("读取EXCEL文档出错!", e);
+		}
+		for (Object obj : userList) {
+			User user = (User) obj;
+			dao().insert(user);
+		}
+		f.delete();
+
+		respData.setInfo("新增" + userList.size() + "位用户");
+		return respData;
+	}
+
+	@Aop(value = "log")
+	public JRHtmlExporter exportUsers(ServletContext context) {
+		// 获取报表文件实际路径
+		String reportFilePath = "/reports/users.jasper";
+		reportFilePath = context.getRealPath(reportFilePath);
+		// 设置参数
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("ReportTitle", "Users Report");
+		// 设置数据源——此处直接写入数据
+		List<User> list = this.query(null, null);
+		int count = list.size();
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i < count; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("name", list.get(i).getName());
+			map.put("number", list.get(i).getNumber());
+			map.put("age", list.get(i).getAge());
+			data.add(map);
+		}
+		WebappDataSource dataSource = new WebappDataSource();
+		dataSource.setData(data);
+		// 设置JRHtmlExporter对象
+		JRHtmlExporter exporter = null;
+		try {
+			exporter = ReportHandler.export(reportFilePath, parameters, dataSource);
+		} catch (Exception e) {
+			throw new RuntimeException("报表导出失败!", e);
+		}
+		return exporter;
+	}
+
+	@Aop(value = "log")
+	public Object[] exportUsers2() {
+		// 设置参数
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("ReportTitle", "Users Report");
+		// 设置数据源——此处直接写入数据
+		List<User> list = this.query(null, null);
+		int count = list.size();
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		for (int i = 0; i < count; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("name", list.get(i).getName());
+			map.put("number", list.get(i).getNumber());
+			map.put("age", list.get(i).getAge());
+			data.add(map);
+		}
+		WebappDataSource dataSource = new WebappDataSource();
+		dataSource.setData(data);
+		// 将参数和数据源放到一个长度为2的数组中
+		Object[] reportContent = new Object[2];
+		reportContent[0] = parameters;
+		reportContent[1] = dataSource;
+		return reportContent;
+	}
 }

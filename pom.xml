@@ -23,7 +23,7 @@
 		<commons-logging.version>1.1.1</commons-logging.version>
 		<jasperreports.version>4.5.1</jasperreports.version>
 		<groovy.version>1.8.6</groovy.version>
-		<scheduler.version>2.1.5</scheduler.version>
+		<quartz.version>2.1.5</quartz.version>
 		
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
