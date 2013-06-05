@@ -3,8 +3,6 @@ package com.nutzside.system.util;
 import org.nutz.dao.Dao;
 
 import com.nutzside.common.util.Webs;
-import com.xerp.domain.apply.ApplyProduct;
-import com.xerp.domain.apply.ApplyProductDetail;
 import com.xerp.domain.basic.Customer;
 import com.xerp.domain.basic.ProdCategory;
 import com.xerp.domain.basic.Product;
@@ -14,8 +12,6 @@ import com.xerp.domain.buy.BuyOrderDetail;
 import com.xerp.domain.finance.Invoice;
 import com.xerp.domain.finance.Payment;
 import com.xerp.domain.finance.Proceeds;
-import com.xerp.domain.plan.PurchasePlan;
-import com.xerp.domain.plan.PurchasePlanDetail;
 import com.xerp.domain.sell.SaleOrder;
 import com.xerp.domain.sell.SaleOrderDetail;
 import com.xerp.domain.store.BackStock;
@@ -71,10 +67,7 @@ public class MvcSetupDefaultHandler {
 		pc.setName("测试4");
 		pc.setParentId(2L);
 		dao.insert(pc);
-		dao.create(ApplyProduct.class, true);
-		dao.create(ApplyProductDetail.class, true);
-		dao.create(PurchasePlan.class, true);
-		dao.create(PurchasePlanDetail.class, true);
+		
 	}
 
 	/**

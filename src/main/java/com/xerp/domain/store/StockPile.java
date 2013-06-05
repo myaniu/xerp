@@ -22,7 +22,7 @@ public class StockPile {
 	@Column
 	private Long storehouseid;/* 库房编号 , 主键 */
 	@Column
-	private Long productid;/* 产品编号 , 主键 */
+	private String productcode;/* 产品编号 , 主键 */
 	@Column
 	private String batchno; /* 批次编号 */
 	@Column
@@ -35,12 +35,12 @@ public class StockPile {
 	private int locknum;//锁住数量
 	
 	@One(target = Organization.class, field = "orgid")
-	private Organization organizationset; /* 入库部门 ,外键 ( 参照 Organization 表 ) */
+	private Organization org; /* 入库部门 ,外键 ( 参照 Organization 表 ) */
 	
 	@One(target = StoreHouse.class, field = "storehouseid")
-	private StoreHouse storehouseset; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
+	private StoreHouse StoreHouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
 	
-	@One(target = Product.class, field = "productid")
-	private Product productset; /* 商品编号, 外键 ( 参照 PRODUCT 表 ) */
+	@One(target = Product.class, field = "productcode")
+	private Product Product; /* 商品编号, 外键 ( 参照 PRODUCT 表 ) */
 
 }

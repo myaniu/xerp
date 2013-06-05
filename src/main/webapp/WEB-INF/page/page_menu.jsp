@@ -44,7 +44,7 @@ $(function() {
 						//dataType: "html",
 						beforeSend: function (xhr) {
 							//$(st,"#tabs").height(100).addClass("tabpreloading");
-							$(st,"#tabs").css("text-align","center").html("<img src='../res/images/loading.gif' border=0 />");
+							$(st,"#tabs").css("text-align","center").html("<img src='res/images/loading.gif' border=0 />");
 						},
 						complete : function (req, err) {
 							//$(st,"#tabs").removeClass("tabpreloading").append(req.responseText);

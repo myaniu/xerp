@@ -36,9 +36,9 @@ public class EnterStock {
 	@One(target = Organization.class, field = "orgid")
 	private Organization organisation; /* 入库部门 ,外键 ( 参照 Organization 表 ) */
 	@One(target = StoreHouse.class, field = "storehouseid")
-	private StoreHouse storehouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
-	@Many(target=EnterStockDetail.class,field="stockid")
-	private List<EnterStockDetail> enterStockDetailSet;// 
+	private StoreHouse StoreHouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
+	@Many(target=EnterStockDetail.class,field="enterstockid")
+	private List<EnterStockDetail> EnterStockDetailSet;// 
 
 
 }

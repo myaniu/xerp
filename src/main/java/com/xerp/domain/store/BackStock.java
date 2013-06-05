@@ -37,6 +37,6 @@ public class BackStock {
 	private StoreHouse storehouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
 	
 	@Many(target=BackStockDetail.class,field="stockid")
-	private List<BackStockDetail> backStockDetailSet;// 
+	private List<BackStockDetail> BackStockDetailSet;// 
 	
 }

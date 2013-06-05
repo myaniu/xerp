@@ -7,6 +7,7 @@ import lombok.Data;
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Many;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 //物料采购
 @Data
@@ -14,11 +15,11 @@ import org.nutz.dao.entity.annotation.Table;
 public class BuyOrder {
 	
 	@Id
-	private Long id;/* 采购单编号, 主键 */
-	
-	private String deliver;// 交付日期
+	@Name
 	@Column
-	private String orderCode;// 项目订单编号
+	private String buyorderCode;// 项目订单编号
+	@Column
+	private String deliver;// 交付日期
 	@Column
 	private String askCode;// 询价单编号
 	@Column
@@ -30,8 +31,8 @@ public class BuyOrder {
 	@Column
 	private String cause;//退回原因
 	
-	@Many(target=BuyOrderDetail.class,field="orderid")
-	private List<BuyOrderDetail> buyOrderDetailSet;// 	
+	@Many(target=BuyOrderDetail.class,field="buyorderCode")
+	private List<BuyOrderDetail> BuyOrderDetailSet;// 	
 	
 	
 }

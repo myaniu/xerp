@@ -1,13 +1,15 @@
 package ${package}.module;
 
-import com.dolplay.dolpbase.common.domain.ResponseData;
-import com.dolplay.dolpbase.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.domain.ResponseData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
 import ${domainPackage}.${Domain};
 import ${package}.service.${Domain}Service;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 @IocBean
@@ -25,5 +27,11 @@ public class ${Domain}Module {
 	@At
 	public ResponseData editRow(@Param("oper") String oper, @Param("ids") String ids, @Param("..") ${Domain} ${Domain?uncap_first}) {
 		return ${Domain?uncap_first}Service.CUD${Domain}(oper, ids, ${Domain?uncap_first});
+	}
+	
+	@At
+	@Ok("httl:${Domain}.${Domain}_manager")
+	@RequiresPermissions("httl:read:${Domain}_manager")
+	public void ${Domain}_manager() {
 	}
 }

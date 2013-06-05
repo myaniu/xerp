@@ -1,10 +1,10 @@
 package ${package}.service;
 
-import com.dolplay.dolpbase.common.domain.AjaxResData;
-import com.dolplay.dolpbase.common.domain.jqgrid.AdvancedJqgridResData;
-import com.dolplay.dolpbase.common.domain.jqgrid.JqgridReqData;
-import com.dolplay.dolpbase.common.service.DolpBaseService;
-import com.dolplay.dolpbase.common.util.StringUtils;
+import com.nutzside.common.domain.AjaxResData;
+import com.nutzside.common.domain.jqgrid.AdvancedJqgridResData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.nutzside.common.service.BaseService;
+importcom.nutzside.common.util.StringUtils;
 
 import ${domainPackage}.${Domain};
 
@@ -16,7 +16,7 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
 
 @IocBean(args = { "refer:dao" })
-public class ${Domain}Service extends DolpBaseService<${Domain}> {
+public class ${Domain}Service extends BaseService<${Domain}> {
 
 	public ${Domain}Service(Dao dao) {
 		super(dao);
@@ -42,15 +42,15 @@ public class ${Domain}Service extends DolpBaseService<${Domain}> {
 		if ("del".equals(oper)) {
 			final Condition cnd = Cnd.where("ID", "IN", ids.split(","));
 			clear(cnd);
-			respData.setSystemMessage("删除成功!", null, null);
+			respData.setNotice("删除成功!", null, null);
 		} else if ("add".equals(oper)) {
 			dao().insert(${Domain?uncap_first});
-			respData.setSystemMessage("添加成功!", null, null);
+			respData.setNotice("添加成功!", null, null);
 		} else if ("edit".equals(oper)) {
 			dao().update(${Domain?uncap_first});
-			respData.setSystemMessage("修改成功!", null, null);
+			respData.setNotice("修改成功!", null, null);
 		} else {
-			respData.setSystemMessage(null, "未知操作!", null);
+			respData.setError(null, "未知操作!", null);
 		}
 		return respData;
 	}

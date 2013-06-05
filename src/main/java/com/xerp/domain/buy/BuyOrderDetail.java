@@ -9,7 +9,6 @@ import org.nutz.dao.entity.annotation.Table;
 
 import com.xerp.domain.basic.Product;
 import com.xerp.domain.basic.Supplier;
-import com.xerp.domain.plan.PurchasePlanDetail;
 //物料采购明细
 @Data
 @Table("ERP_BuyOrderDetail")
@@ -18,9 +17,9 @@ public class BuyOrderDetail {
 	@Id
 	private Long id;/* 物料采购明细编号, 主键 */
 	@Column
-	private Long productid;/* 产品编号 */
+	private String productcode;/* 产品编号 */
 	@Column
-	private Long orderid;/* 物料采购编号 */
+	private String buyordercode;/* 采购编号 */
 	@Column
 	private String name;// 名称
 	@Column
@@ -39,9 +38,7 @@ public class BuyOrderDetail {
 	private int status;/* 状态*/
 	@Column
 	private Long supplierid;/* 供应商编号 */
-	@Column
-	private Long purchasePlanDetailid;/* 编号, 主键 */
-	
+
 	/** 创建人 **/
 	@Column
 	private String createUser;
@@ -56,15 +53,13 @@ public class BuyOrderDetail {
 	private String modifyDate;
 	
 	@One(target = Supplier.class, field = "supplierid")
-	private Supplier supplier; /* 商品编号, 外键 ( 参照 Supplier 表 ) */
+	private Supplier Supplier; /* 商品编号, 外键 ( 参照 Supplier 表 ) */
 	
-	@One(target = Product.class, field = "productid")
-	private Product product; /* 商品编号, 外键 ( 参照 PRODUCT 表 ) */
+	@One(target = Product.class, field = "productcode")
+	private Product Product; /* 商品编号, 外键 ( 参照 PRODUCT 表 ) */
 	
-	@One(target = BuyOrder.class, field = "orderid")
-	private BuyOrder buyOrder; /* 物料采购编号, 外键 ( 参照 BuyOrder 表 ) */
+	@One(target = BuyOrder.class, field = "buyordercode")
+	private BuyOrder BuyOrder; /* 物料采购编号, 外键 ( 参照 BuyOrder 表 ) */
 
-	@One(target = PurchasePlanDetail.class, field = "purchasePlanDetailid")
-	private PurchasePlanDetail purchasePlanDetail; /*编号, 外键 ( 参照 PurchasePlanDetail 表 ) */
-	
+
 }

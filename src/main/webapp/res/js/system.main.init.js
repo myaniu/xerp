@@ -8,7 +8,7 @@ var opts = {
 
 // 设置遮罩
 $.blockUI.defaults.fadeOut = 500;
-$.blockUI.defaults.message = '<img src="images/commons/busy.gif" />';
+$.blockUI.defaults.message = '<img src="res/images/commons/busy.gif" />';
 //$(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 
 // 设置ajax请求的超时时限

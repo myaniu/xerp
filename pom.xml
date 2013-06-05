@@ -128,7 +128,6 @@
 			<version>${quartz.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		<!--
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -141,7 +140,7 @@
 			<version>${groovy.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		-->
+		
 	</dependencies>
 	<build>
 		<plugins>

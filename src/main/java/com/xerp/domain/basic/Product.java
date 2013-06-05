@@ -4,6 +4,7 @@ import lombok.Data;
 
 import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 
@@ -22,11 +23,9 @@ import com.nutzside.system.domain.Organization;
 public class Product implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	//columns START
-	/** id **/
-	
-	@Id
-	private Long id;
 	/** 编号 **/
+	@Id
+	@Name
 	@Column
 	private String code;
 	/** 名称 **/
@@ -38,7 +37,6 @@ public class Product implements java.io.Serializable{
 	/** 单位 **/
 	@Column
 	private String unit;
-	
 	/** 创建人 **/
 	@Column
 	private String createUser;

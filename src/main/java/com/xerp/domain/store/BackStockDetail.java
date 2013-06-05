@@ -2,35 +2,72 @@ package com.xerp.domain.store;
 
 import lombok.Data;
 
-import org.nutz.dao.entity.annotation.ColDefine;
-import org.nutz.dao.entity.annotation.ColType;
 import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.One;
-import org.nutz.dao.entity.annotation.PK;
 import org.nutz.dao.entity.annotation.Table;
 
-//仓库表
+import com.xerp.domain.basic.Customer;
+import com.xerp.domain.basic.Product;
+import com.xerp.domain.finance.Invoice;
+import com.xerp.domain.sell.SaleOrder;
+
+//退库表明细
 @Data
 @Table("ERP_BackStockDetail")
-@PK({ "BackStockID", "ProductID" })
 public class BackStockDetail {
+
+	@Id
+	private Long id;/*明细编号, 主键 */
 	@Column
-	private Long BackStockID;/* 入库单编号, 主键 */
+	private String productcode;/* 产品编号 */
 	@Column
-	private Long ProductID;/* 商品编号, 主键 */
+	private String saleordercode;/* 销售编号 */
 	@Column
-	private Long Quantity;// 此种商品数量
+	private String name;// 名称
 	@Column
-	private float Price;// 此种商品参考价格
+	private String spec;// 规格
 	@Column
-	private int HaveInvoice;// 此种商品有没有开发票
+	private String unit;// 单位
 	@Column
-	@ColDefine(type = ColType.VARCHAR, width = 200)
+	private Double amount;// 数量
+	@Column
+	private Double inAmount;// 已入库数量
+	@Column
+	private Double price;// 单价
+	@Column
+	private String remark;// 备注
+	@Column
+	private int status;/* 状态*/
+	@Column
+	private Long Customerid;/* 客户编号 */
+	@Column
 	private String InvoiceNum;// 发票号
 	@Column
-	private Long stockid;/* 编号, 主键 */
-	@One(target = BackStock.class, field = "stockid")
+	private Long backstockid;/* 退库编号, 主键 */	
+	
+	/** 创建人 **/
+	@Column
+	private String createUser;
+	/** 创建时间 **/
+	@Column
+	private String createDate;
+	/** 修改人 **/
+	@Column
+	private String modifyUser;
+	/** 修改时间 **/
+	@Column
+	private String modifyDate;
+	
+	@One(target = Customer.class, field = "Customerid")
+	private Customer Customer; /* 客户编号, 外键 ( 参照 Customer 表 ) */
+	@One(target = Invoice.class, field = "InvoiceNum")
+	private Invoice Invoice; /* 发票编号, 外键 ( 参照 Invoice 表 ) */
+	@One(target = Product.class, field = "productcode")
+	private Product Product; /* 商品编号, 外键 ( 参照 PRODUCT 表 ) */
+	@One(target = BackStock.class, field = "backstockid")
 	private BackStock backStock; /*编号, 外键 ( 参照 BackStock 表 ) */
-
+	@One(target = SaleOrder.class, field = "saleordercode")
+	private SaleOrder SaleOrder; /*销售编号, 外键 ( 参照 SaleOrder 表 ) */
 
 }

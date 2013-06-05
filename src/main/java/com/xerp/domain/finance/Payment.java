@@ -23,7 +23,7 @@ public class Payment {
 	@Column
 	private Long SupplierID;///* 供应商编号 ,外键 ( 参照 Supplier 表 ) */
 	@Column
-	private Long BuyorderID;///*订单编号 ,外键 ( 参照 BuyOrder 表 ) */
+	private String buyordercode;///*订单编号 ,外键 ( 参照 BuyOrder 表 ) */
 	@Column
 	private int Paymenttype; /* 支付类型 */
 	@Column
@@ -34,10 +34,10 @@ public class Payment {
 	private int status;//状态
 	
 	@One(target = Supplier.class, field = "SupplierID")
-	private Supplier Supplier; /* 供应商,外键 ( 参照 Supplier 表) */
+	private Supplier SupplierSet; /* 供应商,外键 ( 参照 Supplier 表) */
 	
-	@One(target = BuyOrder.class, field = "BuyorderID")
-	private BuyOrder Buyorder; /* 购买单 ,外键 ( 参照 BuyOrder 表) */
+	@One(target = BuyOrder.class, field = "buyordercode")
+	private BuyOrder BuyorderSet; /* 购买单 ,外键 ( 参照 BuyOrder 表) */
 	
 	
 	

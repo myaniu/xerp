@@ -1,5 +1,5 @@
-<link href="wysiwygeditor/jquery.wysiwyg.css" rel="stylesheet" type="text/css"/>
-<script charset="utf-8" src="wysiwygeditor/jquery.wysiwyg.js"></script>
+<link href="res/wysiwygeditor/jquery.wysiwyg.css" rel="stylesheet" type="text/css"/>
+<script charset="utf-8" src="res/wysiwygeditor/jquery.wysiwyg.js"></script>
 <script type="text/javascript">
 $(function(){
 	// 初始化编辑器
