@@ -1,4 +1,4 @@
-package com.xerp.domain.store;
+package com.xerp.domain;
 
 import lombok.Data;
 
@@ -6,7 +6,6 @@ import org.nutz.dao.entity.annotation.Column;
 import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 
-import com.xerp.domain.basic.Product;
 
 //仓库表
 @Data

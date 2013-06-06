@@ -1,4 +1,4 @@
-package com.xerp.domain.basic;
+package com.xerp.domain;
 
 import java.sql.Timestamp;
 import java.util.List;

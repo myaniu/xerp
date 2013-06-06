@@ -1,4 +1,4 @@
-package com.xerp.domain.store;
+package com.xerp.domain;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -36,7 +36,7 @@ public class BackStock {
 	@One(target = StoreHouse.class, field = "StoreHouseId")
 	private StoreHouse storehouse; /* 所入仓库 ,外键 ( 参照 STOREHOUSE 表) */
 	
-	@Many(target=BackStockDetail.class,field="stockid")
+	@Many(target=BackStockDetail.class,field="backstockid")
 	private List<BackStockDetail> BackStockDetailSet;// 
 	
 }

@@ -41,7 +41,7 @@ $(function() {
 						data:{catid: treedata.id},
 						cache: false,
 						type: "GET",
-						//dataType: "html",
+						dataType: "html",
 						beforeSend: function (xhr) {
 							//$(st,"#tabs").height(100).addClass("tabpreloading");
 							$(st,"#tabs").css("text-align","center").html("<img src='res/images/loading.gif' border=0 />");

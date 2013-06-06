@@ -22,7 +22,7 @@ var opts = {
 	pnotify_stack: stack_bottomright,
 	pnotify_title: "欢迎",
 	pnotify_type: "notice",
-	pnotify_text: "这是一个演示程序\n如有任何问题,请联系conanca2006＃gmail.com"
+	pnotify_text: "这是一个演示程序"
 };
 
 $(function() {

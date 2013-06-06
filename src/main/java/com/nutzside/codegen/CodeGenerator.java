@@ -24,9 +24,9 @@ import freemarker.template.TemplateException;
 
 public class CodeGenerator {
 
-	final static private String PACKAGE = "com.dolplay.dolpbase.qrtz";
-	final static private String REQUESTPATH = "qrtz";
-	final static private String HTMLPATH = "qrtz";
+	final static private String PACKAGE = "com.xerp";
+	final static private String REQUESTPATH = "xerp";
+	final static private String HTMLPATH = "xerp";
 
 	final static private String TEMPFILEDIR = "temp";
 	private Configuration cfg;
@@ -82,7 +82,7 @@ public class CodeGenerator {
 		/* 分别根据模板，写入文件或输出 */
 		tempToFile("${Domain}Service.java", getServiceSrcPath(domainClass));
 		tempToFile("${Domain}Module.java", getModuleSrcPath(domainClass));
-		tempToFile("${Domain}_manager.html", getHtmlPath(domainClass));
+		tempToFile("${Domain}_manager.httl", getHtmlPath(domainClass));
 		tempPrint("others1.ftl", others1);
 		tempPrint("others2.ftl", others2);
 		tempPrint("others3.ftl", others3);

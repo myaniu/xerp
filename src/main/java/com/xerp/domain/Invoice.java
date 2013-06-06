@@ -1,22 +1,21 @@
-package com.xerp.domain.finance;
+package com.xerp.domain;
 
 import java.sql.Timestamp;
 
 import lombok.Data;
 
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 
 import com.nutzside.system.domain.Organization;
-import com.xerp.domain.basic.Customer;
 //发票
 @Data
 @Table("ERP_Invoice")
 public class Invoice {
-	@Id
-	private Long id;//发票编号
+
+	@Name
 	@Column
 	private String InvoiceNum;//发票编号 国家规定
 	@Column

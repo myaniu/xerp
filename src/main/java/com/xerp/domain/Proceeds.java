@@ -1,4 +1,4 @@
-package com.xerp.domain.finance;
+package com.xerp.domain;
 
 import java.sql.Timestamp;
 
@@ -9,8 +9,6 @@ import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
 
-import com.xerp.domain.basic.Customer;
-import com.xerp.domain.sell.SaleOrder;
 
 //收款单
 @Data

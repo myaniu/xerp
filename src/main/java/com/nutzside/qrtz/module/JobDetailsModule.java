@@ -1,8 +1,10 @@
 package com.nutzside.qrtz.module;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -31,5 +33,11 @@ public class JobDetailsModule {
 	@At
 	public ResponseData resumeJob(@Param("jobName") String jobName, @Param("jobGroup") String jobGroup) {
 		return jobDetailsService.resumeJob(jobName, jobGroup);
+	}
+	
+	@At
+	@Ok("httl:qrtz.jobdetails_manager")
+	@RequiresPermissions("httl:read:jobdetails_manager")
+	public void jobdetails_manager() {
 	}
 }

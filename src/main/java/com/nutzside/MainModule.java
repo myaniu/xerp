@@ -12,13 +12,11 @@ import org.nutz.mvc.annotation.SetupBy;
 import org.nutz.mvc.annotation.Views;
 import org.nutz.mvc.ioc.provider.ComboIocProvider;
 
-import com.nutzside.common.mvc.view.HTTLViewMaker;
-import com.nutzside.common.mvc.view.JPEGViewMaker;
 import com.nutzside.common.mvc.view.XJsonViewMaker;
 import com.nutzside.system.shiro.ShiroActionFilter;
 
 @Encoding(input="utf8",output="utf8")
-@Modules(packages = { "com.xerp","com.xcms" }, scanPackage = true)
+@Modules(packages = { "com.xerp","com.xcms" ,"com.nutzside"}, scanPackage = true)
 @Ok("json")
 @Fail("Xjson")
 @IocBy(type = ComboIocProvider.class, args = {
@@ -28,7 +26,7 @@ import com.nutzside.system.shiro.ShiroActionFilter;
 // 全局的Shiro注解过滤器
 @Filters(@By(type = ShiroActionFilter.class, args = "/index.jsp"))
 @Localization("msg")
-@Views({JPEGViewMaker.class,HTTLViewMaker.class,XJsonViewMaker.class,})
+@Views({XJsonViewMaker.class})
 public class MainModule {
 
 }

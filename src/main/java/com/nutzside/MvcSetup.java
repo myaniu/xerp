@@ -31,7 +31,7 @@ public class MvcSetup implements Setup {
 			logger.error("增加默认调度任务时发生异常", e);
 		}
 		// 启动调度任务
-		MvcSetupDefaultHandler.startScheduler();
+		//MvcSetupDefaultHandler.startScheduler();
 		// 清空在线用户表
 		Webs.dao().clear("SYSTEM_CLIENT");
 

@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.nutz.lang.Files;
+import org.nutz.lang.Strings;
+import org.nutz.mvc.Mvcs;
 
 
 
@@ -20,7 +23,39 @@ import org.apache.shiro.subject.Subject;
  */
 public class WebUtil {
 	
+	public static  String getTemplatePath(String path,String ext, HttpServletRequest request) {
 
+		// 空路径，采用默认规则
+		if (Strings.isBlank(path)) {
+			path = Mvcs.getRequestPath(request);
+			path = (path.startsWith("/") ? "" : "/")
+					+ Files.renameSuffix(path, ext);
+		}
+		// 绝对路径 : 以 '/' 开头的路径不增加 '/WEB-INF'
+		else if (path.charAt(0) == '/') {
+			if (!path.toLowerCase().endsWith(ext))
+				path += ext;
+		}
+		// 包名形式的路径
+		else {
+			path = path.replace('.', '/') + ext;
+		}
+
+		return path;
+	}
+	
+	public String getWebRealPath(HttpServletRequest request) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("http://");
+		sb.append(request.getServerName());
+		if (request.getServerPort() != 80) {
+			sb.append(":");
+			sb.append(request.getServerPort());
+		}
+		sb.append(request.getContextPath());
+		sb.append("/");
+		return sb.toString();
+	}
 	
 	public static String getLoginUser() {
 		Subject currentUser = SecurityUtils.getSubject();

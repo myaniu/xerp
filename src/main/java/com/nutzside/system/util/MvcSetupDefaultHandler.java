@@ -27,9 +27,15 @@ public class MvcSetupDefaultHandler {
 		// 初始化系统基本的数据表
 		String initDolpTables = Webs.config().get("SYSTEM_INITDOLPTABLES_ONSTART");
 		if (null != initDolpTables && initDolpTables.toUpperCase().equals("TRUE")) {
-			logger.info("初始化Dolp数据表");
+			logger.info("初始化数据表");
 			// 批量建表
 			for (Class<?> klass : Scans.me().scanPackage("com.nutzside.system.domain")) {
+				if (klass.getAnnotation(Table.class) != null) {
+					dao.create(klass, true);
+				}
+			}
+			// 批量建表
+			for (Class<?> klass : Scans.me().scanPackage("com.xerp.domain")) {
 				if (klass.getAnnotation(Table.class) != null) {
 					dao.create(klass, true);
 				}
@@ -47,8 +53,8 @@ public class MvcSetupDefaultHandler {
 
 	public static void startScheduler() {
 		// 启动调度任务
-		String dolpschedulerRun = Webs.config().get("SYSTEM_SCHEDULER_RUN");
-		if (null != dolpschedulerRun && dolpschedulerRun.toUpperCase().equals("TRUE")) {
+		String schedulerRun = Webs.config().get("SYSTEM_SCHEDULER_RUN");
+		if (null != schedulerRun && schedulerRun.toUpperCase().equals("TRUE")) {
 			logger.info("启动调度任务");
 			try {
 				SchedulerFactory sf = new StdSchedulerFactory();

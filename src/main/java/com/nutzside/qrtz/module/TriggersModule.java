@@ -1,8 +1,10 @@
 package com.nutzside.qrtz.module;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
 import com.nutzside.common.domain.ResponseData;
@@ -75,5 +77,11 @@ public class TriggersModule {
 	public ResponseData resumeTrigger(@Param("triggerName") String triggerName,
 			@Param("triggerGroup") String triggerGroup) {
 		return triggersService.resumeTrigger(triggerName, triggerGroup);
+	}
+	
+	@At
+	@Ok("httl:qrtz.triggers_manager")
+	@RequiresPermissions("httl:read:triggers_manager")
+	public void triggers_manager() {
 	}
 }

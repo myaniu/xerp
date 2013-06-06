@@ -1,27 +1,23 @@
-package com.xerp.domain.buy;
+package com.xerp.domain;
 
 import java.util.List;
 
 import lombok.Data;
 
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Many;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.Table;
 //物料采购
 @Data
-@Table("ERP_BuyOrder")
-public class BuyOrder {
+@Table("ERP_SaleOrder")
+public class SaleOrder {
 	
-	@Id
 	@Name
 	@Column
-	private String buyorderCode;// 项目订单编号
+	private String saleordercode;// 项目订单编号
 	@Column
 	private String deliver;// 交付日期
-	@Column
-	private String askCode;// 询价单编号
 	@Column
 	private int balanceState;// 结算状态
 	@Column
@@ -31,8 +27,8 @@ public class BuyOrder {
 	@Column
 	private String cause;//退回原因
 	
-	@Many(target=BuyOrderDetail.class,field="buyorderCode")
-	private List<BuyOrderDetail> BuyOrderDetailSet;// 	
+	@Many(target=SaleOrderDetail.class,field="saleordercode")
+	private List<SaleOrderDetail> SaleOrderDetailSet;// 
 	
 	
 }

@@ -1,9 +1,8 @@
-package com.xerp.domain.basic;
+package com.xerp.domain;
 
 import lombok.Data;
 
 import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
 import org.nutz.dao.entity.annotation.Name;
 import org.nutz.dao.entity.annotation.One;
 import org.nutz.dao.entity.annotation.Table;
@@ -24,7 +23,6 @@ public class Product implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	//columns START
 	/** 编号 **/
-	@Id
 	@Name
 	@Column
 	private String code;
