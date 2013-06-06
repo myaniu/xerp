@@ -1,0 +1,33 @@
+<script type="text/javascript">
+$(function(){
+	$("#prodCategoryList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"ProdCategory列表",
+		url:'wms/prodCategory/getGridData',
+		editurl:"wms/prodCategory/editRow",
+		colNames:['id','name','parentId','userid','user','CreateDate','Remark','parent','children'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'name',index:'name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'parentId',index:'parentId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'userid',index:'userid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'user',index:'user', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'CreateDate',index:'CreateDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Remark',index:'Remark', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'parent',index:'parent', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'children',index:'children', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#prodCategoryPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#prodCategoryList").setJqGridCUD('#prodCategoryPager',{edit:true,add:true,del:true,search:false});
+	$("#prodCategoryList").addSearchToolbar('#prodCategoryPager');
+});
+</script>
+
+<table id="prodCategoryList"></table>
+<div id="prodCategoryPager"></div>

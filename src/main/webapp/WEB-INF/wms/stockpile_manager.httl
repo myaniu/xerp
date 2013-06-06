@@ -1,0 +1,36 @@
+<script type="text/javascript">
+$(function(){
+	$("#stockPileList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"StockPile列表",
+		url:'wms/stockPile/getGridData',
+		editurl:"wms/stockPile/editRow",
+		colNames:['id','orgid','storehouseid','productcode','batchno','quantity','price','status','locknum','org','StoreHouse','Product'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'orgid',index:'orgid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'storehouseid',index:'storehouseid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'productcode',index:'productcode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'batchno',index:'batchno', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'quantity',index:'quantity', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'price',index:'price', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'locknum',index:'locknum', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'org',index:'org', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'StoreHouse',index:'StoreHouse', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Product',index:'Product', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#stockPilePager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#stockPileList").setJqGridCUD('#stockPilePager',{edit:true,add:true,del:true,search:false});
+	$("#stockPileList").addSearchToolbar('#stockPilePager');
+});
+</script>
+
+<table id="stockPileList"></table>
+<div id="stockPilePager"></div>

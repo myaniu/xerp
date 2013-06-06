@@ -1,0 +1,32 @@
+<script type="text/javascript">
+$(function(){
+	$("#storeHouseList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"StoreHouse列表",
+		url:'wms/storeHouse/getGridData',
+		editurl:"wms/storeHouse/editRow",
+		colNames:['id','Name','Address','Phone','status','CreateDate','UserId','users'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'Name',index:'Name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Address',index:'Address', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Phone',index:'Phone', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'CreateDate',index:'CreateDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'UserId',index:'UserId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'users',index:'users', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#storeHousePager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#storeHouseList").setJqGridCUD('#storeHousePager',{edit:true,add:true,del:true,search:false});
+	$("#storeHouseList").addSearchToolbar('#storeHousePager');
+});
+</script>
+
+<table id="storeHouseList"></table>
+<div id="storeHousePager"></div>

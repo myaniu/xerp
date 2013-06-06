@@ -1,0 +1,34 @@
+<script type="text/javascript">
+$(function(){
+	$("#paymentList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"Payment列表",
+		url:'wms/payment/getGridData',
+		editurl:"wms/payment/editRow",
+		colNames:['id','PaymentDate','SupplierID','buyordercode','Paymenttype','price','accept_no','status','SupplierSet','BuyorderSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'PaymentDate',index:'PaymentDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'SupplierID',index:'SupplierID', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'buyordercode',index:'buyordercode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Paymenttype',index:'Paymenttype', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'price',index:'price', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'accept_no',index:'accept_no', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'SupplierSet',index:'SupplierSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'BuyorderSet',index:'BuyorderSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#paymentPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#paymentList").setJqGridCUD('#paymentPager',{edit:true,add:true,del:true,search:false});
+	$("#paymentList").addSearchToolbar('#paymentPager');
+});
+</script>
+
+<table id="paymentList"></table>
+<div id="paymentPager"></div>

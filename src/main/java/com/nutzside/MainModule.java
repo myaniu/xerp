@@ -16,12 +16,12 @@ import com.nutzside.common.mvc.view.XJsonViewMaker;
 import com.nutzside.system.shiro.ShiroActionFilter;
 
 @Encoding(input="utf8",output="utf8")
-@Modules(packages = { "com.xerp","com.xcms" ,"com.nutzside"}, scanPackage = true)
+@Modules(packages = { "com.wms","com.xcms" ,"com.nutzside"}, scanPackage = true)
 @Ok("json")
 @Fail("Xjson")
 @IocBy(type = ComboIocProvider.class, args = {
 		"*org.nutz.ioc.loader.json.JsonLoader", "ioc/",
-		"*org.nutz.ioc.loader.annotation.AnnotationIocLoader", "com.nutzside","com.xerp","com.xcms"})
+		"*org.nutz.ioc.loader.annotation.AnnotationIocLoader", "com.nutzside","com.wms","com.xcms"})
 @SetupBy(value = MvcSetup.class)
 // 全局的Shiro注解过滤器
 @Filters(@By(type = ShiroActionFilter.class, args = "/index.jsp"))

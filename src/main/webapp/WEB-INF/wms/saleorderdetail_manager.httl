@@ -1,0 +1,36 @@
+<script type="text/javascript">
+$(function(){
+	$("#saleOrderDetailList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"SaleOrderDetail列表",
+		url:'wms/saleOrderDetail/getGridData',
+		editurl:"wms/saleOrderDetail/editRow",
+		colNames:['id','productcode','saleordercode','name','spec','unit','amount','inAmount','price','remark','Product','SaleOrder'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'productcode',index:'productcode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'saleordercode',index:'saleordercode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'name',index:'name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'spec',index:'spec', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'unit',index:'unit', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'amount',index:'amount', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'inAmount',index:'inAmount', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'price',index:'price', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'remark',index:'remark', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Product',index:'Product', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'SaleOrder',index:'SaleOrder', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#saleOrderDetailPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#saleOrderDetailList").setJqGridCUD('#saleOrderDetailPager',{edit:true,add:true,del:true,search:false});
+	$("#saleOrderDetailList").addSearchToolbar('#saleOrderDetailPager');
+});
+</script>
+
+<table id="saleOrderDetailList"></table>
+<div id="saleOrderDetailPager"></div>

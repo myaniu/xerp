@@ -1,0 +1,36 @@
+<script type="text/javascript">
+$(function(){
+	$("#leaveStockList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"LeaveStock列表",
+		url:'wms/leaveStock/getGridData',
+		editurl:"wms/leaveStock/editRow",
+		colNames:['id','BackDate','BatchNo','UserId','orgId','StoreHouseId','toStoreHouseId','users','organization','storehouse','tostorehouse','LeaveStockDetailSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'BackDate',index:'BackDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'BatchNo',index:'BatchNo', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'UserId',index:'UserId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'orgId',index:'orgId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'StoreHouseId',index:'StoreHouseId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'toStoreHouseId',index:'toStoreHouseId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'users',index:'users', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'organization',index:'organization', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'storehouse',index:'storehouse', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'tostorehouse',index:'tostorehouse', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'LeaveStockDetailSet',index:'LeaveStockDetailSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#leaveStockPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#leaveStockList").setJqGridCUD('#leaveStockPager',{edit:true,add:true,del:true,search:false});
+	$("#leaveStockList").addSearchToolbar('#leaveStockPager');
+});
+</script>
+
+<table id="leaveStockList"></table>
+<div id="leaveStockPager"></div>

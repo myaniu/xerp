@@ -1,0 +1,34 @@
+<script type="text/javascript">
+$(function(){
+	$("#enterStockList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"EnterStock列表",
+		url:'wms/enterStock/getGridData',
+		editurl:"wms/enterStock/editRow",
+		colNames:['id','enterdate','batchno','userid','orgid','storehouseid','users','organisation','StoreHouse','EnterStockDetailSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'enterdate',index:'enterdate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'batchno',index:'batchno', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'userid',index:'userid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'orgid',index:'orgid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'storehouseid',index:'storehouseid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'users',index:'users', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'organisation',index:'organisation', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'StoreHouse',index:'StoreHouse', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'EnterStockDetailSet',index:'EnterStockDetailSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#enterStockPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#enterStockList").setJqGridCUD('#enterStockPager',{edit:true,add:true,del:true,search:false});
+	$("#enterStockList").addSearchToolbar('#enterStockPager');
+});
+</script>
+
+<table id="enterStockList"></table>
+<div id="enterStockPager"></div>

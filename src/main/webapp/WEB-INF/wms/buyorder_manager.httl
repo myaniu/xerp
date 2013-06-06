@@ -1,0 +1,33 @@
+<script type="text/javascript">
+$(function(){
+	$("#buyOrderList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"BuyOrder列表",
+		url:'wms/buyOrder/getGridData',
+		editurl:"wms/buyOrder/editRow",
+		colNames:['id','code','deliver','askCode','balanceState','inState','backState','cause','BuyOrderDetailSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'code',index:'code', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'deliver',index:'deliver', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'askCode',index:'askCode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'balanceState',index:'balanceState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'inState',index:'inState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'backState',index:'backState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'cause',index:'cause', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'BuyOrderDetailSet',index:'BuyOrderDetailSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#buyOrderPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#buyOrderList").setJqGridCUD('#buyOrderPager',{edit:true,add:true,del:true,search:false});
+	$("#buyOrderList").addSearchToolbar('#buyOrderPager');
+});
+</script>
+
+<table id="buyOrderList"></table>
+<div id="buyOrderPager"></div>

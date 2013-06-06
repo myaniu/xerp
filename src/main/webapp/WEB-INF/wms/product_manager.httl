@@ -1,0 +1,39 @@
+<script type="text/javascript">
+$(function(){
+	$("#productList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"Product列表",
+		url:'wms/product/getGridData',
+		editurl:"wms/product/editRow",
+		colNames:['serialVersionUID','id','code','name','specification','unit','createUser','createDate','modifyUser','modifyDate','orgid','sortid','status','category','org'],
+		colModel:[
+					{name:'serialVersionUID',index:'serialVersionUID', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'code',index:'code', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'name',index:'name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'specification',index:'specification', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'unit',index:'unit', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createUser',index:'createUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createDate',index:'createDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyUser',index:'modifyUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyDate',index:'modifyDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'orgid',index:'orgid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'sortid',index:'sortid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'category',index:'category', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'org',index:'org', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#productPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#productList").setJqGridCUD('#productPager',{edit:true,add:true,del:true,search:false});
+	$("#productList").addSearchToolbar('#productPager');
+});
+</script>
+
+<table id="productList"></table>
+<div id="productPager"></div>

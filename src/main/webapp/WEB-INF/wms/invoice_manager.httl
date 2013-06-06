@@ -1,0 +1,34 @@
+<script type="text/javascript">
+$(function(){
+	$("#invoiceList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"Invoice列表",
+		url:'wms/invoice/getGridData',
+		editurl:"wms/invoice/editRow",
+		colNames:['id','code','InvoiceDate','taxtotal','saletotal','status','customerID','Customer','orgId','organization'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'code',index:'code', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'InvoiceDate',index:'InvoiceDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'taxtotal',index:'taxtotal', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'saletotal',index:'saletotal', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'customerID',index:'customerID', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Customer',index:'Customer', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'orgId',index:'orgId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'organization',index:'organization', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#invoicePager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#invoiceList").setJqGridCUD('#invoicePager',{edit:true,add:true,del:true,search:false});
+	$("#invoiceList").addSearchToolbar('#invoicePager');
+});
+</script>
+
+<table id="invoiceList"></table>
+<div id="invoicePager"></div>

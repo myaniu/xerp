@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$(function(){
+	$("#backStockDetailList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"BackStockDetail列表",
+		url:'wms/backStockDetail/getGridData',
+		editurl:"wms/backStockDetail/editRow",
+		colNames:['id','productcode','saleordercode','name','spec','unit','amount','inAmount','price','remark','status','Customerid','InvoiceNum','backstockid','createUser','createDate','modifyUser','modifyDate','Customer','Invoice','Product','backStock','SaleOrder'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'productcode',index:'productcode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'saleordercode',index:'saleordercode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'name',index:'name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'spec',index:'spec', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'unit',index:'unit', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'amount',index:'amount', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'inAmount',index:'inAmount', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'price',index:'price', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'remark',index:'remark', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Customerid',index:'Customerid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'InvoiceNum',index:'InvoiceNum', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'backstockid',index:'backstockid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createUser',index:'createUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createDate',index:'createDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyUser',index:'modifyUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyDate',index:'modifyDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Customer',index:'Customer', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Invoice',index:'Invoice', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Product',index:'Product', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'backStock',index:'backStock', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'SaleOrder',index:'SaleOrder', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#backStockDetailPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#backStockDetailList").setJqGridCUD('#backStockDetailPager',{edit:true,add:true,del:true,search:false});
+	$("#backStockDetailList").addSearchToolbar('#backStockDetailPager');
+});
+</script>
+
+<table id="backStockDetailList"></table>
+<div id="backStockDetailPager"></div>

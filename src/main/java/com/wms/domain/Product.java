@@ -1,0 +1,66 @@
+package com.wms.domain;
+
+import lombok.Data;
+
+import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Name;
+import org.nutz.dao.entity.annotation.One;
+import org.nutz.dao.entity.annotation.Table;
+
+import com.nutzside.system.domain.Organization;
+
+
+/**
+* 产品设置 bean<br>
+* 表名：ERP_PRODUCT<br>
+* @author 
+* @date 2011-11-22
+* @version 1.0
+*/
+@Data
+@Table("ERP_PRODUCT")
+public class Product implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+	//columns START
+	/** 编号 **/
+	@Id
+	@Column
+	private Long id;
+	/** 名称 **/
+	@Name
+	@Column
+	private String code;
+	@Column
+	private String name;
+	/** 规格 **/
+	@Column
+	private String specification;
+	/** 单位 **/
+	@Column
+	private String unit;
+	/** 创建人 **/
+	@Column
+	private String createUser;
+	/** 创建时间 **/
+	@Column
+	private String createDate;
+	/** 修改人 **/
+	@Column
+	private String modifyUser;
+	/** 修改时间 **/
+	@Column
+	private String modifyDate;
+	@Column
+	private Long orgid;
+	@Column
+	private Long sortid;/* 产品分类编号 , 主键 */
+	@Column
+	private int status;//状态
+
+	@One(target = ProdCategory.class, field = "sortid")
+	private ProdCategory category; /* 产品分类,外键 ( 参照 ProdCategory 表 ) */
+	@One(target = Organization.class, field = "orgid")
+	private Organization org; /* 部门 ,外键 ( 参照 Organization 表) */
+	
+}

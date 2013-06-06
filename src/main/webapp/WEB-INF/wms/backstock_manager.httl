@@ -1,0 +1,34 @@
+<script type="text/javascript">
+$(function(){
+	$("#backStockList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"BackStock列表",
+		url:'wms/backStock/getGridData',
+		editurl:"wms/backStock/editRow",
+		colNames:['id','BackDate','BatchNo','UserId','OrgId','StoreHouseId','users','organisation','storehouse','BackStockDetailSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'BackDate',index:'BackDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'BatchNo',index:'BatchNo', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'UserId',index:'UserId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'OrgId',index:'OrgId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'StoreHouseId',index:'StoreHouseId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'users',index:'users', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'organisation',index:'organisation', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'storehouse',index:'storehouse', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'BackStockDetailSet',index:'BackStockDetailSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#backStockPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#backStockList").setJqGridCUD('#backStockPager',{edit:true,add:true,del:true,search:false});
+	$("#backStockList").addSearchToolbar('#backStockPager');
+});
+</script>
+
+<table id="backStockList"></table>
+<div id="backStockPager"></div>

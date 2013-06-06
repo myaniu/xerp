@@ -1,0 +1,32 @@
+<script type="text/javascript">
+$(function(){
+	$("#saleOrderList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"SaleOrder列表",
+		url:'wms/saleOrder/getGridData',
+		editurl:"wms/saleOrder/editRow",
+		colNames:['id','code','deliver','balanceState','inState','backState','cause','SaleOrderDetailSet'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'code',index:'code', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'deliver',index:'deliver', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'balanceState',index:'balanceState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'inState',index:'inState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'backState',index:'backState', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'cause',index:'cause', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'SaleOrderDetailSet',index:'SaleOrderDetailSet', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#saleOrderPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#saleOrderList").setJqGridCUD('#saleOrderPager',{edit:true,add:true,del:true,search:false});
+	$("#saleOrderList").addSearchToolbar('#saleOrderPager');
+});
+</script>
+
+<table id="saleOrderList"></table>
+<div id="saleOrderPager"></div>

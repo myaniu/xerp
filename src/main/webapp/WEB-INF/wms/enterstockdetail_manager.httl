@@ -1,0 +1,35 @@
+<script type="text/javascript">
+$(function(){
+	$("#enterStockDetailList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"EnterStockDetail列表",
+		url:'wms/enterStockDetail/getGridData',
+		editurl:"wms/enterStockDetail/editRow",
+		colNames:['id','productcode','quantity','price','createUser','createDate','modifyUser','modifyDate','enterstockid','enterStock','product'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'productcode',index:'productcode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'quantity',index:'quantity', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'price',index:'price', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createUser',index:'createUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'createDate',index:'createDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyUser',index:'modifyUser', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'modifyDate',index:'modifyDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'enterstockid',index:'enterstockid', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'enterStock',index:'enterStock', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'product',index:'product', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#enterStockDetailPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#enterStockDetailList").setJqGridCUD('#enterStockDetailPager',{edit:true,add:true,del:true,search:false});
+	$("#enterStockDetailList").addSearchToolbar('#enterStockDetailPager');
+});
+</script>
+
+<table id="enterStockDetailList"></table>
+<div id="enterStockDetailPager"></div>

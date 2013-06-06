@@ -35,7 +35,7 @@ public class MvcSetupDefaultHandler {
 				}
 			}
 			// 批量建表
-			for (Class<?> klass : Scans.me().scanPackage("com.xerp.domain")) {
+			for (Class<?> klass : Scans.me().scanPackage("com.wms.domain")) {
 				if (klass.getAnnotation(Table.class) != null) {
 					dao.create(klass, true);
 				}

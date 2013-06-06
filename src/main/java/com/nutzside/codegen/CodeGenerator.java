@@ -24,9 +24,9 @@ import freemarker.template.TemplateException;
 
 public class CodeGenerator {
 
-	final static private String PACKAGE = "com.xerp";
-	final static private String REQUESTPATH = "xerp";
-	final static private String HTMLPATH = "xerp";
+	final static private String PACKAGE = "com.wms";
+	final static private String REQUESTPATH = "wms";
+	final static private String HTMLPATH = "wms";
 
 	final static private String TEMPFILEDIR = "temp";
 	private Configuration cfg;
@@ -45,6 +45,7 @@ public class CodeGenerator {
 		cfg = new Configuration();
 		try {
 			cfg.setDirectoryForTemplateLoading(new File(ClassLoader.getSystemResource(TEMPFILEDIR).toURI()));
+			System.out.println(ClassLoader.getSystemResource(TEMPFILEDIR).toURI().toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -69,7 +70,7 @@ public class CodeGenerator {
 	}
 
 	private void genEntityCode(Class<?> domainClass) throws IOException, TemplateException {
-
+		System.out.println(domainClass.getPackage().getName());
 		/* 创建数据模型 */
 		root = new HashMap<String, Object>();
 		root.put("package", PACKAGE);
@@ -80,9 +81,9 @@ public class CodeGenerator {
 		root.put("htmlPath", HTMLPATH);
 
 		/* 分别根据模板，写入文件或输出 */
-		tempToFile("${Domain}Service.java", getServiceSrcPath(domainClass));
-		tempToFile("${Domain}Module.java", getModuleSrcPath(domainClass));
-		tempToFile("${Domain}_manager.httl", getHtmlPath(domainClass));
+		tempToFile("${Domain}Service.java.ftl", getServiceSrcPath(domainClass));
+		tempToFile("${Domain}Module.java.ftl", getModuleSrcPath(domainClass));
+		tempToFile("${Domain}_manager.html", getHtmlPath(domainClass));
 		tempPrint("others1.ftl", others1);
 		tempPrint("others2.ftl", others2);
 		tempPrint("others3.ftl", others3);
@@ -93,6 +94,7 @@ public class CodeGenerator {
 		if (isCreat) {
 			File f = new File(filePath);
 			Writer out = new BufferedWriter(new FileWriter(f, true));
+			
 			Template temp = cfg.getTemplate(tempFileName);
 			temp.process(root, out);
 			out.flush();
@@ -139,6 +141,6 @@ public class CodeGenerator {
 	}
 
 	private String getHtmlPath(Class<?> domainClass) {
-		return "src\\main\\webapp\\" + HTMLPATH + "\\" + domainClass.getSimpleName().toLowerCase() + "_manager.httl";
+		return "src\\main\\webapp\\WEB-INF\\" + HTMLPATH + "\\" + domainClass.getSimpleName().toLowerCase() + "_manager.httl";
 	}
 }

@@ -1,0 +1,31 @@
+<script type="text/javascript">
+$(function(){
+	$("#customerList").jqGrid({
+		jsonReader:{
+			repeatitems: false
+		},
+		caption:"Customer列表",
+		url:'wms/customer/getGridData',
+		editurl:"wms/customer/editRow",
+		colNames:['id','name','Address','Phone','Fax','PostalCode','ConstactPerson'],
+		colModel:[
+					{name:'id',index:'id', width:0,editable:true,hidden:true},
+					{name:'name',index:'name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Address',index:'Address', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Phone',index:'Phone', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Fax',index:'Fax', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'PostalCode',index:'PostalCode', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'ConstactPerson',index:'ConstactPerson', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+		],
+		pager: '#customerPager',
+		sortname: 'id',
+		sortorder: "asc",
+		multiselect: true
+	});
+	$("#customerList").setJqGridCUD('#customerPager',{edit:true,add:true,del:true,search:false});
+	$("#customerList").addSearchToolbar('#customerPager');
+});
+</script>
+
+<table id="customerList"></table>
+<div id="customerPager"></div>
