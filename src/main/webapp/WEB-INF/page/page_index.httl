@@ -3,6 +3,7 @@
 <head>
 <title>Login page</title>
 <script src="${base}/res/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+
 <script src="${base}/res/js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
 <script src="${base}/res/js/jquery.pnotify.min.js" type="text/javascript"></script>
 <script src="${base}/res/js/jquery.validate.min.js" type="text/javascript"></script>
@@ -12,6 +13,9 @@
 <link href="${base}/res/css/jquery.pnotify.default.css" rel="stylesheet" type="text/css"/>
 <link href="${base}/res/css/jquery.validate.css" rel="stylesheet" type="text/css"/>
 <link href="${base}/res/css/system.main.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/css/custom-theme/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css"/>
+<link href="${base}/res/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<script src="${base}/res/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
 //登录界面的默认提示信息
