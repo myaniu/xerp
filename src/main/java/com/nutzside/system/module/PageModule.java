@@ -28,7 +28,7 @@ public class PageModule {
 	}
 	
 	@At
-	@Ok("httl:page.page_menu")
+	@Ok("jsp:page.page_menu")
 	@RequiresAuthentication
 	public void menu() {
 	}

@@ -1,12 +1,12 @@
 <script type="text/javascript">
 $(function(){
-	$("#${Domain?uncap_first}List").jqGrid({
+	$("#${Domain}List").jqGrid({
 		jsonReader:{
 			repeatitems: false
 		},
-		caption:"${Domain}åˆ—è¡¨",
-		url:'${requestPath}/${Domain?uncap_first}/getGridData',
-		editurl:"${requestPath}/${Domain?uncap_first}/editRow",
+		caption:"${Domain}¹ÜÀí",
+		url:'${requestPath}/${Domain}/getGridData',
+		editurl:"${requestPath}/${Domain}/editRow",
 		colNames:[<#list domainFields as field>'${field}'<#if field_has_next>,</#if></#list>],
 		colModel:[
 			<#list domainFields as field>
@@ -17,15 +17,15 @@ $(function(){
 				</#if>
 			</#list>
 		],
-		pager: '#${Domain?uncap_first}Pager',
+		pager: '#${Domain}Pager',
 		sortname: 'id',
 		sortorder: "asc",
 		multiselect: true
 	});
-	$("#${Domain?uncap_first}List").setJqGridCUD('#${Domain?uncap_first}Pager',{edit:true,add:true,del:true,search:false});
-	$("#${Domain?uncap_first}List").addSearchToolbar('#${Domain?uncap_first}Pager');
+	$("#${Domain}List").setJqGridCUD('#${Domain}Pager',{edit:true,add:true,del:true,search:false});
+	$("#${Domain}List").addSearchToolbar('#${Domain}Pager');
 });
 </script>
 
-<table id="${Domain?uncap_first}List"></table>
-<div id="${Domain?uncap_first}Pager"></div>
+<table id="${Domain}List"></table>
+<div id="${Domain}Pager"></div>

@@ -1,1 +1,0 @@
-(X,'${Domain}管理','${htmlPath}/${Domain?lower_case}/${Domain?lower_case}_manager',NULL,M,N),

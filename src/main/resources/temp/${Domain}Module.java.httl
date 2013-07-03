@@ -1,0 +1,38 @@
+package ${package}.module;
+
+import com.nutzside.common.domain.ResponseData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import ${domainPackage}.${Domain};
+import ${package}.service.${Domain}Service;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.nutz.ioc.loader.annotation.Inject;
+import org.nutz.ioc.loader.annotation.IocBean;
+import org.nutz.mvc.annotation.At;
+import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.Param;
+
+@IocBean
+@At("/${requestPath}/${Domain}")
+public class ${Domain}Module {
+	
+	@Inject
+	private ${Domain}Service ${Domain}Service;
+
+	@At
+	public ResponseData getGridData(@Param("..") JqgridReqData jqReq, @Param("_search") Boolean isSearch, @Param("..") ${Domain} ${Domain}Search) {
+		return ${Domain}Service.getGridData(jqReq, isSearch, ${Domain}Search);
+	}
+
+	@At
+	public ResponseData editRow(@Param("oper") String oper, @Param("ids") String ids, @Param("..") ${Domain} ${Domain}) {
+		return ${Domain}Service.CUD${Domain}(oper, ids, ${Domain});
+	}
+	
+	@At
+	@Ok("httl:${requestPath}.${Domain}_manager")
+	@RequiresPermissions("httl:read:${Domain}_manager")
+	public void ${Domain}_manager() {
+	}
+	
+}

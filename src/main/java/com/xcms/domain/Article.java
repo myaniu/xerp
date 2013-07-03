@@ -15,7 +15,7 @@ import org.nutz.dao.entity.annotation.Table;
 public class Article {
 
 	@Name
-	private String id;
+	private Long id;
 
 	@Column
 	@ColDefine(type = ColType.TIMESTAMP)

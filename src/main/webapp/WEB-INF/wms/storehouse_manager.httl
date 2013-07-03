@@ -4,19 +4,16 @@ $(function(){
 		jsonReader:{
 			repeatitems: false
 		},
-		caption:"StoreHouse列表",
+		caption:"仓库列表",
 		url:'wms/storeHouse/getGridData',
 		editurl:"wms/storeHouse/editRow",
-		colNames:['id','Name','Address','Phone','status','CreateDate','UserId','users'],
+		colNames:['id','仓库名字','仓库地址','联系人手机号','状态'],
 		colModel:[
 					{name:'id',index:'id', width:0,editable:true,hidden:true},
-					{name:'Name',index:'Name', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'Address',index:'Address', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'Phone',index:'Phone', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'status',index:'status', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'CreateDate',index:'CreateDate', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'UserId',index:'UserId', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}},
-					{name:'users',index:'users', width:100,editable:true,editrules:{required:true},formoptions:{elmsuffix:' <font color="red">*</font>'}}
+					{name:'Name',index:'Name', width:50,editable:true,editrules:{required:true},align:'left',formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Address',index:'Address', width:50,editable:true,editrules:{required:true},align:'left',formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'Phone',index:'Phone', width:20,editable:true,editrules:{required:true},align:'left',formoptions:{elmsuffix:' <font color="red">*</font>'}},
+					{name:'status',index:'status', width:10,editable:true,editrules:{required:true},align:'left',formoptions:{elmsuffix:' <font color="red">*</font>'}}
 		],
 		pager: '#storeHousePager',
 		sortname: 'id',
@@ -24,8 +21,10 @@ $(function(){
 		multiselect: true
 	});
 	$("#storeHouseList").setJqGridCUD('#storeHousePager',{edit:true,add:true,del:true,search:false});
-	$("#storeHouseList").addSearchToolbar('#storeHousePager');
+	$("#storeHouseList").addSearchToolbar('#storeHousePager'); 
+	//$("#storeHouseList").closest(".ui-jqgrid-bdiv").css({ 'overflow-x' : 'scroll' });
 });
+
 </script>
 
 <table id="storeHouseList"></table>

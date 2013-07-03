@@ -1,85 +1,38 @@
 package com.xcms.module;
 
-import java.util.List;
-import java.util.UUID;
+import com.nutzside.common.domain.ResponseData;
+import com.nutzside.common.domain.jqgrid.JqgridReqData;
+import com.xcms.domain.Article;
+import com.xcms.service.ArticleService;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Lang;
-import org.nutz.lang.Strings;
-import org.nutz.lang.Times;
-import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 import org.nutz.mvc.annotation.Param;
 
-import com.xcms.domain.Article;
-import com.xcms.domain.ArticleCategory;
-import com.xcms.service.ArticleCategoryService;
-import com.xcms.service.ArticleService;
-
 @IocBean
-@At("/xcms/article")
+@At("/xcms/Article")
 public class ArticleModule {
-
-	@org.nutz.ioc.loader.annotation.Inject
-	private ArticleService articleService;
-
-	@org.nutz.ioc.loader.annotation.Inject
-	private ArticleCategoryService articleCategoryService;
+	
+	@Inject
+	private ArticleService ArticleService;
 
 	@At
-	@Ok("httl:xcms.article_list")
-	@RequiresAuthentication
-	public Object list(Integer pageNumber) {
-		if (Lang.isEmpty(pageNumber)) {
-			pageNumber = 1;
-		}
-		return articleService.getArticleListByPager(pageNumber, 20);
+	public ResponseData getGridData(@Param("..") JqgridReqData jqReq, @Param("_search") Boolean isSearch, @Param("..") Article ArticleSearch) {
+		return ArticleService.getGridData(jqReq, isSearch, ArticleSearch);
 	}
 
 	@At
-	@Ok("httl:xcms.article_input")
-	@RequiresAuthentication
-	public Object p_add() {
-		Mvcs.getReq().setAttribute("isAddAction", true);
-		List<ArticleCategory> list = articleCategoryService.query(null, null);
-		return list;
+	public ResponseData editRow(@Param("oper") String oper, @Param("ids") String ids, @Param("..") Article Article) {
+		return ArticleService.CUDArticle(oper, ids, Article);
 	}
-
+	
 	@At
-	@Ok(">>:/admin/article/list")
-	@RequiresAuthentication
-	public boolean save(@Param("::article.") Article article) {
-		if (Strings.isEmpty(article.getArticleCategoryId())) {
-			return false;
-		}
-		article.setId(StringUtils.remove(UUID.randomUUID().toString(), "-"));
-		article.setCreateDate(Times.now());
-		article.setModifyDate(Times.now());
-		article.setHtmlPath("/");
-		articleService.insert(article);
-		return true;
+	@Ok("httl:xcms.Article_manager")
+	@RequiresPermissions("httl:read:Article_manager")
+	public void Article_manager() {
 	}
-
-	@At
-	@Ok("httl:xcms.article_input")
-	@RequiresAuthentication
-	public Object edit(String id) {
-		Article art = articleService.fetchByID(id);
-		art = articleService.dao().fetchLinks(art, "articleCategory");
-		List<ArticleCategory> list = articleCategoryService.query(null, null);
-		Mvcs.getReq().setAttribute("article", art);
-		Mvcs.getReq().setAttribute("isAddAction", false);
-		return list;
-	}
-
-	@At
-	@Ok(">>:/xcms/article/list")
-	@RequiresAuthentication
-	public boolean update(@Param("::article.") Article article) {
-		articleService.update(article);
-		return true;
-	}
+	
 }
