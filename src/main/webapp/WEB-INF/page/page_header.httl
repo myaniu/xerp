@@ -1,17 +1,5 @@
 <script type="text/javascript">
 $(function() {
-	var theme = $.cookie('theme');
-	if(theme){
-		$('#jQueryUICssSrc').attr('href', '${base}/res/themes/' + theme + '/jquery-ui-1.8.23.custom.css');
-		$("#jQueryUICssSwitch").val(theme);
-	}
-	$('#jQueryUICssSwitch').change(function() {
-		var newTheme = $(this).val();
-		// 主题cookie保存30天
-		$.cookie('theme', newTheme, { expires: 30, path: '/'});
-		$('#jQueryUICssSrc').attr('href', '${base}/res/themes/' + newTheme + '/jquery-ui-1.8.23.custom.css');
-	});
-
 	$.dolpGet('getSystemName',null,function(returnData){
 		$('#SystemName').text(returnData);
 	});
@@ -20,14 +8,8 @@ $(function() {
 	});
 });
 </script>
-<label id="SystemName"></label>
 <div align="right">
-	<br/>
-	欢迎：<label id="CurrentUserName"></label>&nbsp;|&nbsp;
-	<a href="logout">退出</a>&nbsp;|&nbsp;主题：
-	<select id="jQueryUICssSwitch">
-		<option value="flick">flick</option>
-		<option value="redmond" selected="selected">redmond</option>
-		<option value="ui-lightness">ui-lightness</option>
-	</select>
+              欢迎：${logic}&nbsp;|&nbsp;
+	<a href="logout">退出</a>&nbsp;
+
 </div>

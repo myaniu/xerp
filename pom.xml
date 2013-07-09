@@ -23,6 +23,7 @@
 		<jasperreports.version>4.5.1</jasperreports.version>
 		<groovy.version>1.8.6</groovy.version>
 		<quartz.version>2.1.5</quartz.version>
+		<ehcache.version>2.7.2</ehcache.version>
 		
 		<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
 		<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
@@ -79,6 +80,17 @@
 			<artifactId>shiro-web</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+        <dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${ehcache.version}</version>
+		</dependency>
+                
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

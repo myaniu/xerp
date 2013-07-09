@@ -1,6 +1,6 @@
-package com.nutzside.system.shiro.HttlTags;
+package com.nutzside.system.shiro.HttlKit;
 
-public class HttlPermissionTag extends HttlSecureTag {
+public class HttlPermissionKit extends HttlSecureKit {
 
 	protected boolean isPermitted(String p) {
 		return getSubject() != null && getSubject().isPermitted(p);

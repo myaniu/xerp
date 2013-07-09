@@ -1,7 +1,7 @@
-/* Main.html çš„CSSæ ·å¼è®¾ç½® */
+/* Main.html µÄCSSÑùÊ½ÉèÖÃ */
 
 /*
- * HTMLå…ƒç´ çš„æ ·å¼
+ * HTMLÔªËØµÄÑùÊ½
 */
 html, body {
 	margin: 0;			/* Remove body margin/padding */
@@ -14,17 +14,16 @@ table{
 	font-size: 13px;
 }
 
-
 /*
- * headeré¡µï¼Œç³»ç»Ÿåç§°çš„æ ·å¼
+ * headerÒ³£¬ÏµÍ³Ãû³ÆµÄÑùÊ½
 */
 label.header-systemname {
 	font-size:40px;
-	font-family:"é»‘ä½“";
+	font-family:"ºÚÌå";
 }
 
 /*
- * æ”¶ä»¶ç®±å‘ä»¶ç®±ï¼Œæ¶ˆæ¯æ ‡é¢˜çš„æ ·å¼
+ * ÊÕ¼şÏä·¢¼şÏä£¬ÏûÏ¢±êÌâµÄÑùÊ½
 */
 label.messagetitle{
 	font-size:18px;
@@ -32,7 +31,7 @@ label.messagetitle{
 }
 
 /*
- * treeå’Œgridä¹‹é—´çš„åˆ†éš”çº¿
+ * treeºÍgridÖ®¼äµÄ·Ö¸ôÏß
 */
 td.linebetween{
 	border-left:1px dashed #CCCCCC;
@@ -40,7 +39,7 @@ td.linebetween{
 
 
 /*
- * å¸ƒå±€â€”â€”å·¦ä¾§å’Œå³ä¾§Panelçš„æ ·å¼
+ * ²¼¾Ö¡ª¡ª×ó²àºÍÓÒ²àPanelµÄÑùÊ½
 */
 #LeftPane {
 	overflow: auto;
@@ -53,7 +52,7 @@ td.linebetween{
 
 
 /* 
- * Custom styled notice CSS - jquery.pnotify.min.jsçš„æç¤ºçš„æ ·å¼
+ * Custom styled notice CSS - jquery.pnotify.min.jsµÄÌáÊ¾µÄÑùÊ½
 */
 /* This one is done through code, to show how it is done. Look down
 			   at the stack_bottomright variable in the JavaScript below. */
@@ -65,7 +64,7 @@ td.linebetween{
 
 
 /*
- * tabsçš„æ ·å¼
+ * tabsµÄÑùÊ½
 */
 .ui-tabs-nav li {position: relative;}
 .ui-tabs-selected a span {padding-right: 10px;}
@@ -74,21 +73,21 @@ td.linebetween{
 
 
 /*
- * å¸ƒå±€å·¦ä¾§Panelå’ŒjqGridä¸‹è¾¹æ¡†çš„æ ·å¼
+ * ²¼¾Ö×ó²àPanelºÍjqGridÏÂ±ß¿òµÄÑùÊ½
 */
 .ui-layout-west .ui-jqgrid tr.jqgrow td { border-bottom: 0px none;}
 
 
 /*
- * ui-datepickerçš„æ ·å¼
+ * ui-datepickerµÄÑùÊ½
 */
 .ui-datepicker select.ui-datepicker-month-year {width: 60%;}
 .ui-datepicker select.ui-datepicker-month, 
 .ui-datepicker select.ui-datepicker-year { width: 40%;}
 
 /*
- * ui-timepickerçš„æ ·å¼
- * TODO åˆ æ‰
+ * ui-timepickerµÄÑùÊ½
+ * TODO É¾µô
 */
 .ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
 .ui-timepicker-div dl{ text-align: left; }
